@@ -1,6 +1,6 @@
 <template>
   
-  <Usuario nombre="Gonzalo Diaz"></Usuario>
+  <Usuario nombre="Unal"></Usuario>
 
 </template>
 
