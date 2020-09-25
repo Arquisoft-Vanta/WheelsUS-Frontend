@@ -1,17 +1,18 @@
 <template>
-  
-  <Usuario nombre="Unal"></Usuario>
-
+  <Login></Login>
+  <!--<Usuario nombre="Unal"></Usuario>-->
 </template>
 
 <script>
-import Usuario from './components/Usuario.vue'
+import Login from "./components/Login.vue";
+//import Usuario from "./components/Usuario.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Usuario
-  }
-}
+    //Usuario,
+    Login,
+  },
+};
 </script>
 
 <style>
