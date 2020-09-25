@@ -59,29 +59,27 @@
       <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
         <div class="card">
           <div class="card-body">
-            <img src="~@/assets/logo.png" />
+            <img class ="logo" src="~@/assets/logo.png" />
             <form>
               <div class="form-group text-left">
-                <label for="exampleInputEmail1">Email address</label>
+                <label for="exampleInputEmail1">Correo Electrónico</label>
                 <input
                   type="email"
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                 />
-                <small id="emailHelp" class="form-text text-muted text-left"
-                  >We'll never share your email with anyone else.</small
-                >
+                
               </div>
               <div class="form-group text-left">
-                <label for="exampleInputPassword1">Password</label>
+                <label for="exampleInputPassword1">Contraseña</label>
                 <input
                   type="password"
                   class="form-control"
                   id="exampleInputPassword1"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Ingresar</button>
             </form>
           </div>
         </div>
@@ -114,7 +112,7 @@ export default {
   background-color: white;
   opacity: 80%;
   border-radius: 10%;
-  margin: 0 0 35% 0;
+  margin: 0 0 20% 0;
 
 }
 h1 {
@@ -128,10 +126,7 @@ h2 {
 .btn-primary {
   background-color: #06416d;
 }
-.col1 {
-  height: 120%;
-  top: 20%;
-}
-.col2{
+.logo{
+  margin: 0 0 5% 0;
 }
 </style>
