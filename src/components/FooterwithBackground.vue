@@ -3,8 +3,8 @@
   </body>
   <div class="fixed-bottom">
     <div>
-      <nav id="Nav-Login" class="navbar navbar-expand-sm">
-        <a id="MensajeBottom" class="text-white" href="#">
+      <nav id="FooterApp" class="navbar navbar-expand-sm">
+        <a id="MensajeBottom" class=" derechos text-white" href="#">
           Todos los derechos reservados 2020
         </a>
           <ul class="navbar-nav mr-auto"></ul>
@@ -42,7 +42,7 @@ export default {};
 </script>
 
 <style>
-#Nav-Login {
+#FooterApp {
   background-color: #06416d;
 }
 body {
@@ -52,7 +52,7 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
-a{
+.derechos{
   font-size: 70%;
 }
 </style>

@@ -2,7 +2,7 @@
   <FooterwithBackground></FooterwithBackground>
   <div class="fixed-top">
     <div>
-      <nav id="Nav-Login" class="navbar navbar-expand-sm">
+      <nav id="Banner" class="navbar navbar-expand-sm">
         <div class="col-auto">
           <a id="Titulo" class="navbar-brand text-white" href="#">
             <img
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
-        <div class="card">
+        <div class="Login card">
           <div class="card-body">
             <img class ="logo" src="~@/assets/logo.png" />
             <form>
@@ -98,22 +98,18 @@ export default {
 };
 </script>
 
-<style >
-.nav-link {
-  font-size: 100%;
-}
+<style scoped>
 .card-body {
   color: black;
   position: relative;
   top: 15%;
 }
-.card {
+.Login {
   color: black;
   background-color: white;
   opacity: 80%;
   border-radius: 10%;
   margin: 0 0 20% 0;
-
 }
 h1 {
   color: black;
@@ -128,5 +124,8 @@ h2 {
 }
 .logo{
   margin: 0 0 5% 0;
+}
+#Banner{
+  background-color: #06416d;
 }
 </style>
