@@ -1,35 +1,36 @@
 <template>
+   <form>   
         <div id="signup">
-            <h1>Sign Up</h1>
-            <p>Please fill in this form to create an account.</p>
-            <hr>
+            <h1>Crea tu cuenta para empezar a viajar</h1>
+            <div class="form-group">
+              <label for="name"></label>
+              <input v-model="name" type="text" placeholder="Nombre completo" name="name" required>
+            </div>
+            <div class="form-group">  
+              <label for="phone"></label>
+              <input v-model="phone" type="tel" placeholder="Telefono" name="phone" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">  
+              <label for="email"></label>
+              <input v-model="email" type="text" placeholder="Correo electronico @unal.edu.co" name="email" required>
+            </div>
+            <div class="form-group">  
+              <label for="psw"></label>
+              <input v-model="psw" type="password" placeholder="Contraseña" name="psw" required>
+            </div>
+            <div class="form-group">  
+              <label for="psw-repeat"></label>
+              <input v-model="pswrepeat" type="password" placeholder="Confirmar contraseña" name="psw-repeat" required>
+            </div>
+            
+              <p>Al crear una cuenta estas de acuerdo con nuestros <a href="#" style="color:dodgerblue">Terminos y Condiciones</a>.</p>
 
-            <label for="name"><b>Name</b></label>
-            <input v-model="name" type="text" placeholder="Enter full name" name="name" required>
-
-            <label for="phone"><b>Phone</b></label>
-            <input v-model="phone" type="text" placeholder="Enter your phone number" name="phone" required>
-
-            <label for="email"><b>Email</b></label>
-            <input v-model="email" type="text" placeholder="Enter your @unal email address" name="email" required>
-
-            <label for="psw"><b>Password</b></label>
-            <input v-model="psw" type="password" placeholder="Enter Password" name="psw" required>
-
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input v-model="pswrepeat" type="password" placeholder="Repeat Password" name="psw-repeat" required>
-
-            <label>
-            <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-            </label>
-
-            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-
-            <div class="clearfix">
-            <button type="button" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signupbtn">Sign Up</button>
+            <div class="col-auto">
+              <button type="button" class="cancelbtn">Cancelar</button>
+              <button type="submit" class="signupbtn">Registrarse</button>
             </div>
         </div>
+   </form>    
 </template>
 
 <script>
@@ -37,11 +38,6 @@ export default {
     name: 'Signup',
     props:{
 
-    },
-    data(){
-        return{
-            nombre
-        }
     }
 }
 </script>
@@ -50,16 +46,19 @@ export default {
 * {box-sizing: border-box}
 
 /* Full-width input fields */
-  input[type=text], input[type=password] {
-  width: 100%;
+input[type=text], input[type=password], input[type=number]:focus{
+  position: center;
+  width: 30%;
   padding: 15px;
   margin: 5px 0 22px 0;
+  margin-top: 15px;
+  margin-bottom: 15px;
   display: inline-block;
   border: none;
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focusm, input[type=number]:focus{
   background-color: #ddd;
   outline: none;
 }
@@ -71,11 +70,11 @@ hr {
 
 /* Set a style for all buttons */
 button {
-  background-color: #4CAF50;
+  background-color: #042f66;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;
+  border: #C0C0C0;
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
@@ -88,13 +87,13 @@ button:hover {
 /* Extra styles for the cancel button */
 .cancelbtn {
   padding: 14px 20px;
-  background-color: #f44336;
+  background-color: #C0C0C0;
 }
 
 /* Float cancel and signup buttons and add an equal width */
 .cancelbtn, .signupbtn {
-  float: left;
-  width: 50%;
+  float: center;
+  width: 10%;
 }
 
 /* Add padding to container elements */
@@ -112,7 +111,7 @@ button:hover {
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
   .cancelbtn, .signupbtn {
-    width: 100%;
+    width: 50%;
   }
 }
 </style>
