@@ -1,7 +1,7 @@
 <template>
   <div class="fixed-top">
     <div>
-      <nav id="Banner" class="navbar">
+      <nav id="Banner" class="navbar navbar-expand-lg">
         <div class="col-auto">
           <a id="Titulo" class="navbar-brand text-white" href="#">
             <img
@@ -14,9 +14,33 @@
             Wheels US
           </a>
         </div>
-
-        <div>
-          <div class="btn-group dropleft">
+        <button
+          class="navbar-toggler navbar-light bg-light"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav ml-auto flex-nowrap">
+            <li class="nav-item">
+              <a href="#" class="nav-link m-2 menu-item nav-active text-white">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link m-2 menu-item text-white">Buscar Servicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link m-2 menu-item text-white">Crear Servicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link m-2 menu-item text-white">|| Hola{{ nombre }} </a>
+            </li>
+          </ul>
+          <div class="btn-group dropleft my-2 my-lg-0">
             <button
               type="button"
               class="btn btn-light"
@@ -33,12 +57,6 @@
               />
             </button>
             <div class="dropdown-menu dropdown-menu-lg-left">
-              <a id="nombre-usuario" class="dropdown-item text-black">
-                Hola{{ nombre }}
-              </a>
-              <div class="dropdown-divider"></div>
-              <div class="dropdown-divider"></div>
-
               <button class="dropdown-item" type="button">Mi perfil</button>
               <button class="dropdown-item" type="button">
                 Editar mi perfil
@@ -52,7 +70,6 @@
       </nav>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -68,4 +85,5 @@ export default {
 #Banner {
   background-color: #06416d;
 }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-<Banner></Banner>
+  <FooterwithBackground></FooterwithBackground>
   <div>
     <div class="container">
       <div class="row">
@@ -183,7 +183,8 @@
       </div>
     </div>
   </div>
-  <FooterwithBackground></FooterwithBackground>
+  <Banner></Banner>
+  
 </template>
 
 <script>

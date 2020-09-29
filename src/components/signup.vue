@@ -1,4 +1,5 @@
 <template>
+<Banner></Banner>
    <form>   
         <div id="signup">
             <h1>Crea tu cuenta para empezar a viajar</h1>
@@ -37,10 +38,13 @@
 
 <script>
 import FooterwithBackground from "./FooterwithBackground.vue";
+import Banner from "./Banner.vue";
+
 export default {
     name: 'Signup',
     components: {
     FooterwithBackground,
+    Banner
   },
 };
 </script>

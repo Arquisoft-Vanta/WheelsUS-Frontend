@@ -1,14 +1,14 @@
 <template>
   <!--<Login></Login>-->
-  <!--<signup></signup>-->
   <!--<Usuario nombre="Unal"></Usuario>-->
-  <RegistrarVehiculo></RegistrarVehiculo>
+  <!--<RegistrarVehiculo></RegistrarVehiculo>-->
   <!--<Banner></Banner>-->
+  <signup></signup>
 </template>
 
 <script>
-import RegistrarVehiculo from "./components/RegistrarVehiculo.vue";
-//import signup from "./components/signup.vue";
+import signup from "./components/signup.vue";
+//import RegistrarVehiculo from "./components/RegistrarVehiculo.vue";
 //import Banner from "./components/Banner.vue"
 //import Login from "./components/Login.vue";
 //import Usuario from "./components/Usuario.vue";
@@ -18,8 +18,8 @@ export default {
     //Usuario,
     //Login,
     //Banner,
-    RegistrarVehiculo,
-    //signup
+    //RegistrarVehiculo,
+    signup
   },
 };
 </script>
