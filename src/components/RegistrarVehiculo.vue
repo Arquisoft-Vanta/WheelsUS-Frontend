@@ -1,6 +1,5 @@
 <template>
-  <FooterwithBackground></FooterwithBackground>
-
+<Banner></Banner>
   <div>
     <div class="container">
       <div class="row">
@@ -184,7 +183,7 @@
       </div>
     </div>
   </div>
-  <Banner></Banner>
+  <FooterwithBackground></FooterwithBackground>
 </template>
 
 <script>

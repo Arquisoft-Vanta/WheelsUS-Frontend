@@ -31,15 +31,18 @@
             </div>
         </div>
    </form>    
+   <FooterwithBackground></FooterwithBackground>
+   
 </template>
 
 <script>
+import FooterwithBackground from "./FooterwithBackground.vue";
 export default {
     name: 'Signup',
-    props:{
-
-    }
-}
+    components: {
+    FooterwithBackground,
+  },
+};
 </script>
 
 <style>
