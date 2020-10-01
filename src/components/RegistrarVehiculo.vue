@@ -1,0 +1,516 @@
+<template>
+  <Banner></Banner>
+  <div>
+    <div class="modal" id="myModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ modalaviso }}</h5>
+            <button
+              id="w-change-close"
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="w-change-close1"
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 mt-5">
+          <div class="datosvehiculo card">
+            <div class="card-body">
+              <form class="needs-validation" novalidate>
+                <div class="form-row">
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultplaca" class="text-left">Placa</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultplaca"
+                      :value="Placa"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultmarca">Marca</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultmarca"
+                      :value="Marca"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefault01">No de pasajeros</p>
+                    <select class="custom-select" required>
+                      <option :value="Pasajeros">{{ Pasajeros }}</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultservicio">Tipo de Servicio</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultservicio"
+                      :value="TipoSer"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultlinea">Linea</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultlinea"
+                      :value="Linea"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultcarroceria">Tipo de Carroceria</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultcarroceria"
+                      :value="Carroceria"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultfecha">Fecha Vencimiento SOAT</p>
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      id="validationDefaultfecha"
+                      :value="FechaSOAT"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultclasevehiculo" class="text-left">
+                      Clase Vehículo
+                    </p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultclasevehiculo"
+                      :value="ClaseVeh"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultmodelo">Modelo</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultmodelo"
+                      :value="Modelo"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultcilindraje">Cilindraje</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultcilindraje"
+                      :value="Cilindraje"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultcolor">Color</p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultcolor"
+                      :value="Color"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <p for="validationDefaultcombustible">
+                      Tipo de Combustible
+                    </p>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="validationDefaultcombustible"
+                      :value="Combustible"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-12 mb-3">
+                    <textarea
+                      v-model="DatosRunt"
+                      class="form-control "
+                      id="validationTextarea"
+                      placeholder="Por favor, copie la información proporcionada por el RUNT"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <p for="validationDefault01"></p>
+                    <a
+                      href="https://www.runt.com.co/consultaCiudadana/#/consultaVehiculo"
+                      target="_blank"
+                      type="button"
+                      class="btn btn-outline-light text-center"
+                      style="
+                        margin: 0 0 2% 0;
+                        border-color: #06416d;
+                        color: #06416d;
+                      "
+                    >
+                      Ingresar a RUNT
+                    </a>
+                  </div>
+                
+                  <div class="col-12 mb-3" style="margin: -2% 0 0 0">
+                    <a
+                      @click="datosRUNT"
+                      target="_blank"
+                      type="button"
+                      class="btn btn-outline-light text-center"
+                      style="
+                        margin: 0 0 -3% 0;
+                        border-color: #06416d;
+                        color: #06416d;
+                      "
+                    >
+                      Validar información de RUNT
+                    </a>
+                  </div>
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col1 col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mt-5">
+          <img
+            :src="Foto"
+            alt="Foto del vehículo"
+            class="img-thumbnail"
+            style="margin: 0 0 3% 0; width:220px; height:150px"
+          />
+          <div class="card" style="margin: 0 0 20% 0">
+            <div class="container">
+              <div>
+                <form>
+                  <div class="form-group">
+                    <label
+                      for="exampleFormControlFile1"
+                      style="
+                        margin: 3% 0 3% 0;
+                        border-color: #06416d;
+                        color: #06416d;
+                      "
+                      >Foto del vehículo</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control-file"
+                      id="exampleFormControlFile1"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div>
+                <a
+                  @click="habilitarCampos"
+                  type="button"
+                  class="btn btn-outline-light"
+                  style="
+                    margin: -2% 0 2% 0;
+                    border-color: #06416d;
+                    color: #06416d;
+                  "
+                >
+                  Editar Datos Vehículo
+                </a>
+              </div>
+              <div>
+                <a
+                  @click="overlay"
+                  type="button"
+                  class="btn btn-outline-light"
+                  style="
+                    margin: 0 0 2% 0;
+                    border-color: #06416d;
+                    color: #06416d;
+                  "
+                >
+                  Eliminar Vehículo
+                </a>
+              </div>
+
+              <a
+                @click="guardarVehiculo"
+                type="button"
+                class="btn btn-outline-light"
+                style="margin: 0 0 2% 0; border-color: #06416d; color: #06416d"
+                id="w-change-location"
+                data-toggle="modal"
+                data-target="#locModal"
+              >
+                Guardar vehículo
+              </a>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                  data-display="static"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style="margin: 0 0 3% 0"
+                >
+                  <img
+                    class="person"
+                    src="~@/assets/help.png"
+                    width="40"
+                    height="40"
+                  />
+                </button>
+                <div
+                  class="modal fade"
+                  id="exampleModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="false"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          ¿Cómo Ingresar la Información del vehículo?
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h5 class="text-left">
+                          Para ingresar los datos del vehículo se tienen dos
+                          opciones:
+                        </h5>
+                        <p class="textoayuda">
+                          1. En dado caso que no se conozcan todos los datos del
+                          vehículo, se debe ingresar a través del botón
+                          "Ingresar a RUNT". Luego, el usuario debe ingresar la
+                          placa del vehículo y la cédula del propietario del
+                          mismo, como se muestra en la imagen.
+                        </p>
+                        <p class="textoayuda">
+                          Una vez en la página del RUNT se debe presionar sobre
+                          las pestañas "Datos Técnicos del Vehículo" y "Poliza
+                          SOAT" y posteriormente copiar la información desde
+                          "Placa" hasta el ultimo dato de la tabla "Poliza
+                          SOAT". Después, se pega esta información en el área de
+                          texto y se presiona la opción "Validar información de
+                          RUNT". Finalmente se selecciona una foto y se presiona
+                          el botón "Guardar Vehículo".
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <FooterwithBackground></FooterwithBackground>
+</template>
+
+<script>
+import FooterwithBackground from "./FooterwithBackground.vue";
+import Banner from "./Banner.vue";
+import Foto from "@/assets/car.jpg";
+export default {
+  name: "RegistrarVehiculo",
+  components: {
+    FooterwithBackground,
+    Banner,
+  },
+  data: function () {
+    return {
+      showModal: false,
+      Foto: Foto,
+      DatosRunt: "",
+      modalaviso: "",
+      Placa: "",
+      Marca: "",
+      Linea: "",
+      Modelo: "",
+      Color: "",
+      Estado: "",
+      TipoSer: "",
+      ClaseVeh: "",
+      Combustible: "",
+      Pasajeros: "",
+      FechaSOAT: "",
+    };
+  },
+  methods: {
+    datosRUNT() {
+      var datos = this.DatosRunt.split("\n");
+      for (var dato of datos) {
+        if (dato.includes("PLACA DEL VEHÍCULO")) {
+          var lineaplaca = dato.split(":");
+          this.Placa = lineaplaca[1];
+        } else if (dato.includes("MARCA:")) {
+          var lineamarca = dato.split(":");
+          this.Marca = lineamarca[1].replace("LÍNEA", "");
+          this.Linea = lineamarca[2];
+        } else if (dato.includes("MODELO:")) {
+          var lineamodelo = dato.split(":");
+          this.Modelo = lineamodelo[1].replace("COLOR", "");
+          this.Color = lineamodelo[2];
+        } else if (dato.includes("ESTADO DEL VEHÍCULO")) {
+          var lineaestado = dato.split(":");
+          this.Estado = lineaestado[2];
+        } else if (dato.includes("TIPO DE SERVICIO")) {
+          var lineatipo = dato.split(":");
+          this.TipoSer = lineatipo[1].replace("CLASE DE VEHÍCULO", "");
+          this.ClaseVeh = lineatipo[2];
+        } else if (dato.includes("CILINDRAJE")) {
+          var lineacilindraje = dato.split(":");
+          this.Cilindraje = lineacilindraje[1].replace(
+            "TIPO DE CARROCERÍA",
+            ""
+          );
+          this.Carroceria = lineacilindraje[2];
+        } else if (dato.includes("COMBUSTIBLE")) {
+          var lineacombustible = dato.split(":");
+          this.Combustible = lineacombustible[1].replace(
+            "FECHA DE MATRICULA INICIAL(DD/MM/AAAA)",
+            ""
+          );
+        } else if (dato.includes("PASAJEROS")) {
+          var lineapasajeros = dato.split(":");
+          this.Pasajeros = lineapasajeros[2];
+        } else if (dato.includes("VIGENTE")) {
+          var lineasoat = dato.split("	");
+          this.FechaSOAT = lineasoat[3];
+          console.log(lineasoat);
+          break;
+        }
+      }
+    },
+    guardarVehiculo() {
+      var locModal = document.getElementById("myModal");
+      var btnclose = document.getElementById("w-change-close");
+      var btnclose1 = document.getElementById("w-change-close1");
+      var modalchange = false;
+      var DatosVehiculo = [
+        this.Placa,
+        this.Marca,
+        this.Linea,
+        this.Modelo,
+        this.Color,
+        this.Estado,
+        this.TipoSer,
+        this.ClaseVeh,
+        this.Combustible,
+        this.Pasajeros,
+        this.FechaSOAT,
+      ];
+      for (var dato of DatosVehiculo) {
+        console.log(dato);
+        if (dato == "") {
+          modalchange = true;
+          break;
+        }
+      }
+      if (modalchange == true) {
+        this.modalaviso = "Error. los campos están incompletos.";
+        locModal.style.display = "block";
+        locModal.style.paddingRight = "17px";
+        locModal.className = "modal fade show";
+        btnclose.addEventListener("click", () => {
+          locModal.style.display = "none";
+          locModal.className = "modal fade";
+        });
+        btnclose1.addEventListener("click", () => {
+          locModal.style.display = "none";
+          locModal.className = "modal fade";
+        });
+      } else {
+        this.modalaviso = "Campos llenados correctamente.";
+        locModal.style.display = "block";
+        locModal.style.paddingRight = "17px";
+        locModal.className = "modal fade show";
+        btnclose.addEventListener("click", () => {
+          locModal.style.display = "none";
+          locModal.className = "modal fade";
+        });
+        btnclose1.addEventListener("click", () => {
+          locModal.style.display = "none";
+          locModal.className = "modal fade";
+        });
+      }
+    },
+
+    habilitarCampos() {
+      document.getElementById("validationDefaultfecha").disabled = false; // habilitar
+    },
+  },
+};
+</script>
+
+<style scoped>
+.datosvehiculo {
+  opacity: 90%;
+  margin: 0 0 10% 0;
+}
+p {
+  font-size: 90%;
+  margin: 0 0 0 0;
+  text-align: left;
+}
+.textoayuda {
+  text-align: left;
+  font-size: 95%;
+}
+.custom-select {
+  height: 60%;
+}
+</style>

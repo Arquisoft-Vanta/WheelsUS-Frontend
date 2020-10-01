@@ -1,23 +1,23 @@
 <template>
-  <Login></Login>
+  <!--<Login></Login>-->
   <!--<Usuario nombre="Unal"></Usuario>-->
-  <!--<RegistrarVehiculo></RegistrarVehiculo>-->
+  <RegistrarVehiculo></RegistrarVehiculo>
   <!--<Banner></Banner>-->
 </template>
 
 <script>
-//import RegistrarVehiculo from "./components/RegistrarVehiculo.vue";
+import RegistrarVehiculo from "./components/RegistrarVehiculo.vue";
 //import signup from "./components/signup.vue";
 //import Banner from "./components/Banner.vue"
-import Login from "./components/Login.vue";
+//import Login from "./components/Login.vue";
 //import Usuario from "./components/Usuario.vue";
 export default {
   name: "App",
   components: {
     //Usuario,
-    Login,
+    //Login,
     //Banner,
-    //RegistrarVehiculo,
+    RegistrarVehiculo,
     //signup
   },
 };
