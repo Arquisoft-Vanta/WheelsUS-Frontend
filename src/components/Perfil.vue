@@ -2,12 +2,12 @@
   <FooterwithBackground></FooterwithBackground>
 
   <div>
-    <div class="container h-100">
-      <div class="row align-items-center">
+    <div class="container">
+      <div class="row align-items-start h-100">
         <div class="col-12 pl-md-5 pr-md-5 pl-lg-0 pr-lg-0 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-5 mb-5">
-          <div class="datosusuario card pt-4 pb-3">
+          <div class="datosusuario card pt-3">
+            <img src="../assets/person.png" class="img-thumbnail align-self-center h-25" alt=" Imagen de perfil" >
             <div class="card-body">
-              <img src="" class="card-img-top" alt=" Imagen de perfil ">
               <h5 class="card-title pt-3">Usuario</h5>
               <button type="button" class="btn btn-outline-primary">Añadir dirección</button>        
             </div>
@@ -47,53 +47,15 @@
                     placeholder="N° de documento" readonly
                   />
                 </div>
-                <div class="col-md-5 mb-3">
-                  <label for="validationDefault05">Correo</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm text-center"
-                    id="validationDefault05"
-                    placeholder="Correo electronico" readonly
-                  />
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault03 ">Fecha de nacimiento</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm text-center"
-                    id="validationDefault03"
-                    placeholder="Fecha de nacimiento" readonly
-                  />
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault04">Universidad</label>
-                  <select class="form-control form-control-sm" id="inlineFormCustomSelect">
-                    <option selected></option>
-                    <option value="1">Universidad Nacional de Colombia</option>
-                  </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault08">Tipo de vinculación</label>
+                <div class="col-md-6 mb-3">
+                  <label for="validationDefault08">Dirección</label>
                   <input
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault08"
-                    placeholder="Tipo de vinculación" readonly
+                    placeholder="Dirección" readonly
                   />
                 </div>
-                <div class="col-md-4 mb-3">
-                  <label for="validationDefault09">Pregrado</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm text-center"
-                    id="validationDefault09"
-                    placeholder="Pregrado" readonly
-                  />
-                </div>
-              </div>
-              <div class="form-row">
                 <div class="col-md-3 mb-3">
                   <label for="validationDefault10">Teléfono</label>
                   <input
@@ -103,32 +65,29 @@
                     placeholder="N° de teléfono" readonly
                   />
                 </div>
-                <div class="col-md-5 mb-3">
-                  <label for="validationDefault11">EPS</label>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationDefault05">Correo</label>
                   <input
                     type="text"
                     class="form-control form-control-sm text-center"
-                    id="validationDefault11"
-                    placeholder="EPS" readonly
+                    id="validationDefault05"
+                    placeholder="Correo electronico" readonly
                   />
                 </div>
-                <div class="col-md-2">
-                  <label for="validationDefault12">Sexo</label>
-                  <select class="form-control form-control-sm" id="inlineFormCustomSelect">
+                <div class="col-md-6 mb-3">
+                  <label for="validationDefault04">Universidad</label>
+                  <select class="form-control form-control-sm" id="inlineFormCustomSelect"
+                    disabled>
                     <option selected></option>
-                    <option value="1">Femenino</option>
-                    <option value="2">Masculino</option>
-                    <option value="3">Otro </option>
+                    <option value="1">Universidad Nacional de Colombia</option>
                   </select>
                 </div>
-                <div class="col-md-2 mb-3">
-                  <label for="validationDefault06">R.H.</label>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm text-center"
-                    id="validationDefault06"
-                    placeholder="Tipo de sangre" readonly
-                  />
+              </div>
+              <div class="form-row">
+                <div class="col-12 mt-3 mb-3">
+                  <button type="button" class="btn btn-outline-primary">Editar</button> 
                 </div>
               </div>
             </form>
@@ -166,4 +125,9 @@ export default {
 .datosusuario{
   opacity: 95%;
 }
+
+.container {
+  height: 85vh;
+}
+
 </style>
