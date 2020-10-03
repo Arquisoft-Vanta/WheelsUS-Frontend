@@ -59,6 +59,7 @@
       <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
         <div class="Login card">
           <div class="card-body">
+
             <img class ="logo" src="~@/assets/logo.png" />
             <form>
               <div class="form-group text-left">
@@ -68,7 +69,6 @@
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-
                   :value="Correo_Electronico"
                 />
 
