@@ -59,15 +59,6 @@
             </div>
           </div>
           </div>
-          <!--<div class="row">
-            <label for="email"></label>
-            <div class="col">
-            <input v-model="user" type="text" class="form-control" placeholder="usuario" name="user" id="inputUser" style="height:80%" required>
-            </div>
-            <div class="col">
-            <label for="staticEmail" class="col">@unal.edu.co</label>                       
-            </div>
-          </div>-->
           <div class="form-group">  
             <label for="psw"></label>
             <input v-model="psw" type="password" class="form-control" placeholder="Contraseña" name="psw" id="inputPsw" required>
