@@ -35,9 +35,6 @@
         </div>
       </nav>
 
-  
-  <p>{{phone}}</p>
-
   <form>   
     <div class="signup card">
       <div class="form-col align-items-center"> 
@@ -55,7 +52,7 @@
           <div class="col-auto">
           <div class="form-row">
             <div class="col">
-              <input v-model="user" type="text" class="form-control" placeholder="usuario" name="user" id="inputUser" required>
+              <input v-model="user" type="text" class="form-control" placeholder="Usuario" name="user" id="inputUser" required>
             </div>
             <div class="col">
               <label for="staticEmail"> @unal.edu.co </label>
@@ -104,7 +101,7 @@ export default {
   },
   data(){
     return{
-      phone: 0
+      phone: null
     }
   }
 
@@ -122,7 +119,7 @@ h2{
   opacity: 80%;
   position: center;
   width: 30%;
-  margin: 7% 0% 0% 35%;
+  margin: 5% 0% 0% 35%;
 }
 /*
 input[type=text]{
@@ -142,7 +139,7 @@ input[type=password], #inputName, input[type=tel], input[type=number]:focus{
   position: center;
   width: 90%;
   padding: 15px;
-  margin: 5px 0 15px 0;
+  margin: 2px 0 2px 0;
   display: inline-block;
   border: none;
   background: #f1f1f1;

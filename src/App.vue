@@ -1,16 +1,19 @@
 <template>
-  <!--<Login></Login>-->
+  <!-- <Login></Login> -->
   <!--<Usuario nombre="Unal"></Usuario>-->
   <!--<RegistrarVehiculo></RegistrarVehiculo>-->
   <!--<Banner></Banner>-->
-  <signup></signup>
+  <!-- <signup></signup> -->
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
 <script>
-import signup from "./components/signup.vue";
+//import signup from "./components/signup.vue";
 //import RegistrarVehiculo from "./components/RegistrarVehiculo.vue";
 //import Banner from "./components/Banner.vue"
-//import Login from "./components/Login.vue";
+//import Login from "./views/Login.vue";
 //import Usuario from "./components/Usuario.vue";
 
 export default {
@@ -20,7 +23,7 @@ export default {
     //Login,
     //Banner,
     //RegistrarVehiculo,
-    signup
+    //signup
   },
 };
 </script>
