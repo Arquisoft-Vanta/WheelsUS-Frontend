@@ -54,6 +54,7 @@
                       id="validationDefaultmarca"
                       :value="Marca"
                       disabled
+
                     />
                   </div>
                   <div class="col-md-3 mb-3">
@@ -76,6 +77,7 @@
                       id="validationDefaultservicio"
                       :value="TipoSer"
                       disabled
+
                     />
                   </div>
                 </div>
@@ -163,6 +165,7 @@
                       id="validationDefaultcombustible"
                       :value="Combustible"
                       disabled
+
                     />
                   </div>
                 </div>
@@ -171,6 +174,7 @@
                     <textarea
                       v-model="DatosRunt"
                       class="form-control"
+
                       id="validationTextarea"
                       placeholder="Por favor, copie la información proporcionada por el RUNT"
                       required
@@ -208,6 +212,7 @@
                       Validar información de RUNT
                     </a>
                   </div>
+
                 </div>
               </form>
             </div>
@@ -357,12 +362,14 @@
     </div>
   </div>
   <FooterwithBackground></FooterwithBackground>
+
 </template>
 
 <script>
 import FooterwithBackground from "./FooterwithBackground.vue";
 import Banner from "./Banner.vue";
 import Foto from "@/assets/car.jpg";
+
 export default {
   name: "RegistrarVehiculo",
   components: {
@@ -498,6 +505,7 @@ export default {
                                                                               /**de vencimiento del SOAT */
     },
   },
+
 };
 </script>
 
@@ -505,6 +513,7 @@ export default {
 .datosvehiculo {
   opacity: 90%;
   margin: 0 0 10% 0;
+
 }
 p {
   font-size: 90%;
@@ -518,4 +527,5 @@ p {
 .custom-select {
   height: 60%;
 }
+
 </style>

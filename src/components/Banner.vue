@@ -46,6 +46,7 @@
               <a href="#" class="nav-link m-2 menu-item text-white"
                 >Hola {{ nombre }}
               </a>
+
             </li>
           </ul>
           <div class="btn-group dropleft my-2 my-lg-0">
@@ -83,7 +84,9 @@
 <script>
 export default {
   name: "Banner",
-  props: { nombre: String },
+  props: {
+    nombre: String,
+  },
 };
 </script>
 
@@ -91,4 +94,5 @@ export default {
 #Banner {
   background-color: #06416d;
 }
+
 </style>
