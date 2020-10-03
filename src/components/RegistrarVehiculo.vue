@@ -54,7 +54,6 @@
                       id="validationDefaultmarca"
                       :value="Marca"
                       disabled
-
                     />
                   </div>
                   <div class="col-md-3 mb-3">
@@ -77,7 +76,6 @@
                       id="validationDefaultservicio"
                       :value="TipoSer"
                       disabled
-
                     />
                   </div>
                 </div>
@@ -126,6 +124,7 @@
                 </div>
                 <div class="form-row">
                   <div class="col-md-3 mb-3">
+
                     <p for="validationDefaultmodelo">Modelo</p>
                     <input
                       type="text"
@@ -165,7 +164,6 @@
                       id="validationDefaultcombustible"
                       :value="Combustible"
                       disabled
-
                     />
                   </div>
                 </div>
@@ -362,12 +360,12 @@
     </div>
   </div>
   <FooterwithBackground></FooterwithBackground>
-
 </template>
 
 <script>
 import FooterwithBackground from "./FooterwithBackground.vue";
 import Banner from "./Banner.vue";
+
 import Foto from "@/assets/car.jpg";
 
 export default {
@@ -520,6 +518,7 @@ p {
   margin: 0 0 0 0;
   text-align: left;
 }
+
 .textoayuda {
   text-align: left;
   font-size: 95%;
