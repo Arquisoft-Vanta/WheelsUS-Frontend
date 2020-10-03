@@ -68,8 +68,10 @@
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
+
+                  :value="Correo_Electronico"
                 />
-                
+
               </div>
               <div class="form-group text-left">
                 <label for="exampleInputPassword1">Contraseña</label>
@@ -77,9 +79,15 @@
                   type="password"
                   class="form-control"
                   id="exampleInputPassword1"
+                  :value="Contraseña"
                 />
               </div>
               <button type="submit" class="btn btn-primary">Ingresar</button>
+              <div style="margin: 2% 0 0 0">
+                <button type="submit" class="btn btn-primary">
+                  <img class="logo" src="~@/assets/google.png" width="30"/>  Ingresa con Google
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -95,6 +103,12 @@ export default {
   components: {
     FooterwithBackground,
   },
+
+    data: function () {
+      return{
+      Correo_Electronico: "",
+      Contraseña: ""
+    }}
 };
 </script>
 
@@ -118,14 +132,17 @@ h2 {
   color: black;
 }
 .text {
-    margin: 15% 0 0 5%;}
+
+  margin: 15% 0 0 5%;
+}
 .btn-primary {
   background-color: #06416d;
 }
-.logo{
+.logo {
   margin: 0 0 5% 0;
 }
-#Banner{
+#Banner {
+
   background-color: #06416d;
 }
 </style>
