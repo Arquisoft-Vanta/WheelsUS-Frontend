@@ -12,6 +12,7 @@ import signup from "./components/signup.vue";
 //import Banner from "./components/Banner.vue"
 //import Login from "./components/Login.vue";
 //import Usuario from "./components/Usuario.vue";
+
 export default {
   name: "App",
   components: {
@@ -22,6 +23,7 @@ export default {
     signup
   },
 };
+
 </script>
 
 <style>
