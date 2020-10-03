@@ -35,7 +35,7 @@
               ></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Registrarme</a>
+              <router-link to="/signup" class="nav-link text-white">Registrarme</router-link>
             </li>
           </ul>
         </div>
@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import FooterwithBackground from "./components/FooterwithBackground.vue";
+import FooterwithBackground from "../components/FooterwithBackground";
 export default {
   name: "Login",
   components: {

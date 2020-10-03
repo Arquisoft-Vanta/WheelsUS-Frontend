@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import FooterwithBackground from "./FooterwithBackground.vue";
+import FooterwithBackground from "../components/FooterwithBackground.vue";
 export default {
   name: 'Signup',
   components: {

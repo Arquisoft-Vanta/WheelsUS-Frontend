@@ -100,8 +100,8 @@
 </template>
 
 <script>
-import Banner from "./Banner.vue";
-import FooterwithBackground from "./FooterwithBackground.vue";
+import Banner from "../components/Banner";
+import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 export default {
   name: "Perfil",

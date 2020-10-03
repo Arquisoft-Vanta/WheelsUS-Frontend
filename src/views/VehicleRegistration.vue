@@ -363,8 +363,8 @@
 </template>
 
 <script>
-import FooterwithBackground from "./FooterwithBackground.vue";
-import Banner from "./Banner.vue";
+import FooterwithBackground from "../components/FooterwithBackground.vue";
+import Banner from "../components/Banner.vue";
 
 import Foto from "@/assets/car.jpg";
 
