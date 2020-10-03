@@ -106,7 +106,6 @@
                       type="date"
                       class="form-control form-control-sm"
                       id="validationDefaultfecha"
-                      :value="FechaSOAT"
                       disabled
                     />
                   </div>
@@ -171,7 +170,7 @@
                   <div class="col-12 mb-3">
                     <textarea
                       v-model="DatosRunt"
-                      class="form-control "
+                      class="form-control"
                       id="validationTextarea"
                       placeholder="Por favor, copie la información proporcionada por el RUNT"
                       required
@@ -193,7 +192,7 @@
                       Ingresar a RUNT
                     </a>
                   </div>
-                
+
                   <div class="col-12 mb-3" style="margin: -2% 0 0 0">
                     <a
                       @click="datosRUNT"
@@ -209,7 +208,6 @@
                       Validar información de RUNT
                     </a>
                   </div>
-                  
                 </div>
               </form>
             </div>
@@ -220,7 +218,7 @@
             :src="Foto"
             alt="Foto del vehículo"
             class="img-thumbnail"
-            style="margin: 0 0 3% 0; width:220px; height:150px"
+            style="margin: 0 0 3% 0; width: 220px; height: 150px"
           />
           <div class="card" style="margin: 0 0 20% 0">
             <div class="container">
@@ -339,12 +337,13 @@
                         <p class="textoayuda">
                           Una vez en la página del RUNT se debe presionar sobre
                           las pestañas "Datos Técnicos del Vehículo" y "Poliza
-                          SOAT" y posteriormente copiar la información desde
-                          "Placa" hasta el ultimo dato de la tabla "Poliza
-                          SOAT". Después, se pega esta información en el área de
-                          texto y se presiona la opción "Validar información de
-                          RUNT". Finalmente se selecciona una foto y se presiona
-                          el botón "Guardar Vehículo".
+                          SOAT", posteriormente presionar las teclas "Ctrl + A"
+                          esto permitirá seleccionar toda la información de la
+                          pantalla y finalmente copiar dicho contenido.
+                          Después, se pega esta información en el área de texto
+                          y se presiona la opción "Validar información de RUNT".
+                          Finalmente se selecciona una foto y se presiona el
+                          botón "Guardar Vehículo".
                         </p>
                       </div>
                     </div>
@@ -391,10 +390,10 @@ export default {
   },
   methods: {
     datosRUNT() {
-      var datos = this.DatosRunt.split("\n");
-      for (var dato of datos) {
-        if (dato.includes("PLACA DEL VEHÍCULO")) {
-          var lineaplaca = dato.split(":");
+      var datos = this.DatosRunt.split("\n");                   /*Separa la información por saltos de línea */
+      for (var dato of datos) {                                 /*Realiza un recorrido por todas las líneas buscando*/
+        if (dato.includes("PLACA DEL VEHÍCULO")) {              /*la información correspondiente para llenar los campos*/
+          var lineaplaca = dato.split(":");                     /*de texto.*/
           this.Placa = lineaplaca[1];
         } else if (dato.includes("MARCA:")) {
           var lineamarca = dato.split(":");
@@ -429,17 +428,22 @@ export default {
           this.Pasajeros = lineapasajeros[2];
         } else if (dato.includes("VIGENTE")) {
           var lineasoat = dato.split("	");
-          this.FechaSOAT = lineasoat[3];
-          console.log(lineasoat);
+          var formato = lineasoat[3].split("/");
+          this.FechaSOAT =
+            formato[2] + "-" + formato[1] + "-" + formato[0].replace(" ", "");  /**Esto permite ordenar la fecha en el formato que se requiere */
+          var dateControl = document.querySelector('input[type="date"]');       /**Busca el primer input de tipo "date" */
+          dateControl.value = this.FechaSOAT;                                   /**Posteriormente se guarda en el input date la fecha de vencimiento tomada por el RUNT */
           break;
         }
       }
     },
     guardarVehiculo() {
-      var locModal = document.getElementById("myModal");
-      var btnclose = document.getElementById("w-change-close");
-      var btnclose1 = document.getElementById("w-change-close1");
-      var modalchange = false;
+      var locModal = document.getElementById("myModal");                        /**Se llaman elementos del modal para  */
+      var btnclose = document.getElementById("w-change-close");                 /**Posteriormente realizar su animación */
+      var btnclose1 = document.getElementById("w-change-close1");               /**en el momento que el usuario desee  */
+      var modalchange = false;                                                  /**guardar el vehículo. */
+      var dateControl = document.querySelector('input[type="date"]');
+      this.FechaSOAT = dateControl.value;
       var DatosVehiculo = [
         this.Placa,
         this.Marca,
@@ -453,17 +457,17 @@ export default {
         this.Pasajeros,
         this.FechaSOAT,
       ];
-      for (var dato of DatosVehiculo) {
-        console.log(dato);
-        if (dato == "") {
-          modalchange = true;
+      for (var dato of DatosVehiculo) {                                 /**Realiza un recorrido de todas las variables */
+        console.log(dato);                                              /**Y confirma si todos los datos contienen al  */
+        if (dato == "") {                                               /**menos un valor, en dado caso de que encuentre */
+          modalchange = true;                                           /**algun campo sin llenar rompe el ciclo */
           break;
         }
       }
       if (modalchange == true) {
-        this.modalaviso = "Error. los campos están incompletos.";
-        locModal.style.display = "block";
-        locModal.style.paddingRight = "17px";
+        this.modalaviso = "Error. los campos están incompletos.";       /**En dado caso de encontrar algun campo sin llenar */
+        locModal.style.display = "block";                               /**Cambia el mensaje de modal advirtiendo al usuario */
+        locModal.style.paddingRight = "17px";                           /**Que dispone de campos incompletos */
         locModal.className = "modal fade show";
         btnclose.addEventListener("click", () => {
           locModal.style.display = "none";
@@ -474,9 +478,9 @@ export default {
           locModal.className = "modal fade";
         });
       } else {
-        this.modalaviso = "Campos llenados correctamente.";
-        locModal.style.display = "block";
-        locModal.style.paddingRight = "17px";
+        this.modalaviso = "Campos llenados correctamente.";             /**En dado caso que todos los campos estén llenos */
+        locModal.style.display = "block";                               /**Avisa al usuario que el vehículo se da guardado */
+        locModal.style.paddingRight = "17px";                           /**Correctamente. */
         locModal.className = "modal fade show";
         btnclose.addEventListener("click", () => {
           locModal.style.display = "none";
@@ -490,7 +494,8 @@ export default {
     },
 
     habilitarCampos() {
-      document.getElementById("validationDefaultfecha").disabled = false; // habilitar
+      document.getElementById("validationDefaultfecha").disabled = false;     /**Habiita el único campo a modificar que es la fecha*/
+                                                                              /**de vencimiento del SOAT */
     },
   },
 };
