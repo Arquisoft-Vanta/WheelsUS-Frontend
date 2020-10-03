@@ -59,10 +59,11 @@
       <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
         <div class="Login card">
           <div class="card-body">
-            <img class="logo" src="~@/assets/logo.png" />
+
+            <img class ="logo" src="~@/assets/logo.png" />
             <form>
               <div class="form-group text-left">
-                <label for="exampleInputEmail1">Correo_Electronico</label>
+                <label for="exampleInputEmail1">Correo Electrónico</label>
                 <input
                   type="email"
                   class="form-control"
@@ -70,6 +71,7 @@
                   aria-describedby="emailHelp"
                   :value="Correo_Electronico"
                 />
+
               </div>
               <div class="form-group text-left">
                 <label for="exampleInputPassword1">Contraseña</label>
@@ -101,6 +103,7 @@ export default {
   components: {
     FooterwithBackground,
   },
+
     data: function () {
       return{
       Correo_Electronico: "",
@@ -129,6 +132,7 @@ h2 {
   color: black;
 }
 .text {
+
   margin: 15% 0 0 5%;
 }
 .btn-primary {
@@ -138,6 +142,7 @@ h2 {
   margin: 0 0 5% 0;
 }
 #Banner {
+
   background-color: #06416d;
 }
 </style>
