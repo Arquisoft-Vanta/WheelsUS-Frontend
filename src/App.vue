@@ -1,6 +1,7 @@
 <template>
   <!--<Login></Login>-->
   <!--<Usuario nombre="Unal"></Usuario>-->
+
   <!--<RegistrarVehiculo></RegistrarVehiculo>-->
   <!--<Banner></Banner>-->
   <signup></signup>
@@ -23,7 +24,6 @@ export default {
     signup
   },
 };
-
 </script>
 
 <style>

@@ -28,16 +28,25 @@
         <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
           <ul class="navbar-nav ml-auto flex-nowrap">
             <li class="nav-item">
-              <a href="#" class="nav-link m-2 menu-item nav-active text-white">Inicio</a>
+              <a href="#" class="nav-link m-2 menu-item nav-active text-white"
+                >Inicio</a
+              >
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link m-2 menu-item text-white">Buscar Servicio</a>
+              <a href="#" class="nav-link m-2 menu-item text-white"
+                >Buscar Servicio</a
+              >
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link m-2 menu-item text-white">Crear Servicio</a>
+              <a href="#" class="nav-link m-2 menu-item text-white"
+                >Crear Servicio</a
+              >
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link m-2 menu-item text-white">|| Hola{{ nombre }} </a>
+              <a href="#" class="nav-link m-2 menu-item text-white"
+                >Hola {{ nombre }}
+              </a>
+
             </li>
           </ul>
           <div class="btn-group dropleft my-2 my-lg-0">
