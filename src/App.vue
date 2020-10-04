@@ -1,29 +1,15 @@
 <template>
-  <!--<Login></Login>-->
-  <!--<Usuario nombre="Unal"></Usuario>-->
-  <!--<RegistrarVehiculo></RegistrarVehiculo>-->
-  <!--<Banner></Banner>-->
-  <Signup></Signup>
+
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
 <script>
-import Signup from "./components/Signup.vue";
-//import RegistrarVehiculo from "./components/RegistrarVehiculo.vue";
-//import Banner from "./components/Banner.vue"
-//import Login from "./components/Login.vue";
-//import Usuario from "./components/Usuario.vue";
-
 export default {
   name: "App",
-  components: {
-    //Usuario,
-    //Login,
-    //Banner,
-    //RegistrarVehiculo,
-    Signup
-  },
+  components: {},
 };
-
 </script>
 
 <style>
