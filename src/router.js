@@ -3,6 +3,7 @@ import Login from "./views/Login.vue";
 import Signup from "./views/Signup.vue";
 import Profile from "./views/Profile.vue";
 import VehicleRegistration from "./views/VehicleRegistration.vue";
+import Home from "./views/Home.vue";
 
 const routes = [
   { path: "/", name: "login", component: Login },
@@ -12,7 +13,7 @@ const routes = [
     path: "/vehicle-registration",
     name: "vehicleRegistration",
     component: VehicleRegistration,
-  },
+  },{path: "/home", name: "home", component: Home}
 ];
 
 const router = new createRouter({

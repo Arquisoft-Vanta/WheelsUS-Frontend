@@ -1,5 +1,5 @@
 <template>
-  <Banner></Banner>
+  <Header></Header>
   <div>
     <div class="modal" id="myModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
@@ -364,7 +364,7 @@
 
 <script>
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import Banner from "../components/Banner.vue";
+import Header from "../components/Header.vue";
 
 import Foto from "@/assets/car.jpg";
 
@@ -372,7 +372,7 @@ export default {
   name: "RegistrarVehiculo",
   components: {
     FooterwithBackground,
-    Banner,
+    Header,
   },
   data: function () {
     return {
