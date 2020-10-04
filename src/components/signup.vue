@@ -36,7 +36,7 @@
       </nav>
 
   
-  <p>{{phone}}</p>
+  <!--<p>{{phone}}</p>-->
 
   <form>   
     <div class="signup card">
@@ -45,8 +45,8 @@
           <div class="col-auto">  
             <h2>Crea tu cuenta</h2>          
           <div class="form-group">
-            <label for="name"></label>
-            <input v-model="name" type="text" class="form-control" placeholder="Nombre completo" name="name" id="inputName" required>
+            <label for="username"></label>
+            <input v-model="username" type="text" class="form-control" placeholder="Nombre completo" name="name" id="inputName" required>
           </div>
           <div class="form-group">  
             <label for="phone"></label>
@@ -62,15 +62,6 @@
             </div>
           </div>
           </div>
-          <!--<div class="row">
-            <label for="email"></label>
-            <div class="col">
-            <input v-model="user" type="text" class="form-control" placeholder="usuario" name="user" id="inputUser" style="height:80%" required>
-            </div>
-            <div class="col">
-            <label for="staticEmail" class="col">@unal.edu.co</label>                       
-            </div>
-          </div>-->
           <div class="form-group">  
             <label for="psw"></label>
             <input v-model="psw" type="password" class="form-control" placeholder="Contraseña" name="psw" id="inputPsw" required>
@@ -104,7 +95,7 @@ export default {
   },
   data(){
     return{
-      phone: 0
+     
     }
   }
 
@@ -124,20 +115,7 @@ h2{
   width: 30%;
   margin: 7% 0% 0% 35%;
 }
-/*
-input[type=text]{
-  position: center;
-  width: 90%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-  background-color: #ddd;
-  outline: gray;
-}
 
-Full-width input fields */
 input[type=password], #inputName, input[type=tel], input[type=number]:focus{
   position: center;
   width: 90%;
@@ -158,71 +136,11 @@ input[type=password], #inputName, input[type=tel], input[type=number]:focus{
   border: none;
   background: #f1f1f1;
 }
-/*
-#staticEmail:focus{
-  position: center;
-  width: 10%;
-  padding: 10px;
-  margin: 0 0 25px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-/*
-input[type=text], input[type=password], input[type=tel], input[type=number]:focus{
-  background-color: #ddd;
-  outline: gray;
-}*/
 
 hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
-
-/* Set a style for all buttons */
-/*.button {
-  background-color: #042f66;
-  color: white;
-  padding: 14px 20px 10px 10px;
-  margin: 8px 8px 8px 8px;
-  border: #C0C0C0;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-.button:hover {
-  opacity:40;
-}
-
-/* Extra styles for the cancel button 
-.cancel {
-  padding: 14px 20px;
-  background-color: #C0C0C0;
-}*/
-
-/* Float cancel and signup buttons and add an equal width 
-.cancelBtn, .submitBtn {
-  float: center;
-  width: 25%;
-}*/
-
-/*.cancelBtn{
-  margin-right: 5px;
-}
-
-/* Add padding to container elements 
-.container {
-  padding: 16px;
-}*/
-
-/* Clear floats 
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}*/
 
 .rowBtn{
   position: center;
@@ -233,10 +151,5 @@ hr {
   background-color: #06416d;
   margin-bottom: 50%;
 }
-/* Change styles for cancel button and signup button on extra small screens 
-@media screen and (max-width: 500px) {
-  .cancel, .submit {
-    width: 50%;
-  }
-}*/
+
 </style>

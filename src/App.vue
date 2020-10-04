@@ -3,11 +3,11 @@
   <!--<Usuario nombre="Unal"></Usuario>-->
   <!--<RegistrarVehiculo></RegistrarVehiculo>-->
   <!--<Banner></Banner>-->
-  <signup></signup>
+  <Signup></Signup>
 </template>
 
 <script>
-import signup from "./components/signup.vue";
+import Signup from "./components/Signup.vue";
 //import RegistrarVehiculo from "./components/RegistrarVehiculo.vue";
 //import Banner from "./components/Banner.vue"
 //import Login from "./components/Login.vue";
@@ -19,7 +19,7 @@ export default {
     //Login,
     //Banner,
     //RegistrarVehiculo,
-    signup
+    Signup
   },
 };
 </script>
