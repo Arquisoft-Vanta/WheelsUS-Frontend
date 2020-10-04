@@ -28,6 +28,7 @@
         <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
           <ul class="navbar-nav ml-auto flex-nowrap">
             <li class="nav-item">
+<<<<<<< HEAD
 
               <a href="#" class="nav-link m-2 menu-item nav-active text-white"
                 >Inicio</a
@@ -47,6 +48,18 @@
               <a href="#" class="nav-link m-2 menu-item text-white"
                 >Hola {{ nombre }}
               </a>
+=======
+              <a href="#" class="nav-link m-2 menu-item nav-active text-white">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link m-2 menu-item text-white">Buscar Servicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link m-2 menu-item text-white">Crear Servicio</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link m-2 menu-item text-white">|| Hola{{ nombre }} </a>
+>>>>>>> 06a69cb3870f9619a657ddc0b6f5c9e36cc18df3
             </li>
           </ul>
           <div class="btn-group dropleft my-2 my-lg-0">
@@ -71,6 +84,10 @@
                 Editar mi perfil
               </button>
               <div class="dropdown-divider"></div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06a69cb3870f9619a657ddc0b6f5c9e36cc18df3
               <button class="dropdown-item" type="button">Cerrar Sesión</button>
             </div>
           </div>
