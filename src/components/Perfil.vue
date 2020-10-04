@@ -21,6 +21,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault01">Nombres</label>
                   <input 
+                    v-model="nombres"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault01"
@@ -30,6 +31,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault02">Apellidos</label>
                   <input
+                    v-model="apellidos"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault02"
@@ -39,46 +41,51 @@
               </div>
               <div class="form-row">
                 <div class="col-md-3 mb-3">
-                  <label for="validationDefault07">Documento</label>
+                  <label for="validationDefault03">Documento</label>
                   <input
+                    v-model="documento"
                     type="text"
                     class="form-control form-control-sm text-center"
-                    id="validationDefault07"
+                    id="validationDefault03"
                     placeholder="N° de documento" readonly
                   />
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="validationDefault08">Dirección</label>
+                  <label for="validationDefault04">Dirección</label>
                   <input
+                    v-model="direccion"
                     type="text"
                     class="form-control form-control-sm text-center"
-                    id="validationDefault08"
+                    id="validationDefault04"
                     placeholder="Dirección" readonly
                   />
                 </div>
                 <div class="col-md-3 mb-3">
-                  <label for="validationDefault10">Teléfono</label>
+                  <label for="validationDefault05">Teléfono</label>
                   <input
+                    v-model="telefono"
                     type="text"
                     class="form-control form-control-sm text-center"
-                    id="validationDefault10"
+                    id="validationDefault05"
                     placeholder="N° de teléfono" readonly
                   />
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
-                  <label for="validationDefault05">Correo</label>
+                  <label for="validationDefault06">Correo</label>
                   <input
+                    v-model="correo"
                     type="text"
                     class="form-control form-control-sm text-center"
-                    id="validationDefault05"
+                    id="validationDefault06"
                     placeholder="Correo electronico" readonly
                   />
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="validationDefault04">Universidad</label>
-                  <select class="form-control form-control-sm" id="inlineFormCustomSelect"
+                  <label for="validationDefault07">Universidad</label>
+                  <select class="form-control form-control-sm" id="validationDefault07"
+                    v-model="universidad"
                     disabled>
                     <option selected></option>
                     <option value="1">Universidad Nacional de Colombia</option>
@@ -87,7 +94,7 @@
               </div>
               <div class="form-row">
                 <div class="col-12 mt-3 mb-3">
-                  <button type="button" class="btn btn-outline-primary">Editar</button> 
+                  <button v-on:click="editInputData" type="button" class="btn btn-outline-primary">{{ textoBotonEditar }}</button> 
                 </div>
               </div>
             </form>
@@ -112,8 +119,38 @@ export default {
   data: function () {
     return {
       Foto: Foto,
+      nombres: '',
+      apellidos: '',
+      documento: '',
+      direccion: '',
+      telefono: '',
+      correo: '',
+      universidad: '',
+
+      textoBotonEditar: 'Editar',
+
+      //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
+      estadoInput: true,
     };
   },
+
+  methods: {
+    editInputData () {
+      this.estadoInput = document.getElementById("validationDefault01").readOnly;
+
+      this.estadoInput = !this.estadoInput;
+
+      document.getElementById("validationDefault01").readOnly = this.estadoInput;
+      document.getElementById("validationDefault02").readOnly = this.estadoInput;
+      document.getElementById("validationDefault03").readOnly = this.estadoInput;
+      document.getElementById("validationDefault04").readOnly = this.estadoInput;
+      document.getElementById("validationDefault05").readOnly = this.estadoInput;
+      document.getElementById("validationDefault06").readOnly = this.estadoInput;
+      document.getElementById("validationDefault07").disabled = this.estadoInput;
+
+      this.estadoInput ? this.textoBotonEditar = 'Editar' : this.textoBotonEditar = 'Guardar';
+    },
+  }
 };
 </script>
 
