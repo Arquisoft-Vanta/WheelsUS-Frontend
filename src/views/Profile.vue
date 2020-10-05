@@ -33,6 +33,7 @@
                   <label for="validationDefault01">Nombre</label>
                   <input
                     v-model="user.userName"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault01"
@@ -57,6 +58,7 @@
                   <label for="validationDefault07">Rh</label>
                   <input
                     v-model="user.Rh"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault03"
@@ -68,6 +70,7 @@
                   <label for="validationDefault04">Dirección</label>
                   <input
                     v-model="user.userAddress"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault04"
@@ -79,6 +82,7 @@
                   <label for="validationDefault05">Teléfono</label>
                   <input
                     v-model="user.userPhone"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault05"
@@ -107,6 +111,7 @@
                     disabled
                     v-model="user.universityId"
                   >
+
                     <option selected></option>
                     <option value="1">Universidad Nacional de Colombia</option>
                   </select>
@@ -121,6 +126,7 @@
                   >
                     {{ textoBotonEditar }}
                   </button>
+
                 </div>
               </div>
             </form>
@@ -147,7 +153,6 @@ export default {
   data() {
     return {
       Foto: Foto,
-
       user: {
         userName: "Gonzalo Diaz",
         userDoc: "1013681625",
@@ -162,16 +167,19 @@ export default {
       },
       textoBotonEditar: "Editar",
 
+
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
       estadoInput: true,
     };
   },
   props: {},
+
   methods: {
     editInputData() {
       this.estadoInput = document.getElementById(
         "validationDefault01"
       ).readOnly;
+
 
       this.estadoInput = !this.estadoInput;
 
@@ -211,6 +219,7 @@ export default {
     },
     updateUser() {},
   },
+
 };
 </script>
 
