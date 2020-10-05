@@ -152,6 +152,7 @@ export default {
   },
   data() {
     return {
+      
       Foto: Foto,
       user: {
         userName: "Gonzalo Diaz",
