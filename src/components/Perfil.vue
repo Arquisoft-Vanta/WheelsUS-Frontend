@@ -4,46 +4,34 @@
   <div>
     <div class="container">
       <div class="row align-items-start h-100">
-        <div
-          class="col-12 pl-md-5 pr-md-5 pl-lg-0 pr-lg-0 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-5 mb-5"
-        >
+        <div class="col-12 pl-md-5 pr-md-5 pl-lg-0 pr-lg-0 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-5 mb-5">
           <div class="datosusuario card pt-3">
-            <img
-              src="../assets/person.png"
-              class="img-thumbnail align-self-center h-25"
-              alt=" Imagen de perfil"
-            />
+            <img src="../assets/person.png" class="img-thumbnail align-self-center h-25" alt=" Imagen de perfil" >
             <div class="card-body">
               <h5 class="card-title pt-3">Usuario</h5>
-              <button type="button" class="btn btn-outline-primary">
-                Añadir dirección
-              </button>
+              <button type="button" class="btn btn-outline-primary">Añadir dirección</button>        
             </div>
           </div>
         </div>
-        <div
-          class="col-12 pl-md-5 pr-md-5 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-lg-5 mt-0 mb-5"
-        >
+        <div class="col-12 pl-md-5 pr-md-5 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-lg-5 mt-0 mb-5">
           <div class="datosvehiculo card card-body mb-5">
             <form>
               <h4 class="mb-3">Tu información</h4>
-              <div class="form-row">
-                <div class="col-md-8 mb-4">
-                  <label for="validationDefault01">Nombre</label>
-                  <input
-                    v-model="user.userName"
-
+              <div class="form-row ">
+                <div class="col-md-6 mb-3">
+                  <label for="validationDefault01">Nombres</label>
+                  <input 
+                    v-model="nombres"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault01"
                     placeholder="Nombres completos" readonly
                   />
                 </div>
-                <div class="col-md-4 mb-2">
-                  <label for="validationDefault02">Documento</label>
+                <div class="col-md-6 mb-3">
+                  <label for="validationDefault02">Apellidos</label>
                   <input
-                    v-model="user.userDoc"
-
+                    v-model="apellidos"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault02"
@@ -53,10 +41,9 @@
               </div>
               <div class="form-row">
                 <div class="col-md-3 mb-3">
-                  <label for="validationDefault07">Rh</label>
+                  <label for="validationDefault03">Documento</label>
                   <input
-                  v-model="user.Rh"
-
+                    v-model="documento"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault03"
@@ -66,8 +53,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault04">Dirección</label>
                   <input
-                    v-model="user.userAddress"
-
+                    v-model="direccion"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault04"
@@ -77,8 +63,7 @@
                 <div class="col-md-3 mb-3">
                   <label for="validationDefault05">Teléfono</label>
                   <input
-                    v-model="user.userPhone"
-
+                    v-model="telefono"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault05"
@@ -90,8 +75,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault06">Correo</label>
                   <input
-                    v-model="user.userMail"
-
+                    v-model="correo"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault06"
@@ -99,14 +83,10 @@
                   />
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="validationDefault04">Universidad</label>
-                  <select
-                    class="form-control form-control-sm"
-                    id="inlineFormCustomSelect"
-                    disabled
-                    v-model="user.universityId"
-                  >
-
+                  <label for="validationDefault07">Universidad</label>
+                  <select class="form-control form-control-sm" id="validationDefault07"
+                    v-model="universidad"
+                    disabled>
                     <option selected></option>
                     <option value="1">Universidad Nacional de Colombia</option>
                   </select>
@@ -123,36 +103,29 @@
       </div>
     </div>
   </div>
-  <Header></Header>
+  <Banner></Banner>
 </template>
 
 <script>
-import Header from "../components/Header";
-import FooterwithBackground from "../components/FooterwithBackground.vue";
+import Banner from "./Banner.vue";
+import FooterwithBackground from "./FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
-import UserSC from "../serviceClients/UserServiceClient";
-
 export default {
   name: "Perfil",
   components: {
-    Header,
+    Banner,
     FooterwithBackground,
   },
-  data() {
+  data: function () {
     return {
       Foto: Foto,
-      user: {
-        userName: "Gonzalo Diaz",
-        userDoc: "1013681625",
-        userPhone: "3134340058",
-        universityId: 1,
-        userMail: "egonzalodm@gmail.com",
-        userAddress: "Calle siempre viva 123",
-        password: "contraseña",
-        registryDatetime: "2020-10-04@11:59:59",
-        picture: "imagen.jpg",
-        Rh: "O+",
-      },
+      nombres: '',
+      apellidos: '',
+      documento: '',
+      direccion: '',
+      telefono: '',
+      correo: '',
+      universidad: '',
 
       textoBotonEditar: 'Editar',
 
@@ -160,18 +133,8 @@ export default {
       estadoInput: true,
     };
   },
-  props: {},
 
   methods: {
-      createUserDB() {
-      UserSC.createUser(this.user, (response) => {
-        console.log("Usuario creado " + response.status);
-      });
-    },
-    getUserDB(){
-      UserSC.getUser()
-    }, 
-  updateUser(){},
     editInputData () {
       this.estadoInput = document.getElementById("validationDefault01").readOnly;
 
@@ -196,11 +159,12 @@ export default {
   opacity: 95%;
 }
 
-.datosusuario {
+.datosusuario{
   opacity: 95%;
 }
 
 .container {
   height: 85vh;
 }
+
 </style>
