@@ -27,23 +27,23 @@
           <div class="datosvehiculo card card-body mb-5">
             <form>
               <h4 class="mb-3">Tu información</h4>
+              <div class="form-row">
+                <div class="col-md-8 mb-4">
+                  <label for="validationDefault01">Nombre</label>
+                  <input
+                    v-model="user.userName"
 
-              <div class="form-row ">
-                <div class="col-md-6 mb-3">
-                  <label for="validationDefault01">Nombres</label>
-                  <input 
-                    v-model="nombres"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault01"
                     placeholder="Nombres completos" readonly
                   />
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="validationDefault02">Apellidos</label>
+                <div class="col-md-4 mb-2">
+                  <label for="validationDefault02">Documento</label>
                   <input
+                    v-model="user.userDoc"
 
-                    v-model="apellidos"
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault02"
@@ -53,10 +53,10 @@
               </div>
               <div class="form-row">
                 <div class="col-md-3 mb-3">
-
-                  <label for="validationDefault03">Documento</label>
+                  <label for="validationDefault07">Rh</label>
                   <input
-                    v-model="documento"
+                  v-model="user.Rh"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault03"
@@ -66,7 +66,8 @@
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault04">Dirección</label>
                   <input
-                    v-model="direccion"
+                    v-model="user.userAddress"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault04"
@@ -76,7 +77,8 @@
                 <div class="col-md-3 mb-3">
                   <label for="validationDefault05">Teléfono</label>
                   <input
-                    v-model="telefono"
+                    v-model="user.userPhone"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault05"
@@ -88,7 +90,8 @@
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault06">Correo</label>
                   <input
-                    v-model="correo"
+                    v-model="user.userMail"
+
                     type="text"
                     class="form-control form-control-sm text-center"
                     id="validationDefault06"
@@ -96,10 +99,14 @@
                   />
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="validationDefault07">Universidad</label>
-                  <select class="form-control form-control-sm" id="validationDefault07"
-                    v-model="universidad"
-                    disabled>
+                  <label for="validationDefault04">Universidad</label>
+                  <select
+                    class="form-control form-control-sm"
+                    id="inlineFormCustomSelect"
+                    disabled
+                    v-model="user.universityId"
+                  >
+
                     <option selected></option>
                     <option value="1">Universidad Nacional de Colombia</option>
                   </select>
@@ -107,7 +114,6 @@
               </div>
               <div class="form-row">
                 <div class="col-12 mt-3 mb-3">
-
                   <button v-on:click="editInputData" type="button" class="btn btn-outline-primary">{{ textoBotonEditar }}</button> 
                 </div>
               </div>
@@ -124,22 +130,29 @@
 import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
+import UserSC from "../serviceClients/UserServiceClient";
+
 export default {
   name: "Perfil",
   components: {
     Header,
     FooterwithBackground,
   },
-  data: function () {
+  data() {
     return {
       Foto: Foto,
-      nombres: '',
-      apellidos: '',
-      documento: '',
-      direccion: '',
-      telefono: '',
-      correo: '',
-      universidad: '',
+      user: {
+        userName: "Gonzalo Diaz",
+        userDoc: "1013681625",
+        userPhone: "3134340058",
+        universityId: 1,
+        userMail: "egonzalodm@gmail.com",
+        userAddress: "Calle siempre viva 123",
+        password: "contraseña",
+        registryDatetime: "2020-10-04@11:59:59",
+        picture: "imagen.jpg",
+        Rh: "O+",
+      },
 
       textoBotonEditar: 'Editar',
 
@@ -147,8 +160,18 @@ export default {
       estadoInput: true,
     };
   },
+  props: {},
 
   methods: {
+      createUserDB() {
+      UserSC.createUser(this.user, (response) => {
+        console.log("Usuario creado " + response.status);
+      });
+    },
+    getUserDB(){
+      UserSC.getUser()
+    }, 
+  updateUser(){},
     editInputData () {
       this.estadoInput = document.getElementById("validationDefault01").readOnly;
 
