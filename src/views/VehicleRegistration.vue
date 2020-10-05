@@ -107,17 +107,18 @@
                       class="form-control form-control-sm"
                       id="validationDefaultfecha"
                       disabled
+                      :value="vehicle.vehicleSoatExpiration"
                     />
                   </div>
                   <div class="col-md-3 mb-3">
                     <p for="validationDefaultclasevehiculo" class="text-left">
-                      Clase Vehículo
+                      Tipo de Vehículo
                     </p>
                     <input
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultclasevehiculo"
-                      :value="vehicle.vehicleClass"
+                      :value="vehicle.vehicleType"
                       disabled
                     />
                   </div>
@@ -139,7 +140,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultcilindraje"
-                      :value="Cilindraje"
+                      :value="vehicle.vehicleEngine"
                       disabled
                     />
                   </div>
@@ -398,7 +399,6 @@ export default {
         vehicleSoatExpiration: "2021-10-04",
         vehicleEngine: 1000,
         vehicleGasType: "Diesel",
-        vehicleClass: "Carro",
         userModel: null,
       },
     };
@@ -428,10 +428,10 @@ export default {
         } else if (dato.includes("TIPO DE SERVICIO")) {
           var lineatipo = dato.split(":");
           this.vehicle.vehicleServiceType = lineatipo[1].replace("CLASE DE VEHÍCULO", "");
-          this.vehicle.vehicleClass = lineatipo[2];
+          this.vehicle.vehicleType = lineatipo[2];
         } else if (dato.includes("CILINDRAJE")) {
           var lineacilindraje = dato.split(":");
-          this.Cilindraje = lineacilindraje[1].replace(
+          this.vehicle.vehicleEngine = lineacilindraje[1].replace(
             "TIPO DE CARROCERÍA",
             ""
           );
@@ -486,7 +486,7 @@ export default {
         this.vehicle.vehicleColor,
         this.Estado,
         this.vehicle.vehicleServiceType,
-        this.vehicle.vehicleClass,
+        this.vehicle.vehicleType,
         this.vehicle.vehicleGasType,
         this.vehicle.vehicleCapacity,
         this.vehicle.vehicleSoatExpiration,
