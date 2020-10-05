@@ -142,7 +142,7 @@
             <div style="margin: 1% 5% 5% 5%" position="center">
               <button @click="goTo" class="btn btn-secondary">
                 <img class="logo" src="~@/assets/google.png" width="30" />
-                Ingresa con Google
+                Registrate con Google
               </button>
             </div>
           </div>
