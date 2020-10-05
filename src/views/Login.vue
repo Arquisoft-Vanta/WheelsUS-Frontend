@@ -35,7 +35,9 @@
               ></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Registrarme</a>
+              <router-link to="/signup" class="nav-link text-white"
+                >Registrarme</router-link
+              >
             </li>
           </ul>
         </div>
@@ -59,7 +61,7 @@
       <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
         <div class="Login card">
           <div class="card-body">
-            <img class ="logo" src="~@/assets/logo.png" />
+            <img class="logo" src="~@/assets/logo.png" />
             <form>
               <div class="form-group text-left">
                 <label for="exampleInputEmail1">Correo Electrónico</label>
@@ -68,10 +70,8 @@
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
-
                   :value="Correo_Electronico"
                 />
-
               </div>
               <div class="form-group text-left">
                 <label for="exampleInputPassword1">Contraseña</label>
@@ -82,10 +82,13 @@
                   :value="Contraseña"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Ingresar</button>
+              <button @click="goTo" class="btn btn-primary">
+                Ingresar
+              </button>
               <div style="margin: 2% 0 0 0">
-                <button type="submit" class="btn btn-primary">
-                  <img class="logo" src="~@/assets/google.png" width="30"/>  Ingresa con Google
+                <button @click="goTo" class="btn btn-primary">
+                  <img class="logo" src="~@/assets/google.png" width="30" />
+                  Ingresa con Google
                 </button>
               </div>
             </form>
@@ -97,18 +100,24 @@
 </template>
 
 <script>
-import FooterwithBackground from "./FooterwithBackground.vue";
+import FooterwithBackground from "../components/FooterwithBackground";
 export default {
   name: "Login",
   components: {
     FooterwithBackground,
   },
 
-    data: function () {
-      return{
+  data() {
+    return {
       Correo_Electronico: "",
-      Contraseña: ""
-    }}
+      Contraseña: "",
+    };
+  },
+  methods: {
+    goTo() {
+      this.$router.push("home");
+    },
+  },
 };
 </script>
 
@@ -132,7 +141,6 @@ h2 {
   color: black;
 }
 .text {
-
   margin: 15% 0 0 5%;
 }
 .btn-primary {
@@ -142,7 +150,7 @@ h2 {
   margin: 0 0 5% 0;
 }
 #Banner {
-
   background-color: #06416d;
+  margin-bottom: 0%;
 }
 </style>
