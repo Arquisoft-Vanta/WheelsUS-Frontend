@@ -27,6 +27,7 @@
           <div class="datosvehiculo card card-body mb-5">
             <form>
               <h4 class="mb-3">Tu información</h4>
+
               <div class="form-row ">
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault01">Nombres</label>
@@ -41,6 +42,7 @@
                 <div class="col-md-6 mb-3">
                   <label for="validationDefault02">Apellidos</label>
                   <input
+
                     v-model="apellidos"
                     type="text"
                     class="form-control form-control-sm text-center"
@@ -51,6 +53,7 @@
               </div>
               <div class="form-row">
                 <div class="col-md-3 mb-3">
+
                   <label for="validationDefault03">Documento</label>
                   <input
                     v-model="documento"
@@ -104,6 +107,7 @@
               </div>
               <div class="form-row">
                 <div class="col-12 mt-3 mb-3">
+
                   <button v-on:click="editInputData" type="button" class="btn btn-outline-primary">{{ textoBotonEditar }}</button> 
                 </div>
               </div>
