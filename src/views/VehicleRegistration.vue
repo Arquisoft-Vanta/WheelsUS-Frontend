@@ -42,7 +42,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultplaca"
-                      :value="vehicle.vehicleLicenseplate"
+                      v-model="vehicle.vehicleLicenseplate"
                       disabled
                     />
                   </div>
@@ -52,7 +52,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultmarca"
-                      :value="vehicle.vehicleBrand"
+                      v-model="vehicle.vehicleBrand"
                       disabled
                     />
                   </div>
@@ -74,7 +74,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultservicio"
-                      :value="vehicle.vehicleServiceType"
+                      v-model="vehicle.vehicleServiceType"
                       disabled
                     />
                   </div>
@@ -86,7 +86,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultlinea"
-                      :value="vehicle.vehicleYear"
+                      v-model="vehicle.vehicleYear"
                       disabled
                     />
                   </div>
@@ -96,7 +96,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultcarroceria"
-                      :value="vehicle.vehicleBody"
+                      v-model="vehicle.vehicleBody"
                       disabled
                     />
                   </div>
@@ -107,7 +107,7 @@
                       class="form-control form-control-sm"
                       id="validationDefaultfecha"
                       disabled
-                      :value="vehicle.vehicleSoatExpiration"
+                      v-model="vehicle.vehicleSoatExpiration"
                     />
                   </div>
                   <div class="col-md-3 mb-3">
@@ -118,7 +118,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultclasevehiculo"
-                      :value="vehicle.vehicleType"
+                      v-model="vehicle.vehicleType"
                       disabled
                     />
                   </div>
@@ -130,7 +130,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultmodelo"
-                      :value="vehicle.vehicleModel"
+                      v-model="vehicle.vehicleModel"
                       disabled
                     />
                   </div>
@@ -140,7 +140,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultcilindraje"
-                      :value="vehicle.vehicleEngine"
+                      v-model="vehicle.vehicleEngine"
                       disabled
                     />
                   </div>
@@ -150,7 +150,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultcolor"
-                      :value="vehicle.vehicleColor"
+                      v-model="vehicle.vehicleColor"
                       disabled
                     />
                   </div>
@@ -162,7 +162,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       id="validationDefaultcombustible"
-                      :value="vehicle.vehicleGasType"
+                      v-model="vehicle.vehicleGasType"
                       disabled
                     />
                   </div>
