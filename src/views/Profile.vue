@@ -120,7 +120,7 @@
               <div class="form-row">
                 <div class="col-12 mt-3 mb-3">
                   <button
-                    v-on:click="editInputData"
+                    v-on:click="createUserDB"
                     type="button"
                     class="btn btn-outline-primary"
                   >
