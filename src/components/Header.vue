@@ -27,22 +27,22 @@
       <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
           <li class="nav-item">
-            <a href="#" @click="goToHome" class="nav-link m-2 menu-item nav-active text-white"
+            <a href="#" @click="goToHome" class="nav-link menu-item nav-active text-white"
               >Inicio</a
             >
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link m-2 menu-item text-white"
+            <a href="#" class="nav-link menu-item text-white"
               >Buscar Servicio</a
             >
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link m-2 menu-item text-white"
+            <a href="#" class="nav-link menu-item text-white"
               >Crear Servicio</a
             >
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link m-2 menu-item text-white"
+            <a href="#" class="nav-link menu-item text-white"
               >Hola {{ nombre }}
             </a>
           </li>
@@ -64,13 +64,13 @@
             />
           </button>
           <div class="dropdown-menu dropdown-menu-lg-left">
-            <button class="dropdown-item" @click="goToProfile" type="button">
+            <button class="header-button dropdown-item" @click="goToProfile" type="button">
               Mi perfil
             </button>
-            <button class="dropdown-item" @click="goToVehicleRegistration" type="button">
+            <button class="header-button dropdown-item" @click="goToVehicleRegistration" type="button">
               Registrar vehiculo
             </button>
-            <div class="dropdown-divider"></div>
+            <div class="header-button dropdown-divider"></div>
             <button class="dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
           </div>
         </div>
@@ -106,5 +106,13 @@ export default {
 #Banner {
   background-color: #06416d;
   margin-bottom: 0%;
+}
+.header-button:focus {
+  background-color: white!important;
+  color: #043a63!important;
+}
+.header-button:active {
+  background-color: white!important;
+  color: #043a63!important;
 }
 </style>
