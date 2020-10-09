@@ -37,7 +37,7 @@
             >
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link menu-item text-white"
+            <a href="#" @click="goToCreateService" class="nav-link menu-item text-white"
               >Crear Servicio</a
             >
           </li>
@@ -97,6 +97,8 @@ export default {
       this.$router.push("/");
     },goToProfile() {
       this.$router.push("profile");
+    },goToCreateService() {
+      this.$router.push("create-service");
     },
   },
 };
