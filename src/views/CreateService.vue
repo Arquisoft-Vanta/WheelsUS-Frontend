@@ -31,7 +31,7 @@
                     style="border: 0; background: #f1f1f1"
                   />
                 </div>
-                <div class="row">
+                <div class="row" style="margin: 0 0 8% 0">
                   <div class="col">
                     <input
                       type="text"
@@ -55,15 +55,10 @@
                   </div>
                 </div>
                 <button @click="goTo" class="btn btn-primary">
-                  <img
-                    class="logo"
-                    src="~@/assets/passenger-ride-icon.png"
-                    width="30"
-                  />Crear Servicio
+                  Crear Servicio
                 </button>
                 <div style="margin: 2% 0 0 0">
                   <button @click="goTo" class="btn btn-primary">
-                    <img class="logo" src="~@/assets/google.png" width="30" />
                     Escoger Pasajeros
                   </button>
                 </div>
@@ -72,13 +67,12 @@
           </div>
         </div>
         <div class="col1 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4 mt-4">
-          <div class="text"></div>
+            <GoogleMaps/>
+
         </div>
       </div>
     </div>
   </div>
-  
-  <GoogleMaps/>
 
   <footerwith-background></footerwith-background>
 </template>
@@ -104,6 +98,6 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-  margin: 25% 0 30% 0;
+  margin: 20% 0 20% 0;
 }
 </style>
