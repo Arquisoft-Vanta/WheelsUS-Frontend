@@ -66,9 +66,8 @@
             </div>
           </div>
         </div>
-        <div class="col1 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4 mt-4">
-            <GoogleMaps/>
-
+        <div class="col1 col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-8">
+          <TravelMap class="travel-map" />
         </div>
       </div>
     </div>
@@ -80,14 +79,14 @@
 <script>
 import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import GoogleMaps from "../components/GoogleMaps.vue";
+import TravelMap from "../components/TravelMap";
 
 export default {
   name: "CreateService",
   components: {
     Header,
     FooterwithBackground,
-    GoogleMaps
+    TravelMap,
   },
 };
 </script>
@@ -99,5 +98,9 @@ export default {
   opacity: 90%;
   border-radius: 2%;
   margin: 20% 0 20% 0;
+}
+.travel-map {
+  margin: 10% 0 5% 0;
+  height: 400px;
 }
 </style>
