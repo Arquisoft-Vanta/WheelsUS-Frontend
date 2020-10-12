@@ -3,7 +3,6 @@
     :mapConfig="mapConfig"
     apiKey="AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0"
   >
-  // insert your google maps api key to render styled map
     <template v-slot="{ google, map }">
       <GoogleMapMarker
         v-for="marker in markers"
@@ -34,7 +33,7 @@ export default {
   components: {
     GoogleMapLoader,
     GoogleMapMarker,
-    GoogleMapLine
+    GoogleMapLine,
   },
 
   data() {
@@ -42,41 +41,46 @@ export default {
       markers: [
         {
           id: "a",
-          position: { lat: 3, lng: 101 }
+          position: { lat: -74.08175, lng: 4.60971 },
         },
         {
           id: "b",
-          position: { lat: 5, lng: 99 }
+          position: { lat: 5, lng: 99 },
         },
         {
           id: "c",
-          position: { lat: 6, lng: 97 }
-        }
+          position: { lat: 6, lng: 97 },
+        },
       ],
       lines: [
         {
           id: "1",
-          path: [{ lat: 3, lng: 101 }, { lat: 5, lng: 99 }]
+          path: [
+            { lat: 3, lng: 101 },
+            { lat: 5, lng: 99 },
+          ],
         },
         {
           id: "2",
-          path: [{ lat: 5, lng: 99 }, { lat: 6, lng: 97 }]
-        }
-      ]
+          path: [
+            { lat: 5, lng: 99 },
+            { lat: 6, lng: 97 },
+          ],
+        },
+      ],
     };
   },
-
   computed: {
     mapConfig() {
       return {
         ...mapSettings,
-        center: this.mapCenter
+        center: this.mapCenter,
       };
     },
 
     mapCenter() {
       return this.markers[1].position;
-    }
-  }
+    },
+  },
 };
 </script>

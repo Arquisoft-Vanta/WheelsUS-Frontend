@@ -1,8 +1,8 @@
 export default {
     COLOR_POINT: "rgb(243,114,114)",
     COLOR_POINT_FILL: "rgb(255,255,255)",
-    COLOR_LANDSCAPE: "#FFAD00",
-    COLOR_BORDERS: "rgb(195,230,255)",
+    COLOR_LANDSCAPE: "#b2b2b2",
+    COLOR_BORDERS: "rgb(13, 12, 12)",
     COLOR_LINE: "rgb(255,255,255)",
     COLOR_SELECTED_POINT: "rgb(0,184,83)",
   

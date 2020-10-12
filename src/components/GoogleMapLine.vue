@@ -24,8 +24,6 @@ export default {
       map: this.map,
       ...LINE_PATH_CONFIG
     });
-  },
-
-  render() {},
+  }
 };
 </script>

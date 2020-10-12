@@ -26,10 +26,6 @@ export default {
       map: this.map,
       icon: POINT_MARKER_ICON_CONFIG,
     });
-  },
-
-  render(h) {
-    return h("div", "hello");
-  },
+  }
 };
 </script>

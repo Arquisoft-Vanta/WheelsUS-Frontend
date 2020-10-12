@@ -9,6 +9,7 @@
               <form>
                 <div class="form-group text-left">
                   <input
+                    id="placeofdeparture"
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Salida"
@@ -68,6 +69,7 @@
         </div>
         <div class="col1 col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-8">
           <TravelMap class="travel-map" />
+
         </div>
       </div>
     </div>
