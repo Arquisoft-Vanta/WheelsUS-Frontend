@@ -1,60 +1,62 @@
 <template>
-  <FooterwithBackground></FooterwithBackground>
-  <div class="fixed-top">
-    <div>
-      <nav id="Banner" class="navbar navbar-expand-sm">
-        <div class="col-auto">
-          <a id="Titulo" class="navbar-brand text-white" href="#">
-            <img
-              src="~@/assets/carrito.png"
-              width="40"
-              height="40"
-              alt=""
-              loading="lazy"
-            />
-            Wheels US
-          </a>
-        </div>
-        <button
-          class="navbar-toggler navbar-light bg-light"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto"></ul>
-          <ul class="navbar-nav mr-right">
-            <li class="nav-item active">
-              <a class="nav-link text-white" href="#"
-                >Acerca de <span class="sr-only"></span
-              ></a>
-            </li>
-            <li class="nav-item">
-              <router-link to="/signup" class="nav-link text-white"
-                >Registrarme</router-link
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
+  <div>
+    <FooterwithBackground></FooterwithBackground>
+    <div class="fixed-top">
+      <div>
+        <nav id="Banner" class="navbar navbar-expand-sm">
+          <div class="col-auto">
+            <a id="Titulo" class="navbar-brand text-white" href="#">
+              <img
+                src="~@/assets/carrito.png"
+                width="40"
+                height="40"
+                alt=""
+                loading="lazy"
+              />
+              Wheels US
+            </a>
+          </div>
+          <button
+            class="navbar-toggler navbar-light bg-light"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav mr-right">
+              <li class="nav-item active">
+                <a class="nav-link text-white" href="#"
+                  >Acerca de <span class="sr-only"></span
+                ></a>
+              </li>
+              <li class="nav-item">
+                <router-link to="/signup" class="nav-link text-white"
+                  >Registrarme</router-link
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="row justify-content-between">
-      <div class="col1 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
-        <div class="text">
-          <div class="text-center text-md-left">
-            <h1>WHEELS US</h1>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col1 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
+          <div class="text">
+            <div class="text-center text-md-left">
+              <h1>WHEELS US</h1>
 
-            <h2>
-              Te permitirá conocer miembros de la comunidad universitaria para
-              viajar juntos a tu lugar de destino.
-            </h2>
+              <h2>
+                Te permitirá conocer miembros de la comunidad universitaria para
+                viajar juntos a tu lugar de destino.
+              </h2>
+            </div>
           </div>
         </div>
       </div>

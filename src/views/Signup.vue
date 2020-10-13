@@ -1,6 +1,7 @@
 <template>
-  <div class="fixed-top">
-    <nav id="Banner" class="navbar navbar-expand-lg">
+<div>
+  <div>
+    <nav id="Banner" class="navbar navbar-expand-sm fixed-top">
       <div class="col-auto">
         <a id="Titulo" class="navbar-brand text-white" href="#">
           <img
@@ -32,9 +33,9 @@
               >Acerca de <span class="sr-only"></span
             ></a>
           </li>
-          <li class="nav-item">
-            <router-link to="/signup" class="nav-link text-white"
-              >Ingresar</router-link
+          <li>
+            <router-link to="/" class="nav-link text-white"
+              >Iniciar sesión</router-link
             >
           </li>
         </ul>
@@ -164,9 +165,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </form>
+    <FooterwithBackground></FooterwithBackground>
   </div>
-  <FooterwithBackground></FooterwithBackground>
+  </div>
 </template>
 
 <script>
@@ -323,13 +325,12 @@ hr {
   background-color: #043a63;
 }
 .btn-primary:focus {
-  background-color: white!important;
-  color: #043a63!important;
+  background-color: white !important;
+  color: #043a63 !important;
 }
 .btn-primary:active {
-  background-color: white!important;
-  color: #043a63!important;
-
+  background-color: white !important;
+  color: #043a63 !important;
 }
 .btn-primary {
   background-color: #06416d;
