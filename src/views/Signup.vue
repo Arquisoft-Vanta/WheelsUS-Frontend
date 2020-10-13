@@ -321,21 +321,6 @@ hr {
   margin: 0% 0% 0% 35%;
   background-color: #06416d;
 }
-.btn-primary:hover {
-  background-color: #043a63;
-}
-.btn-primary:focus {
-  background-color: white!important;
-  color: #043a63!important;
-}
-.btn-primary:active {
-  background-color: white!important;
-  color: #043a63!important;
-
-}
-.btn-primary {
-  background-color: #06416d;
-}
 
 /* Change styles for cancel button and signup button on extra small screens 
 @media screen and (max-width: 500px) {

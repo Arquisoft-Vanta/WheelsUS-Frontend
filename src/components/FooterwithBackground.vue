@@ -56,4 +56,19 @@ body {
 .derechos {
   font-size: 70%;
 }
+.btn-primary {
+  background-color: #06416d;
+}
+.btn-primary:hover {
+  background-color: #043a63;
+}
+.btn-primary:focus {
+  background-color: white!important;
+  color: #043a63!important;
+}
+.btn-primary:active {
+  background-color: white!important;
+  color: #043a63!important;
+
+}
 </style>

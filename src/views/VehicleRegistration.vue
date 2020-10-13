@@ -360,7 +360,7 @@
     </div>
   </div>
   <FooterwithBackground></FooterwithBackground>
-  <div>
+  </div>
 </template>
 
 <script>
@@ -571,22 +571,5 @@ p {
 }
 .custom-select {
   height: 60%;
-}
-.btn-primary {
-  background-color: #06416d;
-  border-color: #06416d;
-  color: white;
-}
-.btn-primary:hover {
-  background-color: #043a63;
-}
-.btn-primary:focus {
-  background-color: white!important;
-  color: #043a63!important;
-}
-.btn-primary:active {
-  background-color: white!important;
-  color: #043a63!important;
-
 }
 </style>

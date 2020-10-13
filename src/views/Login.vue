@@ -59,7 +59,6 @@
             </div>
           </div>
         </div>
-      </div>
       <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
         <div class="Login card">
           <div class="card-body">
@@ -96,6 +95,7 @@
             </form>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -145,21 +145,7 @@ h2 {
 .text {
   margin: 15% 0 0 5%;
 }
-.btn-primary {
-  background-color: #06416d;
-}
-.btn-primary:hover {
-  background-color: #043a63;
-}
-.btn-primary:focus {
-  background-color: white!important;
-  color: #043a63!important;
-}
-.btn-primary:active {
-  background-color: white!important;
-  color: #043a63!important;
 
-}
 .logo {
   margin: 0 0 5% 0;
 }
