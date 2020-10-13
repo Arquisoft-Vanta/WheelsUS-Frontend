@@ -1,10 +1,16 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import VuePlaceAutocomplete from 'vue-place-autocomplete'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import axios from "axios";
+import VueAxios from "vue-axios";
 
+Vue.config.productionTip = false;
 
-
-createApp(App).use(router, VueAxios, axios, VuePlaceAutocomplete).mount('#app')
+new Vue({
+  router,
+  VueAxios,
+  axios,
+  store,
+  render: (h) => h(App),
+}).$mount("#app");

@@ -1,6 +1,6 @@
 <template>
+<div>
   <FooterwithBackground></FooterwithBackground>
-
   <div>
     <div class="container">
       <div class="row align-items-start h-100">
@@ -136,6 +136,7 @@
     </div>
   </div>
   <Header></Header>
+  </div>
 </template>
 
 <script>
@@ -239,26 +240,5 @@ export default {
 
 .container {
   height: 85vh;
-}
-.btn-primary {
-  background-color: #06416d;
-  border-color: #043a63;
-
-}
-.btn-primary:hover {
-  background-color: #043a63;
-  border-color: #043a63;
-
-}
-.btn-primary:focus {
-  background-color: white!important;
-  color: #043a63!important;
-  border-color: #043a63;
-
-}
-.btn-primary:active {
-  background-color: white!important;
-  color: #043a63!important;
-  border-color: #043a63;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <body>
-  </body>
-  <div class="fixed-bottom">
-    <div>
-      <nav id="FooterApp" class="navbar navbar-expand-sm">
-        <a id="MensajeBottom" class=" derechos text-white" href="#">
-          Todos los derechos reservados 2020
-        </a>
+  <div>
+    <body></body>
+    <div class="fixed-bottom">
+      <div>
+        <nav id="FooterApp" class="navbar navbar-expand-sm">
+          <a id="MensajeBottom" class="derechos text-white" href="#">
+            Todos los derechos reservados 2020
+          </a>
           <ul class="navbar-nav mr-auto"></ul>
           <a href="#"
             ><img
@@ -32,7 +32,8 @@
               alt=""
               loading="lazy"
           /></a>
-      </nav>
+        </nav>
+      </div>
     </div>
   </div>
 </template>
@@ -52,17 +53,17 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
-.derechos{
+.derechos {
   font-size: 70%;
 }
 .btn-primary {
   background-color: #06416d;
-  border-color: #043a63;
+    border-color: #043a63;
 
 }
 .btn-primary:hover {
   background-color: #043a63;
-  border-color: #043a63;
+    border-color: #043a63;
 
 }
 .btn-primary:focus {
