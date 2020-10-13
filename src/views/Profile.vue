@@ -1,6 +1,6 @@
 <template>
+<div>
   <FooterwithBackground></FooterwithBackground>
-
   <div>
     <div class="container">
       <div class="row align-items-start h-100">
@@ -136,6 +136,7 @@
     </div>
   </div>
   <Header></Header>
+  </div>
 </template>
 
 <script>
