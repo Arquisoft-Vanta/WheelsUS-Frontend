@@ -1,4 +1,5 @@
 <template>
+<div>
   <Header></Header>
   <div>
     <div class="modal" id="myModal" tabindex="-1">
@@ -37,7 +38,9 @@
               <form class="needs-validation" novalidate>
                 <div class="form-row">
                   <div class="col-md-3 mb-3">
-                    <p for="validationDefaultplaca" class="text-left">Matricula</p>
+                    <p for="validationDefaultplaca" class="text-left">
+                      Matricula
+                    </p>
                     <input
                       type="text"
                       class="form-control form-control-sm"
@@ -58,8 +61,14 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <p for="validationDefault01">No de pasajeros</p>
-                    <select class="custom-select" required>
-                      <option :value="vehicle.vehicleCapacity">{{ vehicle.vehicleCapacity }}</option>
+                    <select
+                      class="custom-select"
+                      style="background: #f1f1f1; border: 0"
+                      required
+                    >
+                      <option :value="vehicle.vehicleCapacity">
+                        {{ vehicle.vehicleCapacity }}
+                      </option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -183,11 +192,9 @@
                       href="https://www.runt.com.co/consultaCiudadana/#/consultaVehiculo"
                       target="_blank"
                       type="button"
-                      class="btn btn-outline-light text-center"
+                      class="btn btn-primary text-center"
                       style="
-                        margin: 0 0 2% 0;
-                        border-color: #06416d;
-                        color: #06416d;
+                        margin:2% 0 2% 0;
                       "
                     >
                       Ingresar a RUNT
@@ -199,11 +206,9 @@
                       @click="datosRUNT"
                       target="_blank"
                       type="button"
-                      class="btn btn-outline-light text-center"
+                      class="btn btn-primary text-center"
                       style="
                         margin: 0 0 -3% 0;
-                        border-color: #06416d;
-                        color: #06416d;
                       "
                     >
                       Validar información de RUNT
@@ -247,11 +252,10 @@
                 <a
                   @click="habilitarCampos"
                   type="button"
-                  class="btn btn-outline-light"
+                  class="btn btn-primary"
                   style="
                     margin: -2% 0 2% 0;
-                    border-color: #06416d;
-                    color: #06416d;
+                    
                   "
                 >
                   Editar Datos Vehículo
@@ -261,11 +265,9 @@
                 <a
                   @click="overlay"
                   type="button"
-                  class="btn btn-outline-light"
+                  class="btn btn-primary"
                   style="
                     margin: 0 0 2% 0;
-                    border-color: #06416d;
-                    color: #06416d;
                   "
                 >
                   Eliminar Vehículo
@@ -275,8 +277,8 @@
               <a
                 @click="guardarVehiculo"
                 type="button"
-                class="btn btn-outline-light"
-                style="margin: 0 0 2% 0; border-color: #06416d; color: #06416d"
+                class="btn btn-primary"
+                style="margin: 0 0 2% 0;"
                 id="w-change-location"
                 data-toggle="modal"
                 data-target="#locModal"
@@ -286,7 +288,7 @@
               <div>
                 <button
                   type="button"
-                  class="btn btn-light"
+                  class="btn btn-outline"
                   data-toggle="modal"
                   data-target="#exampleModal"
                   data-display="static"
@@ -358,6 +360,7 @@
     </div>
   </div>
   <FooterwithBackground></FooterwithBackground>
+  <div>
 </template>
 
 <script>
@@ -427,7 +430,10 @@ export default {
           this.Estado = lineaestado[2];
         } else if (dato.includes("TIPO DE SERVICIO")) {
           var lineatipo = dato.split(":");
-          this.vehicle.vehicleServiceType = lineatipo[1].replace("CLASE DE VEHÍCULO", "");
+          this.vehicle.vehicleServiceType = lineatipo[1].replace(
+            "CLASE DE VEHÍCULO",
+            ""
+          );
           this.vehicle.vehicleType = lineatipo[2];
         } else if (dato.includes("CILINDRAJE")) {
           var lineacilindraje = dato.split(":");
@@ -554,6 +560,10 @@ p {
   margin: 0 0 0 0;
   text-align: left;
 }
+.form-control {
+  background: #f1f1f1;
+  border: 0;
+}
 
 .textoayuda {
   text-align: left;
@@ -561,5 +571,22 @@ p {
 }
 .custom-select {
   height: 60%;
+}
+.btn-primary {
+  background-color: #06416d;
+  border-color: #06416d;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #043a63;
+}
+.btn-primary:focus {
+  background-color: white!important;
+  color: #043a63!important;
+}
+.btn-primary:active {
+  background-color: white!important;
+  color: #043a63!important;
+
 }
 </style>

@@ -15,9 +15,9 @@
             />
             <div class="card-body">
               <h5 class="card-title pt-3">Usuario</h5>
-              <button type="button" class="btn btn-outline-primary">
+              <a type="button" class="btn btn-primary">
                 Añadir dirección
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -119,13 +119,13 @@
               </div>
               <div class="form-row">
                 <div class="col-12 mt-3 mb-3">
-                  <button
-                    v-on:click="editInputData"
+                  <a
+                    v-on:click="createUserDB"
                     type="button"
-                    class="btn btn-outline-primary"
+                    class="btn btn-primary"
                   >
                     {{ textoBotonEditar }}
-                  </button>
+                  </a>
 
                 </div>
               </div>
@@ -226,14 +226,39 @@ export default {
 
 <style scoped>
 .datosvehiculo {
-  opacity: 95%;
+  opacity: 90%;
 }
 
+.form-control{
+  background: #f1f1f1;
+  border: 0;
+}
 .datosusuario {
   opacity: 95%;
 }
 
 .container {
   height: 85vh;
+}
+.btn-primary {
+  background-color: #06416d;
+  border-color: #043a63;
+
+}
+.btn-primary:hover {
+  background-color: #043a63;
+  border-color: #043a63;
+
+}
+.btn-primary:focus {
+  background-color: white!important;
+  color: #043a63!important;
+  border-color: #043a63;
+
+}
+.btn-primary:active {
+  background-color: white!important;
+  color: #043a63!important;
+  border-color: #043a63;
 }
 </style>

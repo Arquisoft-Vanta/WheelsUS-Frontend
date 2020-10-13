@@ -69,6 +69,7 @@
                   type="email"
                   class="form-control"
                   id="exampleInputEmail1"
+                  style="border: 0; background: #f1f1f1"
                   aria-describedby="emailHelp"
                   :value="Correo_Electronico"
                 />
@@ -77,14 +78,13 @@
                 <label for="exampleInputPassword1">Contraseña</label>
                 <input
                   type="password"
+                  style="border: 0; background: #f1f1f1"
                   class="form-control"
                   id="exampleInputPassword1"
                   :value="Contraseña"
                 />
               </div>
-              <button @click="goTo" class="btn btn-primary">
-                Ingresar
-              </button>
+              <button @click="goTo" class="btn btn-primary">Ingresar</button>
               <div style="margin: 2% 0 0 0">
                 <button @click="goTo" class="btn btn-primary">
                   <img class="logo" src="~@/assets/google.png" width="30" />
@@ -130,8 +130,8 @@ export default {
 .Login {
   color: black;
   background-color: white;
-  opacity: 80%;
-  border-radius: 10%;
+  opacity: 90%;
+  border-radius: 2%;
   margin: 0 0 20% 0;
 }
 h1 {
@@ -145,6 +145,18 @@ h2 {
 }
 .btn-primary {
   background-color: #06416d;
+}
+.btn-primary:hover {
+  background-color: #043a63;
+}
+.btn-primary:focus {
+  background-color: white!important;
+  color: #043a63!important;
+}
+.btn-primary:active {
+  background-color: white!important;
+  color: #043a63!important;
+
 }
 .logo {
   margin: 0 0 5% 0;
