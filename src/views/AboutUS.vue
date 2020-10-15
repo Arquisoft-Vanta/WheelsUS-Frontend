@@ -1,6 +1,6 @@
 <template>
-  <Header></Header>
   <div id="aboutus">
+    <Header></Header>
     <div class="container">
       <div class="row">
         <div class="col-12 justify-content-center">
@@ -16,8 +16,8 @@
         </div>
       </div>
     </div>
+    <FooterwithBackground></FooterwithBackground>
   </div>
-  <FooterwithBackground></FooterwithBackground>
 </template>
 
 <script>
