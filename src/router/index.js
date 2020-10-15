@@ -1,12 +1,13 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 import Login from "./../views/Login.vue";
 import Signup from "./../views/Signup.vue";
 import Profile from "./../views/Profile.vue";
 import VehicleRegistration from "./../views/VehicleRegistration.vue";
 import Home from "./../views/Home.vue";
+import AboutUS from "./../views/AboutUS.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   { path: "/", name: "login", component: Login },
@@ -16,13 +17,14 @@ const routes = [
     path: "/vehicle-registration",
     name: "vehicleRegistration",
     component: VehicleRegistration,
-  },{path: "/home", name: "home", component: Home}
+  },
+  { path: "/home", name: "home", component: Home },
+  { path: "/aboutus", name: "aboutus", component: AboutUS },
 ];
-
 
 const router = new VueRouter({
   mode: "history",
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
