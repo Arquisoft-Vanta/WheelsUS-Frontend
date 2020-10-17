@@ -1,94 +1,272 @@
 <template>
-  <Header></Header>
   <div>
-    <div class="container">
-      <div class="row justify-content-between">
-        <div class="col2 col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-4">
-          <div class="createservice card">
-            <div class="card-body">
-              <form>
-                <div class="form-group text-left">
+    <Header></Header>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Lista de Pasajeros Postulados
+            </h5>
+
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <RouteList />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col2 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
+            <div class="createservice card">
+              <div class="card-body">
+                <div class="form-inline" style="margin: 0 0 5% 0">
+                  <input
+                    id="placeoforigin"
+                    class="form-control"
+                    type="text"
+                    placeholder="Lugar de Salida"
+                    style="border: 0; background: #f1f1f1; width: 100%"
+                    ref="origin"
+                  />
+                </div>
+                <div class="form-inline" style="margin: 0 0 5% 0">
                   <input
                     id="placeofdeparture"
                     class="form-control"
                     type="text"
-                    placeholder="Lugar de Salida"
-                    style="border: 0; background: #f1f1f1"
-                  />
-                </div>
-                <div class="form-group text-left">
-                  <input
-                    class="form-control"
-                    type="text"
                     placeholder="Lugar de Llegada"
-                    style="border: 0; background: #f1f1f1"
+                    style="border: 0; background: #f1f1f1; width: 100%"
+                    ref="destination"
                   />
                 </div>
-                <div class="form-group text-left">
-                  <input
-                    class="form-control"
-                    type="time"
-                    placeholder="Hora de Salida"
-                    style="border: 0; background: #f1f1f1"
-                  />
-                </div>
-                <div class="row" style="margin: 0 0 8% 0">
-                  <div class="col">
+                <form>
+                  <div class="form-group text-left">
                     <input
-                      type="text"
                       class="form-control"
+                      type="date"
+                      placeholder="Hora de Salida"
                       style="border: 0; background: #f1f1f1"
-                      placeholder="Valor"
                     />
                   </div>
-                  <div class="col">
-                    <select
-                      id="inputState"
+                  <div class="form-group text-left">
+                    <input
                       class="form-control"
+                      type="time"
+                      placeholder="Hora de Salida"
                       style="border: 0; background: #f1f1f1"
-                    >
-                      <option selected>4</option>
-                      <option>3</option>
-                      <option>2</option>
-                      <option>1</option>
-                      <option>0</option>
-                    </select>
+                    />
                   </div>
-                </div>
-                <button @click="goTo" class="btn btn-primary">
-                  Crear Servicio
-                </button>
-                <div style="margin: 2% 0 0 0">
-                  <button @click="goTo" class="btn btn-primary">
-                    Escoger Pasajeros
+                  <div class="row" style="margin: 0 0 8% 0">
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 0; background: #f1f1f1"
+                        placeholder="Valor"
+                      />
+                    </div>
+                    <div class="col">
+                      <select
+                        id="inputState"
+                        class="form-control"
+                        style="border: 0; background: #f1f1f1"
+                      >
+                        <option selected>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                        <option>0</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-primary button"
+                    @click="calculateButtonPressed"
+                  >
+                    Crear Servicio
                   </button>
-                </div>
-              </form>
+                  <div style="margin: 2% 0 0 0">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      data-display="static"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Escoger Pasajeros
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+            <OriginDestination />
           </div>
-        </div>
-        <div class="col1 col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 mt-8">
-          <TravelMap class="travel-map" />
-
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-8">
+            <DirectionsMapView />
+          </div>
         </div>
       </div>
     </div>
+    <footerwith-background></footerwith-background>
   </div>
-
-  <footerwith-background></footerwith-background>
 </template>
 
 <script>
-import Header from "../components/Header";
+import OriginDestination from "../components/OriginDestinationForm";
+import RouteList from "../components/RouteList.vue";
+import DirectionsMapView from "../components/DirectionsMapView.vue";
+import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import TravelMap from "../components/TravelMap";
+import { EventBus } from "@/EventBus.js";
+import axios from "axios";
+import firebase from "firebase";
 
 export default {
   name: "CreateService",
+  data() {
+    return {
+      route: {
+        origin: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+        origin2: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+        origin3: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+        destination: {
+          address: "",
+          lat: 0,
+          lng: 0,
+        },
+        distance: {},
+        duration: {},
+        userid: "",
+      },
+
+      error: "",
+    };
+  },
   components: {
+    OriginDestination,
+    RouteList,
+    DirectionsMapView,
     Header,
     FooterwithBackground,
-    TravelMap,
+  },
+  mounted() {
+    EventBus.$emit("routesPassenger-data", this.routes);
+
+    for (let ref in this.$refs) {
+      // console.log(this.$refs[ref]);
+      const autocomplete = new google.maps.places.Autocomplete(
+        this.$refs[ref],
+        {
+          bounds: new google.maps.LatLngBounds(
+            new google.maps.LatLng(45.4215296, -75.6971931)
+          ),
+        }
+      );
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        this.route[ref].address = `${place.name}, ${place.vicinity}`;
+        this.route[ref].lat = place.geometry.location.lat();
+        this.route[ref].lng = place.geometry.location.lng();
+      });
+    }
+    this.map = new google.maps.Map(this.$refs["map"], {
+      center: new google.maps.LatLng(45.4215296, -75.6971931),
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    });
+  },
+  methods: {
+    listpassengers() {},
+    showAllRoutesButtonPressed() {
+      EventBus.$emit("routes-data", this.routes);
+    },
+    calculateButtonPressed() {
+      this.createRoute(
+        this.route.origin,
+        this.route.origin2,
+        this.route.origin3,
+        this.route.destination
+      );
+    },
+    saveRoute() {
+      const db = firebase.firestore();
+      db.collection("routes").doc().set(this.route);
+    },
+    getRandomColor() {
+      let characters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += characters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    },
+    createRoute(ori, ori2, ori3, dest) {
+      const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?origin=${ori.lat},${ori.lng}&destination=${dest.lat},${dest.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
+      const URL2 = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=${ori.lat},${ori.lng}&destinations=${dest.lat},${dest.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
+      const URL3 = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${ori.lat},${ori.lng}%7C${ori2.lat},${ori2.lng}%7C${ori3.lat},${ori3.lng}&destinations=${dest.lat},${dest.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
+      console.log(URL);
+      console.log(URL2);
+      console.log(URL3);
+      axios
+        .get(URL2)
+        .then((response) => {
+          if (response.data.error_message) {
+            this.error = response.data.error_message;
+          } else {
+            const elements = response.data.rows[0].elements;
+
+            if (elements[0].status === "ZERO_RESULTS") {
+              this.error = "No Results Found.";
+            } else {
+              this.route.distance = elements[0].distance;
+              this.route.duration = elements[0].duration;
+              this.route.color = this.getRandomColor();
+              this.route.userid = "ojtinjacar@unal.edu.co";
+
+              this.saveRoute();
+            }
+            this.spinner = false;
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+          this.error = error.message;
+          this.spinner = false;
+        });
+    },
   },
 };
 </script>
@@ -99,10 +277,11 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-  margin: 20% 0 20% 0;
+  margin: 10% 0 20% 0;
 }
-.travel-map {
-  margin: 10% 0 5% 0;
-  height: 400px;
+.mapg {
+  opacity: 100%;
+  border-radius: 2%;
+  margin: 5% 0 0% 0;
 }
 </style>

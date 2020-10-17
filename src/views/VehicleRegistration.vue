@@ -273,7 +273,6 @@
                   Eliminar Vehículo
                 </a>
               </div>
-
               <a
                 @click="guardarVehiculo"
                 type="button"

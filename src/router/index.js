@@ -5,6 +5,7 @@ import Signup from "./../views/Signup.vue";
 import Profile from "./../views/Profile.vue";
 import VehicleRegistration from "./../views/VehicleRegistration.vue";
 import Home from "./../views/Home.vue";
+import CreateService from "./../views/CreateService.vue";
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,8 @@ const routes = [
     path: "/vehicle-registration",
     name: "vehicleRegistration",
     component: VehicleRegistration,
-  },{path: "/home", name: "home", component: Home}
+  }, { path: "/home", name: "home", component: Home },
+  { path: "/create-service", name: "createService", component: CreateService }
 ];
 
 

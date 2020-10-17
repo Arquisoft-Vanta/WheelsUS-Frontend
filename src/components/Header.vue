@@ -71,7 +71,7 @@
               Registrar vehiculo
             </button>
             <div class="header-button dropdown-divider"></div>
-            <button class="dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
+            <button class="header-button dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ export default {
     nombre: String,
   },
   data(){
-
+    return {}
   },
     methods: {
     goToHome() {
