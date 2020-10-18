@@ -1,17 +1,31 @@
 <template>
   <section class="route-list-view">
     <div class="route-list-view-header">
-      <select class="form-control" @change="sortRoute($event)">
-        <option selected disabled>Ordenar</option>
-        <optgroup label="Distancia">
-          <option value="distance-asc">Corta</option>
-          <option value="distance-desc">Larga</option>
-        </optgroup>
-        <optgroup label="Duracion">
-          <option value="duration-asc">Mayor</option>
-          <option value="duration-desc">Menor</option>
-        </optgroup>
-      </select>
+      <div class="row">
+        <div class="col">
+          <select class="form-control" @change="sortRoute($event)">
+            <option selected disabled>Ordenar</option>
+            <optgroup label="Distancia">
+              <option value="distance-asc">Corta</option>
+              <option value="distance-desc">Larga</option>
+            </optgroup>
+            <optgroup label="Duracion">
+              <option value="duration-asc">Mayor</option>
+              <option value="duration-desc">Menor</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="col">
+          <button
+            type="button"
+            class="btn btn-primary button"
+            style="margin: 0 5% 0 0"
+            @click="sendPassengerItemPressed()"
+          >
+            Confirmar Pasajeros
+          </button>
+        </div>
+      </div>
     </div>
     <div class="accordion" id="accordionExample">
       <div class="card" v-for="route in routes" :key="route.id">
@@ -21,9 +35,9 @@
               class="btn btn-link btn-block text-left"
               type="button"
               data-toggle="collapse"
-              :data-target="`#${route.id}`"
+              :data-target="`#data${route.id}`"
               aria-expanded="true"
-              :aria-controls="route.id"
+              :aria-controls="`data${route.id}`"
               style="color: #06416d"
             >
               Destino: {{ route.destination.address }}
@@ -31,36 +45,48 @@
           </h2>
         </div>
         <div
-          :id="route.id"
+          :id="`data${route.id}`"
           class="collapse"
           aria-labelledby="headingOne"
           data-parent="#accordionExample"
         >
           <div class="card-body">
-            <div>
-              Usuario: {{route.userid}}
-            </div>
-            <div>
-              Salida: {{ route.origin.address }}
-            </div>
+            <div>Usuario: {{ route.userid }}</div>
+            <div>Salida: {{ route.origin.address }}</div>
             <div>Distancia: {{ route.distance.text }}</div>
             <div>Tiempo aproximado: {{ route.duration.text }}</div>
-            <div>
-              <button
-                type="button"
-                class="btn btn-primary button"
-                style="margin: 0 5% 0 0"
-                @click="routePassengerItemPressed(route)"
-              >
-                Ver Ruta
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary button"
-                style="margin: 0 0 0 5%"
-              >
-                Seleccionar Pasajero
-              </button>
+            <div class="row">
+              <div class="col">
+                <button
+                  type="button"
+                  class="btn btn-primary button"
+                  @click="choosePassengerItemPressed(route)"
+                  style="margin: 5% 0 5% 0"
+                >
+                  Seleccionar Pasajero
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  type="button"
+                  class="btn btn-primary button"
+                  @click="cancelPassengerItemPressed(route)"
+                  style="margin: 5% 0 5% 0"
+                disabled>
+                  Cancelar Pasajero
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  type="button"
+                  class="btn btn-primary button"
+                  style="margin: 5% 0 5% 0"
+                  @click="routePassengerItemPressed(route)"
+                >
+                  Ver Ruta Pasajero
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
@@ -77,6 +103,7 @@ export default {
   data() {
     return {
       routes: [],
+      routesSelected: [],
     };
   },
   created() {
@@ -119,6 +146,15 @@ export default {
     },
     routePassengerItemPressed(route) {
       EventBus.$emit("passengerRoutes-data", [route]);
+    },
+    sendPassengerItemPressed() {
+      EventBus.$emit("choosePassengerRoutes-data", this.routesSelected);
+    },
+    choosePassengerItemPressed(route) {
+      this.routesSelected.push(route);
+    },
+    cancelPassengerItemPressed(route) {
+      this.routesSelected.pop(route);
     },
   },
 };

@@ -133,11 +133,11 @@
 
 <script>
 //import OriginDestination from "../components/OriginDestinationForm";
+import { EventBus } from "@/EventBus.js";
 import RouteList from "../components/RouteList.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import { EventBus } from "@/EventBus.js";
 import axios from "axios";
 import firebase from "firebase";
 
@@ -146,29 +146,69 @@ export default {
   data() {
     return {
       route: {
-        origin: {
+        originDriver: {
           address: "",
           lat: 0,
           lng: 0,
         },
-        origin2: {
+        originPassengers: {
+          A: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+          B: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+          C: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+          D: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+        },
+        destinationPassengers: {
+          A: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+          B: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+          C: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+          D: {
+            address: "",
+            lat: 0,
+            lng: 0,
+          },
+        },
+        destinationDriver: {
           address: "",
           lat: 0,
           lng: 0,
         },
-        origin3: {
-          address: "",
-          lat: 0,
-          lng: 0,
-        },
-        destination: {
-          address: "",
-          lat: 0,
-          lng: 0,
-        },
-        distance: {},
-        duration: {},
+        distance: Number,
+        duration: Number,
         userid: "",
+        passengers: {
+          A: "",
+          B: "",
+          C: "",
+          D: "",
+        },
       },
 
       error: "",
@@ -182,6 +222,24 @@ export default {
     FooterwithBackground,
   },
   mounted() {
+    EventBus.$on("choosePassengerRoutes-data", (routes) => {
+      console.log(routes);
+      let sumatoryDistance = 0;
+      let sumatoryTime = 0;
+      let letterchar = 65;
+      routes.forEach(({ origin, destination, distance, duration, userid }) => {
+        (this.route.originPassengers[String.fromCharCode(letterchar)] = origin),
+          (this.route.destinationPassengers[
+            String.fromCharCode(letterchar)
+          ] = destination),
+          (sumatoryDistance = sumatoryDistance + distance.value),
+          (sumatoryTime = sumatoryTime + duration.value);
+        letterchar = letterchar + 1;
+      });
+      (this.route.distance = sumatoryDistance / 1000),
+        (this.route.duration = sumatoryTime / 60);
+      console.log(this.route);
+    });
     EventBus.$emit("passengerRoutes-data", this.routes);
 
     for (let ref in this.$refs) {
@@ -191,6 +249,7 @@ export default {
           bounds: new google.maps.LatLngBounds(
             new google.maps.LatLng(45.4215296, -75.6971931)
           ),
+          componentRestrictions: { country: "co" },
         }
       );
 
@@ -208,7 +267,6 @@ export default {
     });
   },
   methods: {
-    listpassengers() {},
     showAllRoutesButtonPressed() {
       EventBus.$emit("routes-data", this.routes);
     },
@@ -223,14 +281,6 @@ export default {
     saveRoute() {
       const db = firebase.firestore();
       db.collection("routes").doc().set(this.route);
-    },
-    getRandomColor() {
-      let characters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += characters[Math.floor(Math.random() * 16)];
-      }
-      return color;
     },
     createRoute(ori, ori2, ori3, dest) {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?origin=${ori.lat},${ori.lng}&destination=${dest.lat},${dest.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;

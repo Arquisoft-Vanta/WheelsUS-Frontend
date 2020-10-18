@@ -3,7 +3,6 @@
 </template>
 <script>
 import { EventBus } from "@/EventBus";
-import axios from "axios";
 export default {
   data() {
     return {
@@ -27,7 +26,7 @@ export default {
           },
           (response, status) => {
             if (status === "OK") {
-              const directionsRenderer = new google.maps.DirectionsRenderer({
+              new google.maps.DirectionsRenderer({
                 suppressMarkers: true,
                 directions: response,
                 map: this.map,
@@ -44,7 +43,7 @@ export default {
               const middleLoc = overviewPath[middleIndex];
 
               const distanceDurationLabel = new google.maps.InfoWindow({
-                content: `<div style="background-color:#06416d;padding:5px; color:white;"><i class="icon car"></i> ${distance.text} - ${duration.text}</div>`,
+                content: `<div style="background-color:#06416d;padding:5px; color:white;">${distance.text} - ${duration.text}</div>`,
                 position: new google.maps.LatLng(
                   middleLoc.lat(),
                   middleLoc.lng()

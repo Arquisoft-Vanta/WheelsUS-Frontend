@@ -77,5 +77,11 @@ body {
   color: #043a63!important;
   border-color: #043a63;
 }
+.btn-primary:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 
 </style>
