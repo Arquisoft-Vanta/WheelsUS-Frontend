@@ -117,9 +117,9 @@
                     </button>
                   </div>
                 </form>
+                <!--<OriginDestination />-->
               </div>
             </div>
-            <OriginDestination />
           </div>
           <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-8">
             <DirectionsMapView />
@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import OriginDestination from "../components/OriginDestinationForm";
+//import OriginDestination from "../components/OriginDestinationForm";
 import RouteList from "../components/RouteList.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
@@ -175,17 +175,16 @@ export default {
     };
   },
   components: {
-    OriginDestination,
+    //OriginDestination,
     RouteList,
     DirectionsMapView,
     Header,
     FooterwithBackground,
   },
   mounted() {
-    EventBus.$emit("routesPassenger-data", this.routes);
+    EventBus.$emit("passengerRoutes-data", this.routes);
 
     for (let ref in this.$refs) {
-      // console.log(this.$refs[ref]);
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
         {
@@ -203,7 +202,7 @@ export default {
       });
     }
     this.map = new google.maps.Map(this.$refs["map"], {
-      center: new google.maps.LatLng(45.4215296, -75.6971931),
+      center: new google.maps.LatLng(4.636973, -74.079335),
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     });

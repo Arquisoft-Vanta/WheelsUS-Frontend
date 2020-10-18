@@ -59,16 +59,16 @@ export default {
 
   mounted() {
     for (let ref in this.$refs) {
-      // console.log(this.$refs[ref]);
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
         {
           bounds: new google.maps.LatLngBounds(
             new google.maps.LatLng(45.4215296, -75.6971931)
           ),
+          componentRestrictions: { country: "co" },
+          //types: ["address"],
         }
       );
-
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         this.route[ref].address = `${place.name}, ${place.vicinity}`;
@@ -79,9 +79,9 @@ export default {
   },
   methods: {
     calculateButtonPressed() {
-      const URL2 = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=${this.route.origin.lat},${this.route.origin.lng}&destinations=${this.route.destination.lat},${this.route.destination.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
+      const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=${this.route.origin.lat},${this.route.origin.lng}&destinations=${this.route.destination.lat},${this.route.destination.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
       axios
-        .get(URL2)
+        .get(URL)
         .then((response) => {
           if (response.data.error_message) {
             this.error = response.data.error_message;
@@ -93,7 +93,6 @@ export default {
             } else {
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
-              this.route.color = "#06416d";
               this.route.userid = "fsduenasc@unal.edu.co";
 
               this.saveRoute();
@@ -107,7 +106,7 @@ export default {
     },
     saveRoute() {
       const db = firebase.firestore();
-      db.collection("routesPassenger").doc().set(this.route);
+      db.collection("passengerRoutes").doc().set(this.route);
     },
   },
 };

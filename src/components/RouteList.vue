@@ -1,23 +1,17 @@
 <template>
   <section class="route-list-view">
     <div class="route-list-view-header">
-      <select @change="sortRoute($event)">
-        <option selected disabled>Sort</option>
-        <optgroup label="Distance">
-          <option value="distance-asc">short</option>
-          <option value="distance-desc">long</option>
+      <select class="form-control" @change="sortRoute($event)">
+        <option selected disabled>Ordenar</option>
+        <optgroup label="Distancia">
+          <option value="distance-asc">Corta</option>
+          <option value="distance-desc">Larga</option>
         </optgroup>
-        <optgroup label="Duration">
-          <option value="duration-asc">fast</option>
-          <option value="duration-desc">slow</option>
+        <optgroup label="Duracion">
+          <option value="duration-asc">Mayor</option>
+          <option value="duration-desc">Menor</option>
         </optgroup>
       </select>
-      <button
-        class="ui button show-all"
-        @click="showAllRoutesPassengerButtonPressed"
-      >
-        show all
-      </button>
     </div>
     <div class="accordion" id="accordionExample">
       <div class="card" v-for="route in routes" :key="route.id">
@@ -30,29 +24,44 @@
               :data-target="`#${route.id}`"
               aria-expanded="true"
               :aria-controls="route.id"
+              style="color: #06416d"
             >
-              {{ route.userid }}
+              Destino: {{ route.destination.address }}
             </button>
           </h2>
         </div>
         <div
           :id="route.id"
-          class="collapse show"
+          class="collapse"
           aria-labelledby="headingOne"
           data-parent="#accordionExample"
         >
           <div class="card-body">
             <div>
-              <i class="marker alternate icon"></i>
-              {{ route.origin.address }}
+              Usuario: {{route.userid}}
             </div>
             <div>
-              <i class="flag checkered icon"></i>
-              {{ route.destination.address }}
+              Salida: {{ route.origin.address }}
             </div>
-            <div class="ui label small">{{ route.distance.text }}</div>
-            <div class="ui label small">{{ route.duration.text }}</div>
-            <button @click="routePassengerItemPressed(route)">Ver Ruta</button>
+            <div>Distancia: {{ route.distance.text }}</div>
+            <div>Tiempo aproximado: {{ route.duration.text }}</div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-primary button"
+                style="margin: 0 5% 0 0"
+                @click="routePassengerItemPressed(route)"
+              >
+                Ver Ruta
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary button"
+                style="margin: 0 0 0 5%"
+              >
+                Seleccionar Pasajero
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -64,8 +73,7 @@
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
 export default {
-  components:{
-  },
+  components: {},
   data() {
     return {
       routes: [],
@@ -73,7 +81,7 @@ export default {
   },
   created() {
     const db = firebase.firestore();
-    db.collection("routesPassenger").onSnapshot((snap) => {
+    db.collection("passengerRoutes").onSnapshot((snap) => {
       this.routes = [];
       snap.forEach((doc) => {
         let route = doc.data();
@@ -88,7 +96,7 @@ export default {
       const sortOrder = e.target.value.split("-")[1];
 
       const db = firebase.firestore();
-      db.collection("routesPassenger")
+      db.collection("passengerRoutes")
         .orderBy(sortName + ".value", sortOrder)
         .get()
         .then((snap) => {
@@ -107,10 +115,10 @@ export default {
       EventBus.$emit("routes-data", this.routes);
     },
     showAllRoutesPassengerButtonPressed() {
-      EventBus.$emit("routesPassenger-data", this.routes);
+      EventBus.$emit("passengerRoutes-data", this.routes);
     },
     routePassengerItemPressed(route) {
-      EventBus.$emit("routesPassenger-data", [route]);
+      EventBus.$emit("passengerRoutes-data", [route]);
     },
   },
 };

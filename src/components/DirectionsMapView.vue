@@ -12,14 +12,13 @@ export default {
   },
   mounted() {
     const directionsService = new google.maps.DirectionsService();
-    console.log(directionsService);
-    EventBus.$on("routesPassenger-data", (routes) => {
+    EventBus.$on("passengerRoutes-data", (routes) => {
       this.map = new google.maps.Map(this.$refs["map"], {
-        center: new google.maps.LatLng(45.4215296, -75.6971931),
-        zoom: 15,
+        center: new google.maps.LatLng(4.636973, -74.079335),
+        zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
-      routes.forEach(({ origin, destination, distance, duration, color }) => {
+      routes.forEach(({ origin, destination, distance, duration }) => {
         directionsService.route(
           {
             origin: origin.address,
@@ -41,7 +40,6 @@ export default {
               this.createInfoWindowWith("Partida", origin);
               this.createInfoWindowWith("Destino", destination);
               const overviewPath = response.routes[0].overview_path;
-              console.log(overviewPath);
               const middleIndex = parseInt(overviewPath.length / 2);
               const middleLoc = overviewPath[middleIndex];
 
@@ -176,10 +174,10 @@ export default {
     });*/
   },
   methods: {
-    createInfoWindowWith(message, location, icon) {
+    createInfoWindowWith(message, location) {
       const infoWindow = new google.maps.InfoWindow({
         content: `<div style="background-color:#06416d;padding:5px; color:white">${message} : ${location.address}</div>`,
-        position: new google.maps.LatLng(location.lat, location.lng),
+        position: { lat: location.lat, lng: location.lng },
       });
 
       infoWindow.open(this.map, null);
@@ -200,8 +198,8 @@ export default {
 .map {
   width: 100%;
   height: 450px !important;
-  margin: 5% 0 20% 0;
-  }
+  margin: 5% 0 15% 0;
+}
 
 .gm-style-iw button {
   display: none !important;
