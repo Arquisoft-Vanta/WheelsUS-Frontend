@@ -152,7 +152,7 @@ export default {
     },
     choosePassengerItemPressed(route) {
       this.routesSelected.push(route);
-    },
+},
     cancelPassengerItemPressed(route) {
       this.routesSelected.pop(route);
     },

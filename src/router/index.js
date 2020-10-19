@@ -18,7 +18,7 @@ const routes = [
     name: "vehicleRegistration",
     component: VehicleRegistration,
   }, { path: "/home", name: "home", component: Home },
-  { path: "/create-service", name: "createService", component: CreateService }
+  { path: "/create-service", name: "createService", component: CreateService },
 ];
 
 

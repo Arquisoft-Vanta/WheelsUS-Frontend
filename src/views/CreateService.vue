@@ -31,6 +31,65 @@
       </div>
     </div>
     <div>
+      <div
+        class="modal fade"
+        id="exampleModal2"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Ordena el recorrido de tu ruta
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <draggable v-model="orderedRoutes" ghost-class="ghost">
+                  <transition-group type="transition" name="flip-list">
+                    <div
+                      class="sortable"
+                      :id="`${element.type + element.id}`"
+                      v-for="element in orderedRoutes"
+                      :key="`${element.type + element.id}`"
+                    >
+                      <strong
+                        >{{ element.type }} pasajero {{ element.id }}:</strong
+                      >
+                      <strong>{{ element.address }}</strong>
+                    </div>
+                  </transition-group>
+                </draggable>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
       <div class="container">
         <div class="row justify-content-between">
           <div class="col2 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
@@ -116,6 +175,17 @@
                       Escoger Pasajeros
                     </button>
                   </div>
+                                    <div style="margin: 2% 0 0 0">
+
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#exampleModal2"
+                  >
+                    Ordenar Ruta
+                  </button>
+                                    </div>
                 </form>
                 <!--<OriginDestination />-->
               </div>
@@ -140,11 +210,13 @@ import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import axios from "axios";
 import firebase from "firebase";
+import Draggable from "vuedraggable";
 
 export default {
   name: "CreateService",
   data() {
     return {
+      orderedRoutes: [],
       route: {
         originDriver: {
           address: "",
@@ -156,21 +228,29 @@ export default {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Origen",
+            id: 1,
           },
           B: {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Origen",
+            id: 2,
           },
           C: {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Origen",
+            id: 3,
           },
           D: {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Origen",
+            id: 4,
           },
         },
         destinationPassengers: {
@@ -178,21 +258,29 @@ export default {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Destino",
+            id: 1,
           },
           B: {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Destino",
+            id: 2,
           },
           C: {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Destino",
+            id: 3,
           },
           D: {
             address: "",
             lat: 0,
             lng: 0,
+            type: "Destino",
+            id: 4,
           },
         },
         destinationDriver: {
@@ -220,26 +308,68 @@ export default {
     DirectionsMapView,
     Header,
     FooterwithBackground,
+    Draggable,
   },
   mounted() {
     EventBus.$on("choosePassengerRoutes-data", (routes) => {
-      console.log(routes);
       let sumatoryDistance = 0;
       let sumatoryTime = 0;
       let letterchar = 65;
-      routes.forEach(({ origin, destination, distance, duration, userid }) => {
-        (this.route.originPassengers[String.fromCharCode(letterchar)] = origin),
-          (this.route.destinationPassengers[
+      routes.forEach(
+        ({ origin, destination, distance, duration, userid, id }) => {
+          let repeatDirectionOrigin = 0;
+          let repeatDirectionDestination = 0;
+
+          this.route.originPassengers[String.fromCharCode(letterchar)].address =
+            origin.address;
+          this.route.originPassengers[String.fromCharCode(letterchar)].lat =
+            origin.lat;
+          this.route.originPassengers[String.fromCharCode(letterchar)].lng =
+            origin.lng;
+          this.route.destinationPassengers[
             String.fromCharCode(letterchar)
-          ] = destination),
-          (sumatoryDistance = sumatoryDistance + distance.value),
-          (sumatoryTime = sumatoryTime + duration.value);
-        letterchar = letterchar + 1;
-      });
-      (this.route.distance = sumatoryDistance / 1000),
-        (this.route.duration = sumatoryTime / 60);
-      console.log(this.route);
+          ].address = destination.address;
+          this.route.destinationPassengers[
+            String.fromCharCode(letterchar)
+          ].lat = destination.lat;
+          this.route.destinationPassengers[
+            String.fromCharCode(letterchar)
+          ].lng = destination.lng;
+          sumatoryDistance = sumatoryDistance + distance.value;
+          sumatoryTime = sumatoryTime + duration.value;
+          this.orderedRoutes.forEach(({ address }) => {
+            if (
+              address ==
+              this.route.originPassengers[String.fromCharCode(letterchar)]
+                .address
+            ) {
+              repeatDirectionOrigin = repeatDirectionOrigin + 1;
+            }
+            if (
+              address ==
+              this.route.destinationPassengers[String.fromCharCode(letterchar)]
+                .address
+            ) {
+              repeatDirectionDestination = repeatDirectionDestination + 1;
+            }
+          });
+          if (repeatDirectionOrigin == 0) {
+            this.orderedRoutes.push(
+              this.route.originPassengers[String.fromCharCode(letterchar)]
+            );
+          }
+          if (repeatDirectionDestination == 0) {
+            this.orderedRoutes.push(
+              this.route.destinationPassengers[String.fromCharCode(letterchar)]
+            );
+          }
+          letterchar = letterchar + 1;
+        }
+      );
+      this.route.distance = sumatoryDistance / 1000;
+      this.route.duration = sumatoryTime / 60;
     });
+
     EventBus.$emit("passengerRoutes-data", this.routes);
 
     for (let ref in this.$refs) {
@@ -326,11 +456,30 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-  margin: 10% 0 20% 0;
+  margin: 6% 0 20% 0;
 }
 .mapg {
   opacity: 100%;
   border-radius: 2%;
   margin: 5% 0 0% 0;
 }
+strong {
+  display: inline-block;
+}
+
+.sortable {
+  width: 100%;
+  background: white;
+  padding: 1em;
+  cursor: move;
+}
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.ghost {
+  border-left: 6px solid #06416d;
+  box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
+  opacity: 0.7;
+}
+
 </style>
