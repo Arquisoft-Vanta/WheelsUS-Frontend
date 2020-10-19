@@ -56,7 +56,11 @@
             </div>
             <div class="modal-body">
               <div>
-                <draggable v-model="orderedRoutes" ghost-class="ghost">
+                <draggable
+                  v-model="orderedRoutes"
+                  ghost-class="ghost"
+                  @end="updateItemOrder"
+                >
                   <transition-group type="transition" name="flip-list">
                     <div
                       class="sortable"
@@ -81,8 +85,9 @@
               >
                 Close
               </button>
+              <button type="button" class="btn btn-primary">Ver Ruta</button>
               <button type="button" class="btn btn-primary">
-                Save changes
+                Seleccionar Ruta
               </button>
             </div>
           </div>
@@ -175,17 +180,16 @@
                       Escoger Pasajeros
                     </button>
                   </div>
-                                    <div style="margin: 2% 0 0 0">
-
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#exampleModal2"
-                  >
-                    Ordenar Ruta
-                  </button>
-                                    </div>
+                  <div style="margin: 2% 0 0 0">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      data-target="#exampleModal2"
+                    >
+                      Ordenar Ruta
+                    </button>
+                  </div>
                 </form>
                 <!--<OriginDestination />-->
               </div>
@@ -446,6 +450,9 @@ export default {
           this.spinner = false;
         });
     },
+    updateItemOrder() {
+      console.log(this.orderedRoutes)
+    },
   },
 };
 </script>
@@ -481,5 +488,4 @@ strong {
   box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
   opacity: 0.7;
 }
-
 </style>
