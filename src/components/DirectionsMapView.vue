@@ -37,9 +37,9 @@ export default {
                 },
               });
 
-              this.createInfoWindowWith("Partida", origin);
-              this.createInfoWindowWith("Destino", destination);
-              /*const overviewPath = response.routes[0].overview_path;
+              this.createInfoWindowWith("Partida", origin.address,origin.lat,origin.lng);
+              this.createInfoWindowWith("Destino", destination.address,destination.lat,destination.lng);
+              const overviewPath = response.routes[0].overview_path;
               const middleIndex = parseInt(overviewPath.length / 2);
               const middleLoc = overviewPath[middleIndex];
 
@@ -80,7 +80,7 @@ export default {
                   strokeColor: "#06416d",
                   scale: 3,
                 },
-              });*/
+              });
             }
           }
         );
