@@ -3,6 +3,7 @@
     <div id="home"><Header></Header>
       <h1>Landing page WHEELS US</h1>
       <h2>Coming soon!</h2>
+      <button class="btn btn-primary button" type="button">BOTON</button>
     <FooterwithBackground></FooterwithBackground>
   </div></div>
 </template>
