@@ -59,41 +59,43 @@
             </div>
           </div>
         </div>
-        <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
-          <div class="Login card">
-            <div class="card-body">
-              <img class="logo" src="~@/assets/logo.png" />
-              <form>
-                <div class="form-group text-left">
-                  <label for="exampleInputEmail1">Correo Electrónico</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    :value="Correo_Electronico"
-                  />
-                </div>
-                <div class="form-group text-left">
-                  <label for="exampleInputPassword1">Contraseña</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                    :value="Contraseña"
-                  />
-                </div>
-                <button @click="goTo" class="btn btn-primary">Ingresar</button>
-                <div style="margin: 2% 0 0 0">
-                  <button @click="goTo" class="btn btn-primary">
-                    <img class="logo" src="~@/assets/google.png" width="30" />
-                    Ingresa con Google
-                  </button>
-                </div>
-              </form>
-            </div>
+      <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
+        <div class="Login card">
+          <div class="card-body">
+            <img class="logo" src="~@/assets/logo.png" />
+            <form>
+              <div class="form-group text-left">
+                <label for="exampleInputEmail1">Correo Electrónico</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  style="border: 0; background: #f1f1f1"
+                  aria-describedby="emailHelp"
+                  :value="Correo_Electronico"
+                />
+              </div>
+              <div class="form-group text-left">
+                <label for="exampleInputPassword1">Contraseña</label>
+                <input
+                  type="password"
+                  style="border: 0; background: #f1f1f1"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  :value="Contraseña"
+                />
+              </div>
+              <button @click="goTo" class="btn btn-primary">Ingresar</button>
+              <div style="margin: 2% 0 0 0">
+                <button @click="goTo" class="btn btn-primary">
+                  <img class="logo" src="~@/assets/google.png" width="30" />
+                  Ingresa con Google
+                </button>
+              </div>
+            </form>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -130,8 +132,8 @@ export default {
 .Login {
   color: black;
   background-color: white;
-  opacity: 80%;
-  border-radius: 10%;
+  opacity: 90%;
+  border-radius: 2%;
   margin: 0 0 20% 0;
 }
 h1 {
@@ -143,9 +145,7 @@ h2 {
 .text {
   margin: 15% 0 0 5%;
 }
-.btn-primary {
-  background-color: #06416d;
-}
+
 .logo {
   margin: 0 0 5% 0;
 }
