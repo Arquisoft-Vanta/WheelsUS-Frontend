@@ -31,9 +31,10 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav mr-right">
               <li class="nav-item active">
-                <a class="nav-link text-white" href="#"
+                <router-link to="about-us" class="nav-link text-white" href="#"
                   >Acerca de <span class="sr-only"></span
-                ></a>
+                ></router-link>
+                
               </li>
               <li class="nav-item">
                 <router-link to="/signup" class="nav-link text-white"

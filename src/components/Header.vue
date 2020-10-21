@@ -26,6 +26,11 @@
       </button>
       <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
+          <li class="nav-item active">
+            <router-link to="about-us" class="nav-link text-white" href="#"
+              >Acerca de <span class="sr-only"></span
+            ></router-link>
+          </li>
           <li class="nav-item">
             <a
               href="#"
@@ -103,11 +108,13 @@ export default {
     },
     goToProfile() {
       this.$router.push("profile");
-    },goToCreateService() {
+    },
+    goToCreateService() {
       this.$router.push("create-service");
-    },goToPostService() {
+    },
+    goToPostService() {
       this.$router.push("post-service");
-    }
+    },
   },
 };
 </script>
@@ -129,11 +136,11 @@ export default {
   height: 60px;
 }
 .header-button:focus {
-  background-color: white!important;
-  color: #043a63!important;
+  background-color: white !important;
+  color: #043a63 !important;
 }
 .header-button:active {
-  background-color: white!important;
-  color: #043a63!important;
+  background-color: white !important;
+  color: #043a63 !important;
 }
 </style>

@@ -25,7 +25,7 @@ const routes = [
     component: VehicleRegistration,
   },
   { path: "/home", name: "home", component: Home },
-  { path: "/aboutus", name: "aboutus", component: AboutUS },
+  { path: "/about-us", name: "aboutUs", component: AboutUS },
   { path: "/post-service", name: "postService", component: PostService },
   { path: "/create-service", name: "createService", component: CreateService },
   { path: "/passenger", name: "passenger", component: Passenger },
