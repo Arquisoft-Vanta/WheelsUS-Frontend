@@ -5,31 +5,37 @@
       <div class="two fields">
         <div class="field">
           <div>
-            <input type="text" placeholder="Origin" ref="origin" />
+            <input
+              v-model="origin"
+              type="text"
+              placeholder="Origen"
+              ref="origin"
+              style="width: 100%; margin: 5% 0% 5% 0%"
+              class="form-control"
+              required
+            />
           </div>
         </div>
         <div class="field">
           <div>
-            <input type="text" placeholder="Destination" ref="destination" />
+            <input
+              v-model="destination"
+              type="text"
+              placeholder="Destino"
+              ref="destination"
+              style="width: 100%; margin: 5% 0% 5% 0%"
+              class="form-control"
+              required
+            />
           </div>
         </div>
-        <button class="btn btn-primary button" @click="calculateButtonPressed">
-          Calculate
+        <button class="btn btn-primary button" @click="calculateButtonPressed" style="margin: 10% 0% -2% 0%">
+          Calcular ruta
         </button>
-        
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.origin-destination-form {
-  position: relative;
-  z-index: 1;
-  max-width: 610px;
-  margin: 10px;
-}
-</style>
 
 <script>
 import axios from "axios";
@@ -103,7 +109,7 @@ export default {
           console.log(error.message);
           this.error = error.message;
         });
-        EventBus.$emit("passengerRoutes-data", [this.route]); 
+      EventBus.$emit("passengerRoutes-data", [this.route]);
     },
     saveRoute() {
       const db = firebase.firestore();
@@ -112,3 +118,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.origin-destination-form {
+  position: relative;
+  z-index: 1;
+  max-width: 610px;
+  margin: 10px;
+}
+</style>
