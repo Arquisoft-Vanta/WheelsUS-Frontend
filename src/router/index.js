@@ -5,6 +5,7 @@ import Signup from "./../views/Signup.vue";
 import Profile from "./../views/Profile.vue";
 import VehicleRegistration from "./../views/VehicleRegistration.vue";
 import Home from "./../views/Home.vue";
+import CreateService from "./../views/CreateService.vue";
 import Pasajero from "./../views/Passenger.vue";
 import Driver from "./../views/Driver.vue";
 import RideRegistration from "./../views/RideRegistration.vue";
@@ -22,6 +23,7 @@ const routes = [
     name: "vehicleRegistration",
     component: VehicleRegistration,
   }, { path: "/home", name: "home", component: Home },
+  { path: "/create-service", name: "createService", component: CreateService },
   { path: "/home/passenger", name: "passenger", component: Pasajero },
   { path: "/home/driver", name: "driver", component: Driver }
 ];

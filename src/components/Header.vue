@@ -37,7 +37,7 @@
             >
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link menu-item text-white"
+            <a href="#" @click="goToCreateService" class="nav-link menu-item text-white"
               >Crear Servicio</a
             >
           </li>
@@ -71,7 +71,7 @@
               Registrar vehiculo
             </button>
             <div class="header-button dropdown-divider"></div>
-            <button class="dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
+            <button class="header-button dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ export default {
     nombre: String,
   },
   data(){
-
+    return {}
   },
     methods: {
     goToHome() {
@@ -97,6 +97,8 @@ export default {
       this.$router.push("/");
     },goToProfile() {
       this.$router.push("profile");
+    },goToCreateService() {
+      this.$router.push("create-service");
     },
   },
 };

@@ -53,6 +53,7 @@
               <div class="col-auto">
                 <img
                   class="logo"
+                  alt="logo"
                   src="~@/assets/logo.png"
                   style="margin: 0 0 5% 0"
                 />

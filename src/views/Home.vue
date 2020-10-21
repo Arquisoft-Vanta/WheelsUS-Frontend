@@ -30,7 +30,6 @@
     <FooterwithBackground></FooterwithBackground>
   </div></div>
 </template>
-
 <script>
 import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";

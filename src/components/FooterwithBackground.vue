@@ -58,17 +58,30 @@ body {
 }
 .btn-primary {
   background-color: #06416d;
+    border-color: #043a63;
+
 }
 .btn-primary:hover {
   background-color: #043a63;
+    border-color: #043a63;
+
 }
 .btn-primary:focus {
   background-color: white!important;
   color: #043a63!important;
+  border-color: #043a63;
+
 }
 .btn-primary:active {
   background-color: white!important;
   color: #043a63!important;
-
+  border-color: #043a63;
 }
+.btn-primary:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
 </style>
