@@ -31,8 +31,6 @@
       </div>
     </div>
     <div>
-<<<<<<< HEAD
-=======
       <div
         class="modal fade"
         id="exampleModal2"
@@ -99,7 +97,6 @@
       </div>
     </div>
     <div>
->>>>>>> develop
       <div class="container">
         <div class="row justify-content-between">
           <div class="col2 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
@@ -112,11 +109,7 @@
                     type="text"
                     placeholder="Lugar de Salida"
                     style="border: 0; background: #f1f1f1; width: 100%"
-<<<<<<< HEAD
-                    ref="origin"
-=======
                     ref="originDriver"
->>>>>>> develop
                   />
                 </div>
                 <div class="form-inline" style="margin: 0 0 5% 0">
@@ -126,20 +119,13 @@
                     type="text"
                     placeholder="Lugar de Llegada"
                     style="border: 0; background: #f1f1f1; width: 100%"
-<<<<<<< HEAD
-                    ref="destination"
-=======
                     ref="destinationDriver"
->>>>>>> develop
                   />
                 </div>
                 <form>
                   <div class="form-group text-left">
                     <input
-<<<<<<< HEAD
-=======
                       v-model="route.date"
->>>>>>> develop
                       class="form-control"
                       type="date"
                       placeholder="Hora de Salida"
@@ -148,10 +134,7 @@
                   </div>
                   <div class="form-group text-left">
                     <input
-<<<<<<< HEAD
-=======
                       v-model="route.time"
->>>>>>> develop
                       class="form-control"
                       type="time"
                       placeholder="Hora de Salida"
@@ -161,10 +144,7 @@
                   <div class="row" style="margin: 0 0 8% 0">
                     <div class="col">
                       <input
-<<<<<<< HEAD
-=======
                         v-model="route.value"
->>>>>>> develop
                         type="text"
                         class="form-control"
                         style="border: 0; background: #f1f1f1"
@@ -188,11 +168,7 @@
                   <button
                     type="button"
                     class="btn btn-primary button"
-<<<<<<< HEAD
-                    @click="calculateButtonPressed"
-=======
                     @click="saveRoute"
->>>>>>> develop
                   >
                     Crear Servicio
                   </button>
@@ -209,8 +185,6 @@
                       Escoger Pasajeros
                     </button>
                   </div>
-<<<<<<< HEAD
-=======
                   <div style="margin: 2% 0 0 0">
                     <button
                       type="button"
@@ -221,7 +195,6 @@
                       Ordenar Ruta
                     </button>
                   </div>
->>>>>>> develop
                 </form>
                 <!--<OriginDestination />-->
               </div>
@@ -246,20 +219,14 @@ import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import axios from "axios";
 import firebase from "firebase";
-<<<<<<< HEAD
-=======
 import Draggable from "vuedraggable";
->>>>>>> develop
 
 export default {
   name: "CreateService",
   data() {
     return {
-<<<<<<< HEAD
-=======
       orderedRoutesOfPassengers: [],
       routeDefinitive: [],
->>>>>>> develop
       route: {
         originDriver: {
           address: "",
@@ -271,41 +238,29 @@ export default {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Origen",
             id: 1,
->>>>>>> develop
           },
           B: {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Origen",
             id: 2,
->>>>>>> develop
           },
           C: {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Origen",
             id: 3,
->>>>>>> develop
           },
           D: {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Origen",
             id: 4,
->>>>>>> develop
           },
         },
         destinationPassengers: {
@@ -313,41 +268,29 @@ export default {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Destino",
             id: 1,
->>>>>>> develop
           },
           B: {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Destino",
             id: 2,
->>>>>>> develop
           },
           C: {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Destino",
             id: 3,
->>>>>>> develop
           },
           D: {
             address: "",
             lat: 0,
             lng: 0,
-<<<<<<< HEAD
-=======
             type: "Destino",
             id: 4,
->>>>>>> develop
           },
         },
         destinationDriver: {
@@ -355,13 +298,8 @@ export default {
           lat: 0,
           lng: 0,
         },
-<<<<<<< HEAD
-        distance: Number,
-        duration: Number,
-=======
         distance: 0,
         duration: 0,
->>>>>>> develop
         userid: "",
         passengers: {
           A: "",
@@ -369,50 +307,19 @@ export default {
           C: "",
           D: "",
         },
-<<<<<<< HEAD
-=======
         value: '',
         date: Date,
         time: '',
->>>>>>> develop
       },
 
       error: "",
     };
   },
   components: {
-<<<<<<< HEAD
-    //OriginDestination,
-=======
->>>>>>> develop
     RouteList,
     DirectionsMapView,
     Header,
     FooterwithBackground,
-<<<<<<< HEAD
-  },
-  mounted() {
-    EventBus.$on("choosePassengerRoutes-data", (routes) => {
-      console.log(routes);
-      let sumatoryDistance = 0;
-      let sumatoryTime = 0;
-      let letterchar = 65;
-      routes.forEach(({ origin, destination, distance, duration, userid }) => {
-        (this.route.originPassengers[String.fromCharCode(letterchar)] = origin),
-          (this.route.destinationPassengers[
-            String.fromCharCode(letterchar)
-          ] = destination),
-          (sumatoryDistance = sumatoryDistance + distance.value),
-          (sumatoryTime = sumatoryTime + duration.value);
-        letterchar = letterchar + 1;
-      });
-      (this.route.distance = sumatoryDistance / 1000),
-        (this.route.duration = sumatoryTime / 60);
-      console.log(this.route);
-    });
-    EventBus.$emit("passengerRoutes-data", this.routes);
-
-=======
     Draggable,
   },
   mounted() {
@@ -495,7 +402,6 @@ export default {
      *buscar su origen y destino.
      *Se limita la restricción para que solo salgan ubicaciones de Colombia.
      */
->>>>>>> develop
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
@@ -514,12 +420,9 @@ export default {
         this.route[ref].lng = place.geometry.location.lng();
       });
     }
-<<<<<<< HEAD
-=======
     /**
      *Esta función pinta el mapa de Google Maps
      */
->>>>>>> develop
     this.map = new google.maps.Map(this.$refs["map"], {
       center: new google.maps.LatLng(4.636973, -74.079335),
       zoom: 15,
@@ -527,56 +430,6 @@ export default {
     });
   },
   methods: {
-<<<<<<< HEAD
-    showAllRoutesButtonPressed() {
-      EventBus.$emit("routes-data", this.routes);
-    },
-    calculateButtonPressed() {
-      this.createRoute(
-        this.route.origin,
-        this.route.origin2,
-        this.route.origin3,
-        this.route.destination
-      );
-    },
-    saveRoute() {
-      const db = firebase.firestore();
-      db.collection("routes").doc().set(this.route);
-    },
-    createRoute(ori, ori2, ori3, dest) {
-      const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?origin=${ori.lat},${ori.lng}&destination=${dest.lat},${dest.lng}&key=AIzaSyA30Ngl0Ju8w5VkuHoTbqMFo3kCyPw3f8s`;
-      const URL2 = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=${ori.lat},${ori.lng}&destinations=${dest.lat},${dest.lng}&key=AIzaSyA30Ngl0Ju8w5VkuHoTbqMFo3kCyPw3f8s`;
-      const URL3 = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${ori.lat},${ori.lng}%7C${ori2.lat},${ori2.lng}%7C${ori3.lat},${ori3.lng}&destinations=${dest.lat},${dest.lng}&key=AIzaSyA30Ngl0Ju8w5VkuHoTbqMFo3kCyPw3f8s`;
-      console.log(URL);
-      console.log(URL2);
-      console.log(URL3);
-      axios
-        .get(URL2)
-        .then((response) => {
-          if (response.data.error_message) {
-            this.error = response.data.error_message;
-          } else {
-            const elements = response.data.rows[0].elements;
-
-            if (elements[0].status === "ZERO_RESULTS") {
-              this.error = "No Results Found.";
-            } else {
-              this.route.distance = elements[0].distance;
-              this.route.duration = elements[0].duration;
-              this.route.color = this.getRandomColor();
-              this.route.userid = "ojtinjacar@unal.edu.co";
-
-              this.saveRoute();
-            }
-            this.spinner = false;
-          }
-        })
-        .catch((error) => {
-          console.log(error.message);
-          this.error = error.message;
-          this.spinner = false;
-        });
-=======
     /**
      * Esta función guarda el objeto "route" con todas las paradas y datos
      *  en la colección "driverRoute", de firebase.
@@ -598,7 +451,6 @@ export default {
       this.routeDefinitive.push(this.route.destinationDriver);
       this.routeDefinitive.push(this.orderedRoutesOfPassengers);
       EventBus.$emit("possibleRoute-data", this.routeDefinitive);
->>>>>>> develop
     },
   },
 };
@@ -610,19 +462,13 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-<<<<<<< HEAD
-  margin: 10% 0 20% 0;
-=======
   margin: 6% 0 20% 0;
->>>>>>> develop
 }
 .mapg {
   opacity: 100%;
   border-radius: 2%;
   margin: 5% 0 0% 0;
 }
-<<<<<<< HEAD
-=======
 strong {
   display: inline-block;
 }
@@ -646,5 +492,4 @@ strong {
   box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
   opacity: 0.7;
 }
->>>>>>> develop
 </style>
