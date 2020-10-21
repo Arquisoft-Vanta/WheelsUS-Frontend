@@ -125,6 +125,7 @@
                 <form>
                   <div class="form-group text-left">
                     <input
+                      v-model="route.date"
                       class="form-control"
                       type="date"
                       placeholder="Hora de Salida"
@@ -133,6 +134,7 @@
                   </div>
                   <div class="form-group text-left">
                     <input
+                      v-model="route.time"
                       class="form-control"
                       type="time"
                       placeholder="Hora de Salida"
@@ -142,7 +144,7 @@
                   <div class="row" style="margin: 0 0 8% 0">
                     <div class="col">
                       <input
-                        v-model="value"
+                        v-model="route.value"
                         type="text"
                         class="form-control"
                         style="border: 0; background: #f1f1f1"
@@ -225,7 +227,6 @@ export default {
     return {
       orderedRoutesOfPassengers: [],
       routeDefinitive: [],
-      value: "",
       route: {
         originDriver: {
           address: "",
@@ -306,16 +307,15 @@ export default {
           C: "",
           D: "",
         },
-        value: "",
-        date: "",
-        time: "",
+        value: '',
+        date: Date,
+        time: '',
       },
 
       error: "",
     };
   },
   components: {
-    //OriginDestination,
     RouteList,
     DirectionsMapView,
     Header,
@@ -324,9 +324,13 @@ export default {
   },
   mounted() {
     EventBus.$on("choosePassengerRoutes-data", (routes) => {
+      /**
+       *En esta función se traen los datos de los pasajeros seleccionados  
+       *por parte del conductor en el componente "Route List" y se guardan
+       *en el objeto "route" para posteriormente enviar a Firebase
+       */
       let sumatoryDistance = 0;
       let sumatoryTime = 0;
-      let sumatoryValue = 0;
       let letterchar = 65;
       routes.forEach(
         ({ origin, destination, distance, duration, userid, id }) => {
@@ -350,7 +354,13 @@ export default {
           ].lng = destination.lng;
           sumatoryDistance = sumatoryDistance + distance.value;
           sumatoryTime = sumatoryTime + duration.value;
-          sumatoryValue = sumatoryValue + this.value;
+          /**
+           *Existen casos donde algunos pasajeros salen del mismo lugar.
+           *Entonces, para practicidad por parte del conductor, solo se
+           *guardan ubicaciones unicas en la variable "orderedRoutesOfPassengers"
+           *para que cuando el conductor pueda ordenar la ruta, no le aparezca
+           *una ubicacion dos veces repetidas.
+           */
           this.orderedRoutesOfPassengers.forEach(({ address }) => {
             if (
               address ==
@@ -386,7 +396,12 @@ export default {
     });
 
     EventBus.$emit("passengerRoutes-data", this.routes);
-
+    /**
+     *Esta parte del código, permite crear la opcion de Autocompletar
+     *de Google en los inputs, para facilidad del conductor a la hora de
+     *buscar su origen y destino.
+     *Se limita la restricción para que solo salgan ubicaciones de Colombia.
+     */
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
@@ -405,6 +420,9 @@ export default {
         this.route[ref].lng = place.geometry.location.lng();
       });
     }
+    /**
+     *Esta función pinta el mapa de Google Maps
+     */
     this.map = new google.maps.Map(this.$refs["map"], {
       center: new google.maps.LatLng(4.636973, -74.079335),
       zoom: 15,
@@ -412,8 +430,11 @@ export default {
     });
   },
   methods: {
+    /**
+     * Esta función guarda el objeto "route" con todas las paradas y datos
+     *  en la colección "driverRoute", de firebase.
+     */
     saveRoute() {
-      console.log(this.route);
       const db = firebase.firestore();
       db.collection("driverRoute").doc().set(this.route);
     },
@@ -452,7 +473,12 @@ strong {
   width: 100%;
   background: white;
   padding: 1em;
+  margin: 0 0 2% 0;
   cursor: move;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow: 10px 10px 5px -1px rgba(0, 0, 0, 0.14);
 }
 .flip-list-move {
   transition: transform 0.5s;
