@@ -1,30 +1,36 @@
 <template>
-  <div id="user">
-    <div id="passenger">
-      <Header></Header>
-      <div id="header">
-        <button class="botonreg1" type="button" @click="goToHome">
-          <img
-            src="~@/assets/return1.png"
-            width="50"
-            height="50"
-            alt=""
-            loading="lazy"
-          />
-        </button>
+  <div id="passenger">
+    <Header></Header>
 
-        <h1 role="">Historial de servicios</h1>
-        <h1 role="">Postularme a servicio</h1>
-        <div>
-          <button class="botondri" padding="100px" type="button">
+    <div class="container-fluid">
+      <div class="row">
+        <div id="back-button">
+          <button class="btn btn-primary" type="button" @click="goToHome">
             <img
-              src="~@/assets/listw.png"
-              width="200"
-              height="200"
+              src="~@/assets/return1.png"
+              width="50"
+              height="50"
               alt=""
               loading="lazy"
             />
           </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h2 role="">Historial de servicios</h2>
+          <button class="botondri" padding="100px" type="button">
+            <img
+              src="~@/assets/listw.png"
+              width="150"
+              height="150"
+              alt=""
+              loading="lazy"
+            />
+          </button>
+        </div>
+        <div class="col">
+          <h2 role="">Postularme a servicio</h2>
           <button class="botondri" type="button">
             <img
               src="~@/assets/pasajerow.png"
@@ -35,10 +41,9 @@
             />
           </button>
         </div>
-        
       </div>
-      <FooterwithBackground></FooterwithBackground>
     </div>
+    <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
 
@@ -61,9 +66,6 @@ export default {
     };
   },
   methods: {
-    goToPas() {
-      this.$router.push("passenger");
-    },
     goToHome() {
       this.$router.push("/home");
     },
@@ -73,13 +75,7 @@ export default {
 
 <style>
 #passenger {
-  padding-top: 50px;
-}
-#header h1 {
-  display: inline;
- 
-  margin-left: 200px;
-  margin-right: 100px;
+  padding-top: 0px;
 }
 
 .botondri {

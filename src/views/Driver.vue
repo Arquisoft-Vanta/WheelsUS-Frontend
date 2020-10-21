@@ -1,36 +1,36 @@
 <template>
-  <div id="user">
-    <div id="driver">
-      <Header></Header>
-
-      <div id="header">
-        <button class="botonreg1" type="button" @click="goToHome">
-          <img
-            src="~@/assets/return1.png"
-            width="50"
-            height="50"
-            alt=""
-            loading="lazy"
-          />
-        </button>
-        <h1 role="">Crear/Editar servicio</h1>
-        <h1 role="">Ver pasajeros en linea</h1>
-        <div>
-          <button
-            class="botondri"
-            padding="100px"
-            type="button"
-            @click="goToLogin"
-          >
+  <div id="driver">
+    <Header></Header>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="back-button">
+          <button class="btn btn-primary" type="button" @click="goToHome">
             <img
-              src="~@/assets/new.png"
-              width="200"
-              height="200"
+              src="~@/assets/return1.png"
+              width="50"
+              height="50"
               alt=""
               loading="lazy"
             />
           </button>
-          <button class="botondri" type="button" @click="goToLogin">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h2 role="">Crear servicio</h2>
+          <button class="botondri" padding="100px" type="button" @click="goToCreateService">
+            <img
+              src="~@/assets/new.png"
+              width="150"
+              height="150"
+              alt=""
+              loading="lazy"
+            />
+          </button>
+        </div>
+        <div class="col">
+          <h2 role="">Ver pasajeros en linea</h2>
+          <button class="botondri" type="button">
             <img
               src="~@/assets/online.png"
               width="150"
@@ -41,8 +41,8 @@
           </button>
         </div>
       </div>
-      <FooterwithBackground></FooterwithBackground>
     </div>
+    <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
 
@@ -65,25 +65,23 @@ export default {
     };
   },
   methods: {
-    goToPas() {
-      this.$router.push("passenger");
-    },
     goToHome() {
-      this.$router.push("../home");
+      this.$router.push("/home");
     },
+    goToCreateService(){
+      this.$router.push("/create-service")
+    }
   },
 };
 </script>
 
 <style>
 #driver {
-  padding-top: 50px;
+  padding-top: 0px;
 }
-#header h1 {
-  display: inline;
+#back-button {
+    margin: 16px 0 0 10px;
 
-  margin-left: 120px;
-  margin-right: 20px;
 }
 
 .botondri {
@@ -94,12 +92,5 @@ export default {
   margin-left: 100px;
   border-radius: 10px;
   border: beige 10px;
-}
-.botonreg1 {
-  background-color: #06416d;
-  color: white;
-  border: none;
-  margin-left: -100px;
-  border-radius: 100px;
 }
 </style>
