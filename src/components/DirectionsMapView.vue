@@ -59,17 +59,6 @@ export default {
                 ),
               });
               distanceDurationLabel.open(this.map, null);
-              /*this.createPolylineWith([
-                { lat: origin.lat, lng: origin.lng },
-                { lat: overviewPath[0].lat(), lng: overviewPath[0].lng() },
-              ]);
-              this.createPolylineWith([
-                { lat: destination.lat, lng: destination.lng },
-                {
-                  lat: overviewPath[overviewPath.length - 1].lat(),
-                  lng: overviewPath[overviewPath.length - 1].lng(),
-                },
-              ]);*/
               /**
                * Se llama a "google.maps.Marker" para brindar al conductor una mayor claridad en cuanto a la ubicacion
                * del pasajero tanto para su recogida como para su destino.
@@ -175,15 +164,6 @@ export default {
     /**
      * Esta función, permite pintar una línea desde la dirección la 
      */
-    /*createPolylineWith(path) {
-      new google.maps.Polyline({
-        path: path,
-        strokeColor: "#06416d",
-        strokeOpacity: 1,
-        strokeWeight: 2,
-        map: this.map,
-      });
-    },*/
   },
 };
 </script>  
