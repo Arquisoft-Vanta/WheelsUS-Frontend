@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed-top">
+  <div class="fixed-top header-pos">
     <nav id="Banner" class="navbar navbar-expand-lg">
       <div class="col-auto">
         <a id="Titulo" class="navbar-brand text-white" href="#">
@@ -27,18 +27,11 @@
       <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
           <li class="nav-item">
-            <a href="#" @click="goToHome" class="nav-link menu-item nav-active text-white"
+            <a
+              href="#"
+              @click="goToHome"
+              class="nav-link menu-item nav-active text-white"
               >Inicio</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="#" @click="goToPostService" class="nav-link menu-item text-white"
-              >Buscar Servicio</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="#" @click="goToCreateService" class="nav-link menu-item text-white"
-              >Crear Servicio</a
             >
           </li>
           <li class="nav-item">
@@ -64,14 +57,24 @@
             />
           </button>
           <div class="dropdown-menu dropdown-menu-lg-left">
-            <button class="header-button dropdown-item" @click="goToProfile" type="button">
+            <button
+              class="header-button dropdown-item"
+              @click="goToProfile"
+              type="button"
+            >
               Mi perfil
             </button>
-            <button class="header-button dropdown-item" @click="goToVehicleRegistration" type="button">
+            <button
+              class="header-button dropdown-item"
+              @click="goToVehicleRegistration"
+              type="button"
+            >
               Registrar vehiculo
             </button>
             <div class="header-button dropdown-divider"></div>
-            <button class="header-button dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
+            <button class="dropdown-item" @click="goToLogin" type="button">
+              Cerrar Sesión
+            </button>
           </div>
         </div>
       </div>
@@ -85,17 +88,20 @@ export default {
   props: {
     nombre: String,
   },
-  data(){
-    return {}
+  data() {
+    return {};
   },
-    methods: {
+  methods: {
     goToHome() {
       this.$router.push("home");
-    },goToVehicleRegistration() {
+    },
+    goToVehicleRegistration() {
       this.$router.push("vehicle-registration");
-    },goToLogin() {
+    },
+    goToLogin() {
       this.$router.push("/");
-    },goToProfile() {
+    },
+    goToProfile() {
       this.$router.push("profile");
     },goToCreateService() {
       this.$router.push("create-service");
@@ -109,7 +115,18 @@ export default {
 <style>
 #Banner {
   background-color: #06416d;
-  margin-bottom: 0%;
+  margin-bottom: 0% !important;
+}
+.header-button:focus {
+  background-color: white !important;
+  color: #043a63 !important;
+}
+.header-button:active {
+  background-color: white !important;
+  color: #043a63 !important;
+}
+.header-pos {
+  height: 60px;
 }
 .header-button:focus {
   background-color: white!important;

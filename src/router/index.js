@@ -7,6 +7,9 @@ import VehicleRegistration from "./../views/VehicleRegistration.vue";
 import Home from "./../views/Home.vue";
 import CreateService from "./../views/CreateService.vue";
 import PostService from "./../views/PostService.vue";
+import Passenger from "./../views/Passenger.vue";
+import Driver from "./../views/Driver.vue";
+import RideRegistration from "./../views/RideRegistration.vue";
 
 Vue.use(VueRouter)
 
@@ -14,14 +17,16 @@ const routes = [
   { path: "/", name: "login", component: Login },
   { path: "/signup", name: "signup", component: Signup },
   { path: "/profile", name: "profile", component: Profile },
+  { path: "/ride-registration", name: "rideRegistration", component: RideRegistration },
   {
     path: "/vehicle-registration",
     name: "vehicleRegistration",
     component: VehicleRegistration,
   }, { path: "/home", name: "home", component: Home },
   { path: "/post-service", name: "postService", component: PostService },
-  { path: "/create-service", name: "createService", component: CreateService }
-  
+  { path: "/create-service", name: "createService", component: CreateService },
+  { path: "/passenger", name: "passenger", component: Passenger },
+  { path: "/driver", name: "driver", component: Driver }
 ];
 
 
