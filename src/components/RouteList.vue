@@ -174,6 +174,11 @@ export default {
     });
   },
   methods: {
+    /**
+     * Esta función, ordena a los pasajeros por distancia de origen a destino
+     * o por tiempo de duracion en el servicio.
+     * Esta función se basó en el curso: https://www.udemy.com/course/vuejs-google-maps-api-for-beginners/
+     */
     sortRoute(e) {
       const sortName = e.target.value.split("-")[0];
       const sortOrder = e.target.value.split("-")[1];
@@ -191,21 +196,23 @@ export default {
           });
         });
     },
-    routeItemPressed(route) {
-      EventBus.$emit("routes-data", [route]);
-    },
-    showAllRoutesButtonPressed() {
-      EventBus.$emit("routes-data", this.routes);
-    },
-    showAllRoutesPassengerButtonPressed() {
-      EventBus.$emit("passengerRoutes-data", this.routes);
-    },
+    /**
+     * Esta función enviar la ruta del pasajero al componente
+     * "DirectionsMapView" para pintar la ruta del pasajero en el mapa.
+     */
     routePassengerItemPressed(route) {
       EventBus.$emit("passengerRoutes-data", [route]);
     },
+    /**
+     * Esta función, envia la lista de pasajeros a llevar al componente "Create Service"
+     */
     sendPassengerItemPressed() {
       EventBus.$emit("choosePassengerRoutes-data", this.routesSelected);
     },
+    /**
+     * Esta función, avisa al conductor cuando ha seleccionado a un pasajero
+     * Y actualiza el numero de pasajero para completar su servicio.
+     */
     choosePassengerItemPressed(route) {
       this.selected = this.selected - 1;
       if (this.selected == 0) {

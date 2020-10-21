@@ -438,6 +438,11 @@ export default {
       const db = firebase.firestore();
       db.collection("driverRoute").doc().set(this.route);
     },
+    /**
+     * Esta función, envia "routeDefinitive" al componente "DirectionsMapView",
+     * para que pueda mostrar dinamicamente en el mapa el posible orden de recogida
+     * y destino de cada pasajero.
+     */
     sendPossibleRouteToMap() {
       while (this.routeDefinitive != 0) {
         this.routeDefinitive.pop();
@@ -446,7 +451,6 @@ export default {
       this.routeDefinitive.push(this.route.destinationDriver);
       this.routeDefinitive.push(this.orderedRoutesOfPassengers);
       EventBus.$emit("possibleRoute-data", this.routeDefinitive);
-      console.log(this.routeDefinitive);
     },
   },
 };

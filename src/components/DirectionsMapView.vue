@@ -12,6 +12,11 @@ export default {
   },
   mounted() {
     const directionsService = new google.maps.DirectionsService();
+    /**
+     * Esta función, permita pintar en el mapa la información de la ruta 
+     * traida en la variable "routes" donde debería ser la ruta de un posible pasajero
+     * que el conductor quiera ver.
+     */
     EventBus.$on("passengerRoutes-data", (routes) => {
       this.map = new google.maps.Map(this.$refs["map"], {
         center: new google.maps.LatLng(4.636973, -74.079335),
@@ -36,7 +41,10 @@ export default {
                   strokeWeight: 2,
                 },
               });
-
+              /**
+               * Esta parte del código envia a la función "createInfoWindowWith" información para mostrar
+               * en el mapa.
+               */
               this.createInfoWindowWith("Partida", origin.address,origin.lat,origin.lng);
               this.createInfoWindowWith("Destino", destination.address,destination.lat,destination.lng);
               const overviewPath = response.routes[0].overview_path;
@@ -51,8 +59,7 @@ export default {
                 ),
               });
               distanceDurationLabel.open(this.map, null);
-
-              this.createPolylineWith([
+              /*this.createPolylineWith([
                 { lat: origin.lat, lng: origin.lng },
                 { lat: overviewPath[0].lat(), lng: overviewPath[0].lng() },
               ]);
@@ -62,7 +69,11 @@ export default {
                   lat: overviewPath[overviewPath.length - 1].lat(),
                   lng: overviewPath[overviewPath.length - 1].lng(),
                 },
-              ]);
+              ]);*/
+              /**
+               * Se llama a "google.maps.Marker" para brindar al conductor una mayor claridad en cuanto a la ubicacion
+               * del pasajero tanto para su recogida como para su destino.
+               */
               new google.maps.Marker({
                 position: { lat: origin.lat, lng: origin.lng },
                 map: this.map,
@@ -86,7 +97,10 @@ export default {
         );
       });
     });
-
+    /**
+     * Esta función recibe una posible ruta tentativa del conductor 
+     * con sus puntos de parada y la pinta en el mapa.
+     */
     EventBus.$on("possibleRoute-data", (routes) => {
       this.waypoints = [];
       this.map = new google.maps.Map(this.$refs["map"], {
@@ -94,14 +108,21 @@ export default {
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
-
+      /**
+       * Esta parte del código recibe los "paradas" que el conductor va a realizar
+       * y las guarda en la variable "waypoints", con el fin de pintarlas 
+       * en el mapa.
+       */
       routes[2].forEach(({ address, lat, lng }) => {
         let waypoint = { location: { lat: lat, lng: lng }, stopover: false };
         this.waypoints.push(waypoint);
         this.createInfoWindowWith("Parada", address, lat, lng);
       });
-      console.log(this.waypoints);
 
+      /**
+       * Se hace uso de "google.maps.DirectionsService", para pintar el mapa con el punto de salida,
+       * punto de llegada y paradas por parte del conductor.
+       */
       directionsService.route(
         {
           origin: { lat: routes[0].lat, lng: routes[0].lng },
@@ -139,6 +160,10 @@ export default {
     });
   },
   methods: {
+    /**
+     * Esta función, permite pintar en el mapa una ventana informativa
+     * con la información relacionada con el punto de parada.
+     */
     createInfoWindowWith(message, address, lat, lng) {
       const infoWindow = new google.maps.InfoWindow({
         content: `<div style="background-color:#06416d;padding:5px; color:white">${message} : ${address}</div>`,
@@ -147,7 +172,10 @@ export default {
 
       infoWindow.open(this.map, null);
     },
-    createPolylineWith(path) {
+    /**
+     * Esta función, permite pintar una línea desde la dirección la 
+     */
+    /*createPolylineWith(path) {
       new google.maps.Polyline({
         path: path,
         strokeColor: "#06416d",
@@ -155,7 +183,7 @@ export default {
         strokeWeight: 2,
         map: this.map,
       });
-    },
+    },*/
   },
 };
 </script>  
