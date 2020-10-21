@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed-top">
+  <div class="fixed-top header-pos">
     <nav id="Banner" class="navbar navbar-expand-lg">
       <div class="col-auto">
         <a id="Titulo" class="navbar-brand text-white" href="#">
@@ -37,7 +37,7 @@
             >
           </li>
           <li class="nav-item">
-            <a href="#" @click="goToCreateService" class="nav-link menu-item text-white"
+            <a href="#" class="nav-link menu-item text-white"
               >Crear Servicio</a
             >
           </li>
@@ -71,7 +71,7 @@
               Registrar vehiculo
             </button>
             <div class="header-button dropdown-divider"></div>
-            <button class="header-button dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
+            <button class="dropdown-item" @click="goToLogin" type="button">Cerrar Sesión</button>
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ export default {
     nombre: String,
   },
   data(){
-    return {}
+
   },
     methods: {
     goToHome() {
@@ -97,8 +97,6 @@ export default {
       this.$router.push("/");
     },goToProfile() {
       this.$router.push("profile");
-    },goToCreateService() {
-      this.$router.push("create-service");
     },
   },
 };
@@ -107,7 +105,7 @@ export default {
 <style>
 #Banner {
   background-color: #06416d;
-  margin-bottom: 0%;
+  margin-bottom: 0% !important;
 }
 .header-button:focus {
   background-color: white!important;
@@ -116,5 +114,8 @@ export default {
 .header-button:active {
   background-color: white!important;
   color: #043a63!important;
+}
+.header-pos{
+height: 60px;
 }
 </style>
