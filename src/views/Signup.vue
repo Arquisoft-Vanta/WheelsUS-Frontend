@@ -30,7 +30,7 @@
         <ul class="navbar-nav mr-right">
           <li class="nav-item active">
             <router-link to="about-us" class="nav-link text-white" href="#"
-                  >Acerca de <span class="sr-only"></span
+                  >Acerca de nosotros<span class="sr-only"></span
                 ></router-link>
           </li>
           <li class="nav-item">
