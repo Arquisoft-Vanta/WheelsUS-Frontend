@@ -31,16 +31,8 @@
               >Inicio</a
             >
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link m-2 menu-item text-white"
-              >Buscar Servicio</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link m-2 menu-item text-white"
-              >Crear Servicio</a
-            >
-          </li>
+          
+          
           <li class="nav-item">
             <a href="#" class="nav-link m-2 menu-item text-white"
               >Hola {{ nombre }}
