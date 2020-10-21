@@ -7,6 +7,7 @@ import VehicleRegistration from "./../views/VehicleRegistration.vue";
 import Home from "./../views/Home.vue";
 import Pasajero from "./../views/Passenger.vue";
 import Driver from "./../views/Driver.vue";
+import RideRegistration from "./../views/RideRegistration.vue";
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,7 @@ const routes = [
   { path: "/signup", name: "signup", component: Signup },
   { path: "/profile", name: "profile", component: Profile },
   { path: "/profile", name: "profile", component: Profile },
+  { path: "/ride-registration", name: "rideRegistration", component: RideRegistration },
   {
     path: "/vehicle-registration",
     name: "vehicleRegistration",
