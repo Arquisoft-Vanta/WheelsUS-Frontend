@@ -31,7 +31,7 @@
         </div>
         <div class="col">
           <h2 role="">Postularme a servicio</h2>
-          <button class="botondri" type="button">
+          <button class="botondri" type="button" @click="goToPostulation">
             <img
               src="~@/assets/pasajerow.png"
               width="150"
@@ -69,6 +69,9 @@ export default {
     goToHome() {
       this.$router.push("/home");
     },
+    goToPostulation(){
+      this.$router.push("/post-service")
+    }
   },
 };
 </script>
