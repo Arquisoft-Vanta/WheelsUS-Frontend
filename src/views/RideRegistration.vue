@@ -112,7 +112,7 @@
                   </a>
                   <button
                     type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-outline-dark btn-block"
                     name="submitBtn"
                     id="submitBtn"
                     style="margin: 2% 2% 2% 2%"
@@ -127,9 +127,10 @@
         </div>
         <div class="col">
           <h2></h2>
-          <label for="comentarios">Deje aquí sus comentarios para la postulacion</label>
+          <label for="comentarios"
+            >Deje aquí sus comentarios para la postulacion</label
+          >
           <textarea
-
             class="form-control"
             rows="5"
             id="comentarios"

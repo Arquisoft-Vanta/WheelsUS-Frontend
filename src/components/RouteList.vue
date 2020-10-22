@@ -40,7 +40,7 @@
           <div class="col">
             <button
               type="button"
-              class="btn btn-primary button"
+              class="btn btn-outline-dark btn-block button"
               style="margin: 5% 0 0 0"
               @click="sendPassengerItemPressed()"
             >
@@ -81,7 +81,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-primary button"
+                    class="btn btn-outline-dark btn-block button"
                     @click="choosePassengerItemPressed(route)"
                     style="margin: 5% 0 5% 0"
                     data-toggle="modal"
@@ -93,7 +93,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-primary button"
+                    class="btn btn-outline-dark btn-block button"
                     @click="cancelPassengerItemPressed(route)"
                     style="margin: 5% 0 5% 0"
                     disabled
@@ -104,7 +104,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-primary button"
+                    class="btn btn-outline-dark btn-block button"
                     style="margin: 5% 0 5% 0"
                     @click="routePassengerItemPressed(route)"
                   >
@@ -157,9 +157,9 @@ export default {
     return {
       routes: [],
       routesSelected: [],
-      selected: '',
-      quotaMessage: '',
-      confirmed: '',
+      selected: "",
+      quotaMessage: "",
+      confirmed: "",
     };
   },
   created() {
