@@ -3,8 +3,12 @@
     <Header></Header>
     <div class="container-fluid">
       <div class="row">
-        <div id="back-button">
-          <button class="btn btn-primary" type="button" @click="goToHome">
+        <div id="back-button" class="col-12">
+          <button
+            class="botonreg1 mt-md-4 mb-md-4"
+            type="button"
+            @click="goToHome"
+          >
             <img
               src="~@/assets/return1.png"
               width="50"
@@ -16,9 +20,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-12 col-md-6">
           <h2 role="">Crear servicio</h2>
-          <button class="botondri" padding="100px" type="button" @click="goToCreateService">
+          <button class="botondri" type="button" @click="goToCreateService">
             <img
               src="~@/assets/new.png"
               width="150"
@@ -28,7 +32,7 @@
             />
           </button>
         </div>
-        <div class="col">
+        <div class="col-12 col-md-6">
           <h2 role="">Ver pasajeros en linea</h2>
           <button class="botondri" type="button">
             <img
@@ -68,29 +72,29 @@ export default {
     goToHome() {
       this.$router.push("/home");
     },
-    goToCreateService(){
-      this.$router.push("/create-service")
-    }
+    goToCreateService() {
+      this.$router.push("/create-service");
+    },
   },
 };
 </script>
 
 <style>
 #driver {
-  padding-top: 0px;
-}
-#back-button {
-    margin: 16px 0 0 10px;
-
+  padding-top: 3%;
 }
 
 .botondri {
-  background-color: #06416d;
-  height: 200px;
-  width: 400px;
-
-  margin-left: 100px;
+  background-color: #1455d9;
+  height: 25vh;
+  width: 70%;
   border-radius: 10px;
   border: beige 10px;
+}
+.botonreg1 {
+  background-color: #1455d9;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 </style>
