@@ -86,7 +86,7 @@
               </button>
               <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-outline-dark btn-block"
                 @click="sendPossibleRouteToMap"
               >
                 Ver Ruta
@@ -98,8 +98,8 @@
     </div>
     <div>
       <div class="container">
-        <div class="row justify-content-between">
-          <div class="col2 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
+        <div class="row justify-content-between mb-5">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
             <div class="createservice card">
               <div class="card-body">
                 <div class="form-inline" style="margin: 0 0 5% 0">
@@ -167,7 +167,7 @@
                   </div>
                   <button
                     type="button"
-                    class="btn btn-primary button"
+                    class="btn btn-outline-dark btn-block"
                     @click="saveRoute"
                   >
                     Crear Servicio
@@ -175,7 +175,7 @@
                   <div style="margin: 2% 0 0 0">
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      class="btn btn-outline-dark btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal"
                       data-display="static"
@@ -188,7 +188,7 @@
                   <div style="margin: 2% 0 0 0">
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      class="btn btn-outline-dark btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal2"
                     >
@@ -200,7 +200,9 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-8">
+          <div
+            class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
+          >
             <DirectionsMapView />
           </div>
         </div>
@@ -307,9 +309,9 @@ export default {
           C: "",
           D: "",
         },
-        value: '',
+        value: "",
         date: Date,
-        time: '',
+        time: "",
       },
 
       error: "",
@@ -325,7 +327,7 @@ export default {
   mounted() {
     EventBus.$on("choosePassengerRoutes-data", (routes) => {
       /**
-       *En esta función se traen los datos de los pasajeros seleccionados  
+       *En esta función se traen los datos de los pasajeros seleccionados
        *por parte del conductor en el componente "Route List" y se guardan
        *en el objeto "route" para posteriormente enviar a Firebase
        */
@@ -436,7 +438,9 @@ export default {
      */
     saveRoute() {
       const db = firebase.firestore();
-      db.collection("driverRoute").doc().set(this.route);
+      db.collection("driverRoute")
+        .doc()
+        .set(this.route);
     },
     /**
      * Esta función, envia "routeDefinitive" al componente "DirectionsMapView",
@@ -462,12 +466,12 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-  margin: 6% 0 20% 0;
+  /* margin: 6% 0 20% 0; */
 }
 .mapg {
   opacity: 100%;
   border-radius: 2%;
-  margin: 5% 0 0% 0;
+  /* margin: 5% 0 0% 0; */
 }
 strong {
   display: inline-block;

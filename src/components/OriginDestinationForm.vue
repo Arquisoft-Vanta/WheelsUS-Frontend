@@ -29,7 +29,7 @@
             />
           </div>
         </div>
-        <button class="btn btn-primary button" @click="calculateButtonPressed" style="margin: 10% 0% -2% 0%">
+        <button class="btn btn-outline-dark btn-block button" @click="calculateButtonPressed" style="margin: 10% 0% -2% 0%">
           Calcular ruta
         </button>
       </div>

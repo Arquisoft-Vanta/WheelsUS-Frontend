@@ -1,33 +1,27 @@
 <template>
-    <div id="home">
-      <Header></Header>
-
-      <div class="container-fluid ">
+  <div id="home">
+    <Header></Header>
+    <div class="container-fluid">
       <div class="row home-margin">
-        <div class="col">
+        <div class="col-12 col-md-6">
           <h2 role="">Conductor</h2>
-          <button
-            class="botondri"
-            padding="100px"
-            type="button"
-            @click="goToDrive"
-          >
+          <button class="botondri ml-0" type="button" @click="goToDrive">
             <img
               src="~@/assets/coche1.png"
-              width="150"
-              height="150"
+              width="100"
+              height="100"
               alt=""
               loading="lazy"
             />
           </button>
         </div>
-        <div class="col">
+        <div class="col-12 col-md-6">
           <h2 role="">Pasajero</h2>
-          <button class="botondri" type="button" @click="goToPassenger">
+          <button class="botondri ml-0" type="button" @click="goToPassenger">
             <img
               src="~@/assets/persons.png"
-              width="150"
-              height="150"
+              width="100"
+              height="100"
               alt=""
               loading="lazy"
             />
@@ -35,8 +29,8 @@
         </div>
       </div>
     </div>
-      <FooterwithBackground></FooterwithBackground>
-    </div>
+    <FooterwithBackground></FooterwithBackground>
+  </div>
 </template>
 <script>
 import Header from "../components/Header";
@@ -69,25 +63,17 @@ export default {
 
 <style>
 #home {
-  padding-top: 0px;
-}
-#header1 h1 {
-  display: inline;
-  margin: 100px;
-  margin-left: 200px;
+  padding-top: 1%;
 }
 
 .botondri {
-  background-color: #06416d;
-  height: 200px;
-  width: 400px;
-  margin: 10px;
+  background-color: #1455d9;
+  height: 100%;
+  width: 90%;
   border-radius: 10px;
   border: beige 10px;
 }
-.home-margin{
-  margin-top: 140px;
+.home-margin {
+  margin-top: 10%;
 }
 </style>
-
-

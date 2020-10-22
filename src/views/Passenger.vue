@@ -4,8 +4,12 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div id="back-button">
-          <button class="btn btn-primary" type="button" @click="goToHome">
+        <div id="back-button" class="col-12">
+          <button
+            class="botonreg1 mt-md-4 mb-md-4"
+            type="button"
+            @click="goToHome"
+          >
             <img
               src="~@/assets/return1.png"
               width="50"
@@ -17,25 +21,25 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-12 col-md-6">
           <h2 role="">Historial de servicios</h2>
-          <button class="botondri" padding="100px" type="button">
+          <button class="botondri" type="button">
             <img
               src="~@/assets/listw.png"
-              width="150"
-              height="150"
+              width="100"
+              height="100"
               alt=""
               loading="lazy"
             />
           </button>
         </div>
-        <div class="col">
+        <div class="col-12 col-md-6">
           <h2 role="">Postularme a servicio</h2>
           <button class="botondri" type="button" @click="goToPostulation">
             <img
               src="~@/assets/pasajerow.png"
-              width="150"
-              height="150"
+              width="100"
+              height="100"
               alt=""
               loading="lazy"
             />
@@ -69,32 +73,29 @@ export default {
     goToHome() {
       this.$router.push("/home");
     },
-    goToPostulation(){
-      this.$router.push("/post-service")
-    }
+    goToPostulation() {
+      this.$router.push("/post-service");
+    },
   },
 };
 </script>
 
 <style>
 #passenger {
-  padding-top: 0px;
+  padding-top: 3%;
 }
 
 .botondri {
-  background-color: #06416d;
-  height: 200px;
-  width: 400px;
-
-  margin-left: 100px;
+  background-color: #1455d9;
+  height: 25vh;
+  width: 70%;
   border-radius: 10px;
   border: beige 10px;
 }
 .botonreg1 {
-  background-color: #06416d;
+  background-color: #1455d9;
   color: white;
   border: none;
-  margin-left: -100px;
-  border-radius: 100px;
+  border-radius: 5px;
 }
 </style>
