@@ -94,6 +94,7 @@
                     <img
                       class="logo mb-0 mr-2"
                       src="~@/assets/google.png"
+                      alt="logo"
                       width="20"
                     />
                     Ingresar con Google

@@ -165,6 +165,7 @@
                       <img
                         class="logo mr-2"
                         src="~@/assets/google.png"
+                        alt="logo"
                         width="20"
                       />
                       Regístrate con Google
