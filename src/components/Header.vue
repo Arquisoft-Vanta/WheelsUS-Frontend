@@ -4,7 +4,7 @@
       <div class="col-auto">
         <a id="Titulo" class="navbar-brand text-white" href="#">
           <img
-            src="~@/assets/carrito.png"
+            src="~@/assets/logo.png"
             width="40"
             height="40"
             alt=""
@@ -121,7 +121,7 @@ export default {
 
 <style>
 #Banner {
-  background-color: #06416d;
+  background-color: #1455d9;
   margin-bottom: 0% !important;
 }
 .header-button:focus {
@@ -142,5 +142,13 @@ export default {
 .header-button:active {
   background-color: white !important;
   color: #043a63 !important;
+}
+#Titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Titulo img {
+  margin-right: 5%;
 }
 </style>
