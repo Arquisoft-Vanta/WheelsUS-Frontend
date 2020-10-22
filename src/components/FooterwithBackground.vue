@@ -3,36 +3,51 @@
     <body></body>
     <div class="fixed-bottom">
       <div>
-        <nav id="FooterApp" class="navbar navbar-expand-sm">
-          <a id="MensajeBottom" class="derechos text-white" href="#">
-            Todos los derechos reservados 2020
-          </a>
-          <ul class="navbar-nav mr-auto"></ul>
-          <a href="#"
-            ><img
-              src="~@/assets/twitter.png"
-              width="30"
-              height="30"
-              alt=""
-              loading="lazy"
-          /></a>
-          <a href="#"
-            ><img
-              src="~@/assets/facebook.png"
-              width="60"
-              height="30"
-              alt=""
-              loading="lazy"
-          /></a>
-          <a href="#"
-            ><img
-              src="~@/assets/instagram.png"
-              width="30"
-              height="30"
-              alt=""
-              loading="lazy"
-          /></a>
-        </nav>
+        <div id="footer" class="container-fluid pt-3 pb-2">
+          <div id="bottom-footer" class="row text-center">
+            <div class="col-12 col-lg">
+              <p>
+                © 2020 - Todos los derechos reservados.
+              </p>
+            </div>
+            <div class="col-12 col-lg">
+              <p>
+                Diseño de sitio web
+                <a
+                  href="https://github.com/orgs/Ingesoft-II/dashboard"
+                  target="_blank"
+                  >Grupo 6</a
+                >
+              </p>
+            </div>
+            <div class="col-12 col-lg pb-2 pb-sm-0">
+              <a href="#"
+                ><img
+                  src="~@/assets/twitter.svg"
+                  width="30"
+                  height="30"
+                  alt=""
+                  loading="lazy"
+              /></a>
+              <a href="#"
+                ><img
+                  src="~@/assets/facebook.svg"
+                  width="60"
+                  height="30"
+                  alt=""
+                  loading="lazy"
+              /></a>
+              <a href="#"
+                ><img
+                  src="~@/assets/instagram.svg"
+                  width="30"
+                  height="30"
+                  alt=""
+                  loading="lazy"
+              /></a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -44,7 +59,7 @@ export default {};
 
 <style>
 #FooterApp {
-  background-color: #06416d;
+  background-color: #262626;
 }
 body {
   background-image: url("~@/assets/Enfermeria2.png");
@@ -58,30 +73,42 @@ body {
 }
 .btn-primary {
   background-color: #06416d;
-    border-color: #043a63;
-
+  border-color: #043a63;
 }
 .btn-primary:hover {
   background-color: #043a63;
-    border-color: #043a63;
-
+  border-color: #043a63;
 }
 .btn-primary:focus {
-  background-color: white!important;
-  color: #043a63!important;
+  background-color: white !important;
+  color: #043a63 !important;
   border-color: #043a63;
-
 }
 .btn-primary:active {
-  background-color: white!important;
-  color: #043a63!important;
+  background-color: white !important;
+  color: #043a63 !important;
   border-color: #043a63;
 }
-.btn-primary:disabled{
+.btn-primary:disabled {
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
 }
+#footer {
+  background-color: #262626;
+}
 
+#footer h5 {
+  color: white;
+}
 
+#footer p {
+  color: white;
+  font-size: 13px;
+}
+
+#footer p a {
+  text-decoration: none;
+  color: white;
+}
 </style>
