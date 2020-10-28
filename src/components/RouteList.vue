@@ -96,7 +96,6 @@
                     class="btn btn-outline-dark btn-block button"
                     @click="cancelPassengerItemPressed(route)"
                     style="margin: 5% 0 5% 0"
-                    disabled
                   >
                     Cancelar Pasajero
                   </button>
@@ -117,34 +116,6 @@
         </div>
       </div>
     </section>
-    <div
-      class="modal fade"
-      id="modalConfirmation"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="modalConfirmationLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{ this.confirmed }}</h5>
-          </div>
-          <div class="modal-body">
-            {{ this.quotaMessage }}
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              onclick="$('#modalConfirmation').modal('hide');"
-            >
-              Entendido
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -208,29 +179,47 @@ export default {
      */
     sendPassengerItemPressed() {
       EventBus.$emit("choosePassengerRoutes-data", this.routesSelected);
+      alert(
+        "Los pasajeros han sido confirmados, por favor, dirígete a ordenar la ruta."
+      );
     },
     /**
      * Esta función, avisa al conductor cuando ha seleccionado a un pasajero
      * Y actualiza el numero de pasajero para completar su servicio.
      */
     choosePassengerItemPressed(route) {
-      this.selected = this.selected - 1;
-      if (this.selected == 0) {
-        this.routesSelected.push(route);
-        this.confirmed = "Pasajero Seleccionado.";
-        this.quotaMessage = "Cupo completado, por favor confirme los pasajeros";
-      } else if (this.selected < 0) {
-        this.confirmed = "Operación fallida.";
-        this.quotaMessage =
-          "No puede ingresar más pasajeros, confirme pasajeros o cancele alguno.";
+      if (this.selected === "") {
+        alert("Primero escoja el número de pasajeros que desea llevar");
       } else {
-        this.routesSelected.push(route);
-        this.confirmed = "Pasajero Seleccionado.";
-        this.quotaMessage = "Número de cupos: " + this.selected;
+        this.selected = this.selected - 1;
+        if (this.selected == 0) {
+          this.routesSelected.push(route);
+          alert(
+            " Pasajero Seleccionado. \n Cupo completado, por favor confirme los pasajeros"
+          );
+        } else if (this.selected < 0) {
+          alert(
+            " Operación fallida. \n No puede ingresar más pasajeros, confirme pasajeros o cancele alguno."
+          );
+        } else {
+          this.routesSelected.push(route);
+          alert(" Pasajero Seleccionado. \n Número de cupos: " + this.selected);
+        }
       }
     },
     cancelPassengerItemPressed(route) {
-      this.routesSelected.pop(route);
+      var count = 0;
+      for (let index = 0; index < this.routesSelected.length; index++) {
+        if (route === this.routesSelected[index]) {
+          this.routesSelected.splice(index, 1);
+          count++;
+          alert("Usuario cancelado correctamente.");
+          this.selected = this.selected + 1;
+        }
+      }
+      if (count == 0) {
+        alert("Este pasajero no se encuentra en la lista.");
+      }
     },
   },
 };
@@ -251,8 +240,5 @@ export default {
 }
 .show-all {
   padding: 4px 10px;
-}
-#modalConfirmation {
-  margin: 20% 0 0 -0.6%;
 }
 </style>
