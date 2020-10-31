@@ -208,12 +208,13 @@ export default {
     };
   },
   methods: {
-    goTo() {},
     signup() {
       this.newUser.userMail = this.newUser.userMail + "@unal.edu.co"
       AuthServiceClient.registerUser(this.newUser, (response) => {
-        if (response == 201) {
-          this.$router.push("home");
+        if (response === 201) {
+          this.$router.push("login");
+        }else{
+          alert("Datos invalidos")
         }
       });
     },

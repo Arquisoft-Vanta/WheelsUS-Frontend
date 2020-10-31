@@ -77,7 +77,7 @@
               Registrar vehiculo
             </button>
             <div class="header-button dropdown-divider"></div>
-            <button class="dropdown-item" @click="goToLogin" type="button">
+            <button class="dropdown-item" @click="closeSession" type="button">
               Cerrar Sesión
             </button>
           </div>
@@ -103,7 +103,8 @@ export default {
     goToVehicleRegistration() {
       this.$router.push("vehicle-registration");
     },
-    goToLogin() {
+    closeSession() {
+      localStorage.removeItem("token");
       this.$router.push("/");
     },
     goToProfile() {
