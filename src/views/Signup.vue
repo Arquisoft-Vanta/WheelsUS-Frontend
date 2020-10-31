@@ -61,7 +61,7 @@
                   <div class="form-group">
                     <label for="name"></label>
                     <input
-                      v-model="name"
+                      v-model="newUser.userName"
                       type="text"
                       class="form-control"
                       placeholder="Nombre completo"
@@ -73,7 +73,7 @@
                   <div class="form-group">
                     <label for="phone"></label>
                     <input
-                      v-model="phone"
+                      v-model="newUser.userPhone"
                       type="tel"
                       class="form-control"
                       placeholder="Telefono"
@@ -87,7 +87,7 @@
                     <div class="form-row">
                       <div class="col">
                         <input
-                          v-model="user"
+                          v-model="newUser.userMail"
                           style="width: 100%; margin: 0 -7% 5% -4%"
                           type="text"
                           class="form-control"
@@ -108,8 +108,8 @@
                     <div class="col">
                       <label for="psw"></label>
                       <input
-                        style="width: 93%; margin: 0 -12% 5% -4%;"
-                        v-model="psw"
+                        style="width: 93%; margin: 0 -12% 5% -4%"
+                        v-model="newUser.password"
                         type="password"
                         class="form-control"
                         placeholder="Contraseña"
@@ -122,9 +122,9 @@
                       <label for="pswRepeat"></label>
                       <input
                         style="width: 93%; margin: 0 -4% 5% -12%"
-                        v-model="pswrepeat"
+                        v-model="password"
                         type="password"
-                        class="form-control"
+                        class="form-control is-invalid"
                         placeholder="Confirmar"
                         name="pswRepeat"
                         id="inputpswRepeat"
@@ -152,7 +152,7 @@
                       class="btn btn-outline-dark"
                       id="submitBtn"
                       style="margin: 0% 2% 0 2%"
-                      @click="goTo"
+                      @click="signup"
                     >
                       Registrarse
                     </button>
@@ -184,6 +184,7 @@
 
 <script>
 import FooterwithBackground from "../components/FooterwithBackground.vue";
+import AuthServiceClient from "../serviceClients/AuthServiceClient";
 export default {
   name: "Signup",
   components: {
@@ -191,12 +192,30 @@ export default {
   },
   data() {
     return {
-      phone: null,
+      newUser: {
+        userName: "",
+        userPhone: "",
+        userMail: "",
+        password: "",
+        userDoc: "",
+        universityId: "",
+        userAddress: "",
+        registryDatetime: "2020-05-07@10:20:15",
+        picture: "",
+        Rh: "",
+      },
+      password: "",
     };
   },
   methods: {
-    goTo() {
-      this.$router.push("home");
+    goTo() {},
+    signup() {
+      this.newUser.userMail = this.newUser.userMail + "@unal.edu.co"
+      AuthServiceClient.registerUser(this.newUser, (response) => {
+        if (response == 201) {
+          this.$router.push("home");
+        }
+      });
     },
   },
 };

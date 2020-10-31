@@ -61,7 +61,7 @@
           <div class="Login card">
             <div class="card-body">
               <img class="logo" src="~@/assets/logo.png" />
-              <form>
+              <form @submit="login">
                 <div class="form-group text-left">
                   <label for="exampleInputEmail1">Correo Electrónico</label>
                   <input
@@ -70,7 +70,7 @@
                     id="exampleInputEmail1"
                     style="border: 0; background: #f1f1f1"
                     aria-describedby="emailHelp"
-                    :value="Correo_Electronico"
+                    v-model="credentials.userMail"
                   />
                 </div>
                 <div class="form-group text-left">
@@ -80,15 +80,14 @@
                     style="border: 0; background: #f1f1f1"
                     class="form-control"
                     id="exampleInputPassword1"
-                    :value="Contraseña"
+                    v-model="credentials.password"
                   />
                 </div>
-                <button @click="goTo" class="btn btn-outline-dark btn-block">
+                <button type="submit" class="btn btn-outline-dark btn-block">
                   Ingresar
                 </button>
                 <div id="BotonGoogle" style="margin: 2% 0 0 0">
                   <button
-                    @click="goTo"
                     class="btn btn-outline-dark align-middle btn-block mt-1"
                   >
                     <img
@@ -112,6 +111,7 @@
 
 <script>
 import FooterwithBackground from "../components/FooterwithBackground";
+import AuthServiceClient from "../serviceClients/AuthServiceClient";
 export default {
   name: "Login",
   components: {
@@ -120,13 +120,18 @@ export default {
 
   data() {
     return {
-      Correo_Electronico: "",
-      Contraseña: "",
+      credentials: {
+        userMail: "",
+        password: "",
+      },
     };
   },
   methods: {
-    goTo() {
-      this.$router.push("home");
+    login(event) {
+      AuthServiceClient.loginUser(this.credentials, () => {
+        this.$router.push("home");
+      });
+      event.preventDefault();
     },
   },
 };
