@@ -12,6 +12,7 @@ import PostService from "./../views/PostService.vue";
 import Passenger from "./../views/Passenger.vue";
 import Driver from "./../views/Driver.vue";
 import RideRegistration from "./../views/RideRegistration.vue";
+import RestorePassword from "./../views/RestorePassword.vue";
 
 Vue.use(VueRouter);
 
@@ -31,7 +32,8 @@ const routes = [
   { path: "/post-service", name: "postService", component: PostService },
   { path: "/create-service", name: "createService", component: CreateService },
   { path: "/passenger", name: "passenger", component: Passenger },
-  { path: "/driver", name: "driver", component: Driver }
+  { path: "/driver", name: "driver", component: Driver },
+  { path: "/restore-password", name: "restore-password", component: RestorePassword}
 ];
 
 const router = new VueRouter({
