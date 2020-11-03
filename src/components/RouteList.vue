@@ -198,6 +198,7 @@ export default {
             " Pasajero Seleccionado. \n Cupo completado, por favor confirme los pasajeros"
           );
         } else if (this.selected < 0) {
+          this.selected = 0;
           alert(
             " Operación fallida. \n No puede ingresar más pasajeros, confirme pasajeros o cancele alguno."
           );
