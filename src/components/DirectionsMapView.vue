@@ -160,6 +160,21 @@ export default {
         }
       );
     });
+    EventBus.$on("generateMarker", (point) => {
+      this.map = new google.maps.Map(this.$refs["map"], {
+        center: new google.maps.LatLng(point.lat, point.lng),
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      });
+      if (point === undefined) {
+      } else {
+        new google.maps.Marker({
+          position: { lat: point.lat, lng: point.lng },
+          map: this.map,
+          
+        });
+      }
+    });
   },
   methods: {
     /**
