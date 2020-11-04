@@ -20,7 +20,11 @@ const routes = [
   { path: "/", name: "login", component: Login },
   { path: "/signup", name: "signup", component: Signup },
   { path: "/profile", name: "profile", component: Profile },
-  { path: "/ride-registration", name: "rideRegistration", component: RideRegistration },
+  {
+    path: "/ride-registration",
+    name: "rideRegistration",
+    component: RideRegistration,
+  },
   {
     path: "/vehicle-registration",
     name: "vehicleRegistration",
@@ -39,6 +43,18 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (
+    to.name !== "login" &&
+    to.name !== "signup" &&
+    !localStorage.getItem("token")
+  ) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
 });
 
 export default router;
