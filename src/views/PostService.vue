@@ -1,6 +1,40 @@
 <template>
   <div>
     <Header></Header>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tus rutas</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"><MyRoutesList /></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
     <div>
       <div class="container">
         <div class="row justify-content-between">
@@ -8,6 +42,14 @@
             <div class="createservice card">
               <div class="card-body">
                 <OriginDestination />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
+                  Mira tus rutas
+                </button>
               </div>
             </div>
           </div>
@@ -24,13 +66,14 @@
 </template>
 
 <script>
+import MyRoutesList from "../components/MyRoutesList.vue";
 import OriginDestination from "../components/OriginDestinationForm";
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import axios from "axios";
-import firebase from "firebase";
+//import axios from "axios";
+//import firebase from "firebase";
 
 export default {
   name: "PostService",
@@ -42,6 +85,7 @@ export default {
     DirectionsMapView,
     Header,
     FooterwithBackground,
+    MyRoutesList
   },
   methods: {},
   mounted() {

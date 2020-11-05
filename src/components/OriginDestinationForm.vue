@@ -1,8 +1,9 @@
 <template>
-  <section class="origin-destination-form">
+  <section class="origin-destination-form">    
     <div class="form">
+      <h4>Postula tu ruta</h4>
       <div v-show="error">{{ error }}</div>
-      <div class="two fields">
+      <div class="four fields">
         <div class="field">
           <div>
             <input
@@ -29,9 +30,49 @@
             />
           </div>
         </div>
-        <button class="btn btn-outline-dark btn-block button" @click="calculateButtonPressed" style="margin: 10% 0% -2% 0%">
-          Calcular ruta
+        <div class="field">
+          <div>
+            <input
+              v-model="time"
+              type="time"
+              placeholder="Tiempo"
+              ref="time"
+              style="width: 100%; margin: 5% 0% 5% 0%"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+        <div class="field">
+          <div>
+            <input
+              v-model="date"
+              type="date"
+              placeholder="Fecha"
+              ref="date"
+              style="width: 100%; margin: 5% 0% 5% 0%"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <button
+          class="btn btn-outline-dark btn-block button"
+          @click="calculateButtonPressed"
+          style="margin: 10% 0% -2% 0%"
+        >
+          Postular ruta
         </button>
+        <button
+          class="btn btn-outline-dark btn-block button"
+          @click="saveRoute"
+          style="margin: 10% 0% -2% 0%"
+          data-toggle="modal"
+        >
+          Guardar ruta
+        </button>
+        
       </div>
     </div>
   </section>
@@ -55,6 +96,8 @@ export default {
           lat: 0,
           lng: 0,
         },
+        time: null,
+        date: null,
         distance: {},
         duration: {},
         userid: "",
@@ -100,8 +143,7 @@ export default {
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
               this.route.userid = "fsduenasc@unal.edu.co";
-
-              this.saveRoute();
+              //this.route.time =
             }
           }
         })
@@ -114,6 +156,11 @@ export default {
     saveRoute() {
       const db = firebase.firestore();
       db.collection("passengerRoutes").doc().set(this.route);
+    },
+    deleteButtonPressed() {
+      const db = firebase.firestore();
+      const lol = "A4TnCOlWbis3tboH6eGO";
+      db.collection("passengerRoutes").doc(lol).delete();
     },
   },
 };
