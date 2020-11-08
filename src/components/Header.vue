@@ -84,14 +84,23 @@
         </div>
       </div>
     </nav>
+    
+    <ChatList></ChatList>
   </div>
 </template>
 
 <script>
+
+import ChatList from "../components/ListaChat";
+
 export default {
   name: "Header",
   props: {
     nombre: String,
+  },
+  components: {
+    
+    ChatList,
   },
   data() {
     return {};

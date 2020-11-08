@@ -12,11 +12,20 @@ import PostService from "./../views/PostService.vue";
 import Passenger from "./../views/Passenger.vue";
 import Driver from "./../views/Driver.vue";
 import RideRegistration from "./../views/RideRegistration.vue";
+import Chat from "./../components/Chat.vue";
+import Burbujas from "./../components/Burbujas.vue";
+import Lista from "./../components/ListaChat.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: "/", name: "login", component: Login },
+  /* estoy haciendo pruebas de aqui */
+  { path: "/bur", name: "bur", component: Burbujas },
+  { path: "/chat", name: "chat", component: Chat },
+  { path: "/lista", name: "lista", component: Lista },
+
+  /* hasta aqui */
   { path: "/signup", name: "signup", component: Signup },
   { path: "/profile", name: "profile", component: Profile },
   { path: "/ride-registration", name: "rideRegistration", component: RideRegistration },
