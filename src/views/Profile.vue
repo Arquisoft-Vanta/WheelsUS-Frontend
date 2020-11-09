@@ -206,7 +206,8 @@
                 >
                   Cerrar
                 </button>
-                <button type="button" class="btn btn-outline-dark">
+                <button type="button" class="btn btn-outline-dark"
+                @click="saveDirection">
                   Guardar Dirección
                 </button>
               </div>
@@ -426,7 +427,7 @@ export default {
     },
     updateUser() {},
     saveDirection() {
-      this.newFavoritePoint.datetimeCreationFav =getFormattedDate();
+      this.newFavoritePoint.datetimeCreationFav =this.getFormattedDate();
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
           console.log("OK");
