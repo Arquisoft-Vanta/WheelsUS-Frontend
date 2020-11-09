@@ -213,6 +213,7 @@
                 <button
                   type="button"
                   class="btn btn-outline-dark"
+                  data-dismiss="modal"
                   @click="saveDirection"
                 >
                   Guardar Dirección
