@@ -15,8 +15,21 @@
               />
               <div class="card-body">
                 <h5 class="card-title pt-3">Usuario</h5>
-                <a type="button" class="btn btn-outline-dark btn-block">
+                <a
+                  class="btn btn-outline-dark btn-block"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
                   Añadir dirección
+                </a>
+                <a
+                  class="btn btn-outline-dark btn-block"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#exampleModal"
+                >
+                  Ver direcciones
                 </a>
               </div>
             </div>
@@ -108,9 +121,9 @@
                       v-model="user.universityId"
                     >
                       <option selected></option>
-                      <option value="1"
-                        >Universidad Nacional de Colombia</option
-                      >
+                      <option value="1">
+                        Universidad Nacional de Colombia
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -129,6 +142,90 @@
             </div>
           </div>
         </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Añadir Dirección
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row justify-content-md-center">
+                  <div class="col col-md-auto">
+                    <form>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1"
+                          >¿Cómo quieres llamar a tu dirección favorita?</label
+                        >
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="Ejemplo: Mi universidad"
+                          v-model="newFavoritePoint.name"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1"
+                          >Dirección según google</label
+                        >
+                        <input
+                          class="form-control newFavoritePoint"
+                          type="text"
+                          placeholder="Ejemplo: Cra 45 #26-85"
+                          ref="newFavoritePoint"
+                          id="pac-input "
+                        />
+                      </div>
+                    </form>
+                    <DirectionsMapView class="map" />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  v-on:click="saveDirection"
+                >
+                  Guardar Dirección
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <Header></Header>
@@ -136,6 +233,8 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js";
+import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
@@ -146,6 +245,7 @@ export default {
   components: {
     Header,
     FooterwithBackground,
+    DirectionsMapView,
   },
   data() {
     return {
@@ -163,6 +263,12 @@ export default {
         vehicleModel:[],
         Rh: "O+",
       },
+      newFavoritePoint: {
+        address: "",
+        lat: 0,
+        lng: 0,
+        name: "",
+      },
       textoBotonEditar: "Editar",
 
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
@@ -170,7 +276,29 @@ export default {
     };
   },
   props: {},
+  mounted() {
+    EventBus.$emit("passengerRoutes-data", this.routes);
+    for (let ref in this.$refs) {
+      const autocomplete = new google.maps.places.Autocomplete(
+        this.$refs[ref],
+        {
+          bounds: new google.maps.LatLngBounds(
+            new google.maps.LatLng(45.4215296, -75.6971931)
+          ),
+          componentRestrictions: { country: "co" },
+        }
+      );
 
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        this[ref].address = `${place.name}, ${place.vicinity}`;
+        this[ref].lat = place.geometry.location.lat();
+        this[ref].lng = place.geometry.location.lng();
+        console.log(this.newFavoritePoint);
+        EventBus.$emit("generateMarker", this.newFavoritePoint);
+      });
+    }
+  },
   methods: {
     editInputData() {
       this.estadoInput = document.getElementById(
@@ -214,12 +342,16 @@ export default {
       UserSC.getUser();
     },
     updateUser() {},
+    saveDirection() {
+      console.log(this.newFavoritePoint);
+    },
   },
 };
 </script>
 
 <style scoped>
 .datosvehiculo {
+  margin: 4% 0 0 0;
   opacity: 90%;
 }
 
@@ -233,5 +365,9 @@ export default {
 
 .container {
   height: 85vh;
+}
+.map {
+  margin: 0 0 -4% 0;
+  height: 250px !important;
 }
 </style>

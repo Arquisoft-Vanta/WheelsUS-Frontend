@@ -79,13 +79,6 @@
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
                 class="btn btn-outline-dark btn-block"
                 @click="sendPossibleRouteToMap"
               >
@@ -141,37 +134,15 @@
                       style="border: 0; background: #f1f1f1"
                     />
                   </div>
-                  <div class="row" style="margin: 0 0 8% 0">
-                    <div class="col">
-                      <input
-                        v-model="route.value"
-                        type="text"
-                        class="form-control"
-                        style="border: 0; background: #f1f1f1"
-                        placeholder="Valor"
-                      />
-                    </div>
-                    <div class="col">
-                      <select
-                        id="inputState"
-                        class="form-control"
-                        style="border: 0; background: #f1f1f1"
-                      >
-                        <option selected>4</option>
-                        <option>3</option>
-                        <option>2</option>
-                        <option>1</option>
-                        <option>0</option>
-                      </select>
-                    </div>
+                  <div class="form-group text-left">
+                    <input
+                      v-model="route.value"
+                      type="text"
+                      class="form-control"
+                      style="border: 0; background: #f1f1f1"
+                      placeholder="Valor"
+                    />
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn-outline-dark btn-block"
-                    @click="saveRoute"
-                  >
-                    Crear Servicio
-                  </button>
                   <div style="margin: 2% 0 0 0">
                     <button
                       type="button"
@@ -193,6 +164,15 @@
                       data-target="#exampleModal2"
                     >
                       Ordenar Ruta
+                    </button>
+                  </div>
+                  <div style="margin: 2% 0 0 0">
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark btn-block"
+                      @click="saveRoute"
+                    >
+                      Crear Servicio
                     </button>
                   </div>
                 </form>
@@ -219,7 +199,6 @@ import RouteList from "../components/RouteList.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import axios from "axios";
 import firebase from "firebase";
 import Draggable from "vuedraggable";
 
@@ -300,9 +279,7 @@ export default {
           lat: 0,
           lng: 0,
         },
-        distance: 0,
-        duration: 0,
-        userid: "",
+        driverId: "",
         passengers: {
           A: "",
           B: "",
@@ -310,7 +287,7 @@ export default {
           D: "",
         },
         value: "",
-        date: Date,
+        date: "",
         time: "",
       },
 
@@ -331,70 +308,60 @@ export default {
        *por parte del conductor en el componente "Route List" y se guardan
        *en el objeto "route" para posteriormente enviar a Firebase
        */
-      let sumatoryDistance = 0;
-      let sumatoryTime = 0;
       let letterchar = 65;
-      routes.forEach(
-        ({ origin, destination, distance, duration, userid, id }) => {
-          let repeatDirectionOrigin = 0;
-          let repeatDirectionDestination = 0;
+      routes.forEach(({ origin, destination, userid }) => {
+        let repeatDirectionOrigin = 0;
+        let repeatDirectionDestination = 0;
 
-          this.route.originPassengers[String.fromCharCode(letterchar)].address =
-            origin.address;
-          this.route.originPassengers[String.fromCharCode(letterchar)].lat =
-            origin.lat;
-          this.route.originPassengers[String.fromCharCode(letterchar)].lng =
-            origin.lng;
-          this.route.destinationPassengers[
-            String.fromCharCode(letterchar)
-          ].address = destination.address;
-          this.route.destinationPassengers[
-            String.fromCharCode(letterchar)
-          ].lat = destination.lat;
-          this.route.destinationPassengers[
-            String.fromCharCode(letterchar)
-          ].lng = destination.lng;
-          sumatoryDistance = sumatoryDistance + distance.value;
-          sumatoryTime = sumatoryTime + duration.value;
-          /**
-           *Existen casos donde algunos pasajeros salen del mismo lugar.
-           *Entonces, para practicidad por parte del conductor, solo se
-           *guardan ubicaciones unicas en la variable "orderedRoutesOfPassengers"
-           *para que cuando el conductor pueda ordenar la ruta, no le aparezca
-           *una ubicacion dos veces repetidas.
-           */
-          this.orderedRoutesOfPassengers.forEach(({ address }) => {
-            if (
-              address ==
-              this.route.originPassengers[String.fromCharCode(letterchar)]
-                .address
-            ) {
-              repeatDirectionOrigin = repeatDirectionOrigin + 1;
-            }
-            if (
-              address ==
-              this.route.destinationPassengers[String.fromCharCode(letterchar)]
-                .address
-            ) {
-              repeatDirectionDestination = repeatDirectionDestination + 1;
-            }
-          });
-          if (repeatDirectionOrigin == 0) {
-            this.orderedRoutesOfPassengers.push(
-              this.route.originPassengers[String.fromCharCode(letterchar)]
-            );
+        this.route.originPassengers[String.fromCharCode(letterchar)].address =
+          origin.address;
+        this.route.originPassengers[String.fromCharCode(letterchar)].lat =
+          origin.lat;
+        this.route.originPassengers[String.fromCharCode(letterchar)].lng =
+          origin.lng;
+        this.route.destinationPassengers[
+          String.fromCharCode(letterchar)
+        ].address = destination.address;
+        this.route.destinationPassengers[String.fromCharCode(letterchar)].lat =
+          destination.lat;
+        this.route.destinationPassengers[String.fromCharCode(letterchar)].lng =
+          destination.lng;
+        this.route.passengers[String.fromCharCode(letterchar)] = userid;
+
+        /**
+         *Existen casos donde algunos pasajeros salen del mismo lugar.
+         *Entonces, para practicidad por parte del conductor, solo se
+         *guardan ubicaciones unicas en la variable "orderedRoutesOfPassengers"
+         *para que cuando el conductor pueda ordenar la ruta, no le aparezca
+         *una ubicacion dos veces repetidas.
+         */
+        this.orderedRoutesOfPassengers.forEach(({ address }) => {
+          if (
+            address ==
+            this.route.originPassengers[String.fromCharCode(letterchar)].address
+          ) {
+            repeatDirectionOrigin = repeatDirectionOrigin + 1;
           }
-          if (repeatDirectionDestination == 0) {
-            this.orderedRoutesOfPassengers.push(
-              this.route.destinationPassengers[String.fromCharCode(letterchar)]
-            );
+          if (
+            address ==
+            this.route.destinationPassengers[String.fromCharCode(letterchar)]
+              .address
+          ) {
+            repeatDirectionDestination = repeatDirectionDestination + 1;
           }
-          letterchar = letterchar + 1;
+        });
+        if (repeatDirectionOrigin == 0) {
+          this.orderedRoutesOfPassengers.push(
+            this.route.originPassengers[String.fromCharCode(letterchar)]
+          );
         }
-      );
-      this.route.distance = sumatoryDistance / 1000;
-      this.route.duration = sumatoryTime / 60;
-      this.route.value = sumatoryValue;
+        if (repeatDirectionDestination == 0) {
+          this.orderedRoutesOfPassengers.push(
+            this.route.destinationPassengers[String.fromCharCode(letterchar)]
+          );
+        }
+        letterchar = letterchar + 1;
+      });
     });
 
     EventBus.$emit("passengerRoutes-data", this.routes);
@@ -422,14 +389,6 @@ export default {
         this.route[ref].lng = place.geometry.location.lng();
       });
     }
-    /**
-     *Esta función pinta el mapa de Google Maps
-     */
-    this.map = new google.maps.Map(this.$refs["map"], {
-      center: new google.maps.LatLng(4.636973, -74.079335),
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    });
   },
   methods: {
     /**
@@ -437,10 +396,29 @@ export default {
      *  en la colección "driverRoute", de firebase.
      */
     saveRoute() {
-      const db = firebase.firestore();
-      db.collection("driverRoute")
-        .doc()
-        .set(this.route);
+      var textAlert = "";
+      if (this.route.originDriver.address === "") {
+        textAlert = textAlert + "Punto de Origen \n";
+      }
+      if (this.route.destinationDriver.address === "") {
+        textAlert = textAlert + "Punto de Destino \n";
+      }
+      if (this.route.date === "") {
+        textAlert = textAlert + "Fecha de Servicio \n";
+      }
+      if (this.route.time === "") {
+        textAlert = textAlert + "Hora de Partida \n";
+      }
+      if (this.route.value === "") {
+        textAlert = textAlert + "Valor de Servicio \n";
+      }
+      if (textAlert === "") {
+        const db = firebase.firestore();
+        db.collection("driverRoute").doc().set(this.route);
+        alert("Ruta guardada.");
+      } else {
+        alert("Faltan campos por llenar \n" + textAlert);
+      }
     },
     /**
      * Esta función, envia "routeDefinitive" al componente "DirectionsMapView",
@@ -466,12 +444,7 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-  /* margin: 6% 0 20% 0; */
-}
-.mapg {
-  opacity: 100%;
-  border-radius: 2%;
-  /* margin: 5% 0 0% 0; */
+  margin: 4% 0 0% 0;
 }
 strong {
   display: inline-block;

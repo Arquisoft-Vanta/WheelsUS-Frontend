@@ -20,4 +20,11 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.pac-container {
+    background-color: #FFF;
+    z-index: 100000 !important;
+    position: fixed;
+    display: inline-block;
+    float: left;
+}
 </style>
