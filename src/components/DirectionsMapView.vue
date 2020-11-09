@@ -4,10 +4,15 @@
 <script>
 import { EventBus } from "@/EventBus";
 export default {
+  name: "DirectionsMapView",
+  props: {  
+  },
+
   data() {
     return {
       map: null,
       waypoints: [],
+      marker: null,
     };
   },
   mounted() {
@@ -23,6 +28,9 @@ export default {
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
+
+      
+
       routes.forEach(({ origin, destination, distance, duration }) => {
         directionsService.route(
           {
@@ -86,6 +94,20 @@ export default {
         );
       });
     });
+
+    EventBus.$on("newMarker", (coords)=> {
+
+      let myLatLng = new google.maps.LatLng(coords[0], coords[1]);
+
+      this.marker = new google.maps.Marker({
+        position: myLatLng,
+        map: this.map,
+        title: "Hello World!",
+      });
+
+      this.map.setCenter(myLatLng);
+    })
+    
     /**
      * Esta función recibe una posible ruta tentativa del conductor 
      * con sus puntos de parada y la pinta en el mapa.
@@ -161,6 +183,7 @@ export default {
 
       infoWindow.open(this.map, null);
     },
+    
   },
 };
 </script>  

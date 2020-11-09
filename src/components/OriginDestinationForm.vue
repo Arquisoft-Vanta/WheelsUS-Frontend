@@ -33,7 +33,7 @@
         <div class="field">
           <div>
             <input
-              v-model="time"
+              v-model="route.time"
               type="time"
               placeholder="Tiempo"
               ref="time"
@@ -46,7 +46,7 @@
         <div class="field">
           <div>
             <input
-              v-model="date"
+              v-model="route.date"
               type="date"
               placeholder="Fecha"
               ref="date"
@@ -56,7 +56,6 @@
             />
           </div>
         </div>
-
         <button
           class="btn btn-outline-dark btn-block button"
           @click="calculateButtonPressed"
@@ -82,6 +81,8 @@
 import axios from "axios";
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
+import DirectionsMapViewVue from './DirectionsMapView.vue';
+
 export default {
   data() {
     return {
@@ -96,8 +97,8 @@ export default {
           lat: 0,
           lng: 0,
         },
-        time: null,
-        date: null,
+        time: "",
+        date: Date,
         distance: {},
         duration: {},
         userid: "",
@@ -142,8 +143,7 @@ export default {
             } else {
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
-              this.route.userid = "fsduenasc@unal.edu.co";
-              //this.route.time =
+              this.route.userid = "fsduenasc@unal.edu.co";       
             }
           }
         })
@@ -157,11 +157,8 @@ export default {
       const db = firebase.firestore();
       db.collection("passengerRoutes").doc().set(this.route);
     },
-    deleteButtonPressed() {
-      const db = firebase.firestore();
-      const lol = "A4TnCOlWbis3tboH6eGO";
-      db.collection("passengerRoutes").doc(lol).delete();
-    },
+    
+    
   },
 };
 </script>

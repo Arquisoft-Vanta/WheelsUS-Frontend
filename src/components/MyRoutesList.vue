@@ -15,8 +15,8 @@
                 :aria-controls="`data${route.id}`"
                 style="color: #06416d"
               >
-                Origen: {{ route.origin.address }} Destino:
-                {{ route.destination.address }}
+                Origen: {{ route.origin.address }} <br>
+                Destino: {{ route.destination.address }}
               </button>
             </h2>
           </div>
@@ -27,8 +27,6 @@
             data-parent="#accordionExample"
           >
             <div class="card-body">
-              <div>Usuario: {{ route.userid }}</div>
-              <div>Salida: {{ route.origin.address }}</div>
               <div>Distancia: {{ route.distance.text }}</div>
               <div>Tiempo aproximado: {{ route.duration.text }}</div>
               <div class="row">
@@ -41,7 +39,17 @@
                   >
                     Ver Ruta
                   </button>
-                </div>  
+                </div>
+                <div class="col">
+                  <!--<button
+                    type="button"
+                    class="btn btn-outline-dark btn-block button"
+                    style="margin: 5% 0 5% 0"
+                   
+                  >
+                    Editar Ruta
+                  </button>-->
+                </div>   
                 <div class="col">
                   <button
                     type="button"
@@ -120,8 +128,6 @@ export default {
     },     
     deleteRoute(route) {
         const db = firebase.firestore();
-        console.log("FUNCIOANAAAAA");
-        console.log(route.id);
       db.collection("passengerRoutes")
         .doc(route.id)
         .delete();
