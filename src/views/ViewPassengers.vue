@@ -81,7 +81,6 @@ import RouteList from "../components/RouteList.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import axios from "axios";
 import firebase from "firebase";
 import Draggable from "vuedraggable";
 

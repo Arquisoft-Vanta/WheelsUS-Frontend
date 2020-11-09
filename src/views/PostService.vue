@@ -81,7 +81,6 @@ import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import axios from "axios";
 
 export default {
   name: "PostService",
@@ -95,7 +94,6 @@ export default {
     FooterwithBackground,
     MyRoutesList
   },
-  methods: {},
   mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
   },
@@ -116,7 +114,7 @@ export default {
           }
         );
       } else {
-        this.error = error.message;
+        // this.error = error.message;
       }
     }    
   }

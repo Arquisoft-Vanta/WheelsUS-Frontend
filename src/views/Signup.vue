@@ -141,7 +141,6 @@
                       href="#"
                       type="button"
                       class="btn btn-outline-danger"
-                      name="cancelBtn"
                       id="cancelBtn"
                       style="margin: -1% 2% 0 2%"
                     >

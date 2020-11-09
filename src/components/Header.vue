@@ -59,6 +59,7 @@
               src="~@/assets/person.png"
               width="30"
               height="30"
+              alt="persona"
             />
           </button>
           <div class="dropdown-menu dropdown-menu-lg-left">
@@ -84,14 +85,23 @@
         </div>
       </div>
     </nav>
+    
+    <ChatList></ChatList>
   </div>
 </template>
 
 <script>
+
+import ChatList from "../components/ListaChat";
+
 export default {
   name: "Header",
   props: {
     nombre: String,
+  },
+  components: {
+    
+    ChatList,
   },
   data() {
     return {};
