@@ -41,14 +41,6 @@
                   </button>
                 </div>
                 <div class="col">
-                  <!--<button
-                    type="button"
-                    class="btn btn-outline-dark btn-block button"
-                    style="margin: 5% 0 5% 0"
-                   
-                  >
-                    Editar Ruta
-                  </button>-->
                 </div>   
                 <div class="col">
                   <button
