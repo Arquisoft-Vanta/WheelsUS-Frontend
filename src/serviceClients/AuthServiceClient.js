@@ -1,6 +1,7 @@
 const axios = require("axios");
 const route = "http://localhost:8080/api/user";
 const path = "http://localhost:8080";
+
 function registerUser(user, callback) {
   axios
     .post(route + "/signup", user)
@@ -10,10 +11,11 @@ function registerUser(user, callback) {
     })
     .catch(function(error) {
       console.log(error);
+      callback(error.status);
     });
 }
 
-function loginUser(user, callback) {
+function loginUser(user, callback, showtoast) {
   axios
     .post(
       path + "/oauth/token",
@@ -35,15 +37,18 @@ function loginUser(user, callback) {
     )
     .then((response) => {
       if (response.status !== 200) {
-        alert("Error en la autenticación");
+        showtoast("Error en la Autenticación");
+        //alert("Error en la autenticación");
       } else {
         localStorage.setItem("token", response.data.access_token);
+        alert("Usuario Logueado")
         callback();
       }
     })
     .catch((error) => {
       if (error.response.status === 400) {
-        alert("Datos invalidos");
+        showtoast("Datos de Ingreso Invalidos");
+        //alert("Datos invalidos");
       }
     });
 }

@@ -5,6 +5,13 @@ import store from "./store";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import firebase from "firebase"
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import { BVToastPlugin } from 'bootstrap-vue'
+import { ToastPlugin } from 'bootstrap-vue'
+
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 var firebaseConfig = {
   apiKey: "AIzaSyBYLj8XtE_HgnebkWa0Go4W_4bnsttl6nA",
@@ -19,8 +26,13 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
 Vue.config.productionTip = false;
+
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+Vue.use(BVToastPlugin);
+Vue.use(ToastPlugin);
+
 new Vue({
   router,
   VueAxios,

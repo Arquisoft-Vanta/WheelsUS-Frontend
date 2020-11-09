@@ -59,6 +59,7 @@ export default {
     },
   },
   beforeCreate() {
+
     if (!localStorage.getItem("token")) {
       this.$router.push("/");
     }
