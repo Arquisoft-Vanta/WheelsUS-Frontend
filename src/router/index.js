@@ -15,6 +15,7 @@ import RideRegistration from "./../views/RideRegistration.vue";
 import Chat from "./../components/Chat.vue";
 import Burbujas from "./../components/Burbujas.vue";
 import Lista from "./../components/ListaChat.vue";
+import PassengerProfile from "./../views/PassangerProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -28,7 +29,11 @@ const routes = [
   /* hasta aqui */
   { path: "/signup", name: "signup", component: Signup },
   { path: "/profile", name: "profile", component: Profile },
-  { path: "/ride-registration", name: "rideRegistration", component: RideRegistration },
+  {
+    path: "/ride-registration",
+    name: "rideRegistration",
+    component: RideRegistration,
+  },
   {
     path: "/vehicle-registration",
     name: "vehicleRegistration",
@@ -40,12 +45,29 @@ const routes = [
   { path: "/post-service", name: "postService", component: PostService },
   { path: "/create-service", name: "createService", component: CreateService },
   { path: "/passenger", name: "passenger", component: Passenger },
-  { path: "/driver", name: "driver", component: Driver }
+  { path: "/driver", name: "driver", component: Driver },
+  {
+    path: "/passanger-profile",
+    name: "passanger-profile",
+    component: PassengerProfile,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (
+    to.name !== "login" &&
+    to.name !== "signup" &&
+    !localStorage.getItem("token")
+  ) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
 });
 
 export default router;
