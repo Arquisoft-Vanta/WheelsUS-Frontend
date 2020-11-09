@@ -29,12 +29,11 @@
           <ul class="navbar-nav mr-auto"></ul>
           <ul class="navbar-nav mr-right">
             <li class="nav-item active">
-              <router-link to="about-us" class="nav-link text-white" href="#"
-                >Acerca de nosotros<span class="sr-only"></span
-              ></router-link>
+              <router-link to="about-us" class="nav-link text-white"
+                >Acerca de nosotros</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/signup" class="nav-link text-white"
+              <router-link to="/login" class="nav-link text-white"
                 >Ingresar</router-link
               >
             </li>
@@ -159,7 +158,7 @@
                   </div>
                   <div style="margin: 2% 0% 0% 0%" position="center">
                     <button
-                      @click="goTo"
+                     
                       class="btn btn-outline-dark btn-block"
                     >
                       <img
@@ -190,7 +189,9 @@ export default {
   components: {
     FooterwithBackground,
   },
+
   data() {
+    
     return {
       newUser: {
         userName: "",
@@ -200,7 +201,7 @@ export default {
         userDoc: "",
         universityId: "",
         userAddress: "",
-        registryDatetime: "2020-05-07@10:20:15",
+        registryDatetime: "",
         picture: "",
         Rh: "",
       },
@@ -208,13 +209,28 @@ export default {
     };
   },
   methods: {
+
+    getFormattedDate() {
+      var date = new Date();
+      var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.toLocaleDateString("es-CO", {day: "2-digit"}) + "@" +  ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
+      return str;
+    },
+
+
     signup() {
-      this.newUser.userMail = this.newUser.userMail + "@unal.edu.co"
+      this.newUser.userMail = this.newUser.userMail + "@unal.edu.co";
+      this.newUser.registryDatetime = this.getFormattedDate();
       AuthServiceClient.registerUser(this.newUser, (response) => {
         if (response === 201) {
           this.$router.push("login");
         }else{
-          alert("Datos invalidos")
+          this.$bvToast.toast("Ocurrio un error registrando al usuario "+ this.newUser.userMail, {
+            title: "Error en el Registro",
+            autoHideDelay: 2000,
+            appendToast: true,
+            variant: "danger",
+            solid: true,
+          });
         }
       });
     },

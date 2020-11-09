@@ -44,9 +44,11 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+
   if (
     to.name !== "login" &&
     to.name !== "signup" &&
+    to.name !== "aboutUs" &&
     !localStorage.getItem("token")
   ) {
     next({ name: "login" });
