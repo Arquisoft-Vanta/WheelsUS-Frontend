@@ -1,6 +1,5 @@
 const axios = require("axios");
 const route = "http://localhost:8080/api/favorite-direction";
-const path = "http://localhost:8080";
 
 function addDirection(direction, callback) {
     console.log(localStorage.getItem("token"));
@@ -17,6 +16,27 @@ function addDirection(direction, callback) {
         });
 }
 
+function getDirectionsByUser(callback) {
+    console.log(localStorage.getItem("token"));
+    axios.get(route + "/show-directions",
+        {
+            params: {
+                access_token: localStorage.getItem("token")
+            }
+        }).then((response) => {
+            if (response.status !== 200) {
+                alert("Error obteniendo sus roles.");
+            } else {
+                callback(response.data);
+            }
+        })
+        .catch((error) => {
+            alert("Error en la petición");
+            console.log(error);
+        });
+}
+
 export default {
-    addDirection
+    addDirection,
+    getDirectionsByUser
 }

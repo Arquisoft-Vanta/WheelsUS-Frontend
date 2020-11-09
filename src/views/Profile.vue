@@ -27,8 +27,8 @@
                   class="btn btn-outline-dark btn-block"
                   type="button"
                   data-toggle="modal"
-                  data-target="#exampleModal"
-                  @click="getUserDB"
+                  data-target="#exampleModal2"
+                  @click="showDirections"
                 >
                   Ver direcciones
                 </a>
@@ -143,16 +143,6 @@
             </div>
           </div>
         </div>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#exampleModal"
-        >
-          Launch demo modal
-        </button>
-
-        <!-- Modal -->
         <div
           class="modal fade"
           id="exampleModal"
@@ -188,7 +178,7 @@
                           class="form-control"
                           type="text"
                           placeholder="Ejemplo: Mi universidad"
-                          v-model="newFavoritePoint.nameFd"
+                          v-model="nameFavd"
                         />
                       </div>
                       <div class="form-group">
@@ -216,13 +206,95 @@
                 >
                   Cerrar
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-dark"
-                  v-on:click="saveDirection"
-                >
+                <button type="button" class="btn btn-outline-dark">
                   Guardar Dirección
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="modal fade"
+          id="exampleModal2"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Mis Direcciones
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="accordion" id="accordionExample">
+                  <div
+                    class="card"
+                    v-for="route in listRoutes"
+                    :key="route.idFavoriteDirection"
+                  >
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link btn-block text-left"
+                          type="button"
+                          data-toggle="collapse"
+                          :data-target="`#data${route.idFavoriteDirection}`"
+                          aria-expanded="true"
+                          :aria-controls="`data${route.idFavoriteDirection}`"
+                          style="color: #06416d"
+                        >
+                          Nombre: {{ route.nameFd }}
+                        </button>
+                      </h2>
+                    </div>
+                    <div
+                      :id="`data${route.idFavoriteDirection}`"
+                      class="collapse"
+                      aria-labelledby="headingOne"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">
+                        <div>{{ route.favAddress }}</div>
+                        <div class="row">
+                          <div class="col">
+                            <button
+                              type="button"
+                              class="btn btn-outline-dark btn-block button"
+                              style="margin: 5% 0 5% 0"
+                              @click="showPoint(route)"
+                            >
+                              Ver Dirección
+                            </button>
+                          </div>
+                          <div class="col">
+                            <button
+                              type="button"
+                              class="btn btn-outline-dark btn-block button"
+                              @click="cancelPassengerItemPressed(route)"
+                              style="margin: 5% 0 5% 0"
+                            >
+                              Eliminar Dirección
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <DirectionsMapView class="map" />
+                </div>
+              </div>
+              <div class="modal-footer">
               </div>
             </div>
           </div>
@@ -271,7 +343,9 @@ export default {
         datetimeCreationFav: "",
         nameFd: "",
       },
+      nameFavd: "",
       textoBotonEditar: "Editar",
+      listRoutes: [],
 
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
       estadoInput: true,
@@ -279,6 +353,7 @@ export default {
   },
   props: {},
   mounted() {
+    this.showDirections();
     EventBus.$emit("passengerRoutes-data", this.routes);
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
@@ -293,11 +368,11 @@ export default {
 
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
+        this[ref].nameFd = this.nameFavd;
         this[ref].favAddress = `${place.name}, ${place.vicinity}`;
-        this[ref].favLatitude =""+ place.geometry.location.lat();
-        this[ref].favLongitude =""+ place.geometry.location.lng();
-        this[ref].datetimeCreationFav="2020-05-07@10:20:15";
-        console.log(this.newFavoritePoint);
+        this[ref].favLatitude = "" + place.geometry.location.lat();
+        this[ref].favLongitude = "" + place.geometry.location.lng();
+        this[ref].datetimeCreationFav = "2020-05-07@10:20:15";
         EventBus.$emit("generateMarker", this.newFavoritePoint);
       });
     }
@@ -353,8 +428,16 @@ export default {
           alert("Datos invalidos");
         }
       });
-      console.log(this.newFavoritePoint);
     },
+    showDirections() {
+      FavoriteServiceClient.getDirectionsByUser((response) => {
+        this.listRoutes = response;
+        });
+    },
+    showPoint(route){
+              EventBus.$emit("generateMarker", route);
+
+    }
   },
 };
 </script>
