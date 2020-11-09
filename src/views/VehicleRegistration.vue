@@ -198,7 +198,7 @@
                         style="
                         margin:2% 0 1% 0;
                       "
-                        rel="noopener"
+                        rel="noopener noreferrer"
                       >
                         Ingresar a RUNT
                       </a>
