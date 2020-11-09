@@ -16,6 +16,7 @@
                 <a
                   href="https://github.com/orgs/Ingesoft-II/dashboard"
                   target="_blank"
+                  rel="noopener noreferrer"
                   >Grupo 3</a
                 >
               </p>
