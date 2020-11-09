@@ -198,6 +198,7 @@
                         style="
                         margin:2% 0 1% 0;
                       "
+                        rel="noopener"
                       >
                         Ingresar a RUNT
                       </a>
@@ -302,6 +303,7 @@
                       src="~@/assets/help.png"
                       width="40"
                       height="40"
+                      alt="Ayuda"
                     />
                   </button>
                   <div
