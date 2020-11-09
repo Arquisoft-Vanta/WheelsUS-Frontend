@@ -130,7 +130,7 @@
                 <div class="form-row">
                   <div class="col-12 mt-3 mb-3">
                     <a
-                      v-on:click="createUserDB"
+                      v-on:click="getUserDB"
                       type="button"
                       class="btn btn-outline-dark btn-block"
                     >
@@ -260,7 +260,7 @@ export default {
         password: "pas123456",
         registryDatetime: "2020-10-04@11:59:59",
         picture: "imagen.jpg",
-        vehicleModel:[],
+        vehicleModel: [],
         Rh: "O+",
       },
       newFavoritePoint: {
@@ -339,7 +339,9 @@ export default {
       });
     },
     getUserDB() {
-      UserSC.getUser();
+      UserSC.getUser((data) => {
+        console.log(data);
+      });
     },
     updateUser() {},
     saveDirection() {

@@ -1,19 +1,9 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/user/";
-function getUsers(callback) {
-  axios
-    .get(route)
-    .then(response => {
-      callback(response.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-}
+const route = "http://localhost:8080/api/user";
 
-function getUser(id, callback) {
+function getUser(callback) {
   axios
-    .get(`${route}${id}`)
+    .get(route+'/profile')
     .then(response => {
       callback(response.data);
     })
@@ -35,7 +25,7 @@ function createUser(user, callback) {
 
 function updateUser(user, callback) {
   axios
-    .put(route+"0", user)
+    .put(route+"/0", user)
     .then(response => {
       callback(response.status);
     })
@@ -56,7 +46,6 @@ function deleteUser(id, callback) {
 }
 
 export default {
-  getUsers,
   getUser,
   createUser,
   updateUser,
