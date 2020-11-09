@@ -28,6 +28,7 @@
                   type="button"
                   data-toggle="modal"
                   data-target="#exampleModal"
+                  @click="getUserDB"
                 >
                   Ver direcciones
                 </a>
@@ -187,7 +188,7 @@
                           class="form-control"
                           type="text"
                           placeholder="Ejemplo: Mi universidad"
-                          v-model="newFavoritePoint.name"
+                          v-model="newFavoritePoint.nameFd"
                         />
                       </div>
                       <div class="form-group">
@@ -239,7 +240,7 @@ import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
-
+import FavoriteServiceClient from "../serviceClients/FavoriteServiceCliente";
 export default {
   name: "Perfil",
   components: {
@@ -260,14 +261,15 @@ export default {
         password: "pas123456",
         registryDatetime: "2020-10-04@11:59:59",
         picture: "imagen.jpg",
-        vehicleModel:[],
+        vehicleModel: [],
         Rh: "O+",
       },
       newFavoritePoint: {
-        address: "",
-        lat: 0,
-        lng: 0,
-        name: "",
+        favAddress: "",
+        favLatitude: "",
+        favLongitude: "",
+        datetimeCreationFav: "",
+        nameFd: "",
       },
       textoBotonEditar: "Editar",
 
@@ -291,9 +293,10 @@ export default {
 
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
-        this[ref].address = `${place.name}, ${place.vicinity}`;
-        this[ref].lat = place.geometry.location.lat();
-        this[ref].lng = place.geometry.location.lng();
+        this[ref].favAddress = `${place.name}, ${place.vicinity}`;
+        this[ref].favLatitude =""+ place.geometry.location.lat();
+        this[ref].favLongitude =""+ place.geometry.location.lng();
+        this[ref].datetimeCreationFav="2020-05-07@10:20:15";
         console.log(this.newFavoritePoint);
         EventBus.$emit("generateMarker", this.newFavoritePoint);
       });
@@ -339,10 +342,17 @@ export default {
       });
     },
     getUserDB() {
-      UserSC.getUser();
+      UserSC.getUser(1);
     },
     updateUser() {},
     saveDirection() {
+      FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
+        if (response === 201) {
+          console.log("OK");
+        } else {
+          alert("Datos invalidos");
+        }
+      });
       console.log(this.newFavoritePoint);
     },
   },

@@ -15,6 +15,7 @@ function getUser(id, callback) {
   axios
     .get(`${route}${id}`)
     .then(response => {
+      console.log(response.data);
       callback(response.data);
     })
     .catch(function(error) {
