@@ -29,7 +29,6 @@ import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import axios from "axios";
 import firebase from "firebase";
 
 export default {
