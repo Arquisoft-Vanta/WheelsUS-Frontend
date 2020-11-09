@@ -61,7 +61,7 @@
                       type="text"
                       class="form-control form-control-sm text-center"
                       id="validationDefault02"
-                      placeholder="Apellidos completos"
+                      placeholder="Documento"
                       readonly
                     />
                   </div>
@@ -121,8 +121,7 @@
                       disabled
                       v-model="user.universityId"
                     >
-                      <option selected></option>
-                      <option value="1">
+                      <option value="1" selected>
                         Universidad Nacional de Colombia
                       </option>
                     </select>
@@ -139,10 +138,7 @@
                     </a>
                   </div>
                   <div class="col-6 mt-3 mb-3">
-                    <a
-                      type="button"
-                      class="btn btn-outline-primary btn-block "
-                    >
+                    <a type="button" class="btn btn-outline-primary btn-block">
                       Guardar
                     </a>
                   </div>
@@ -214,8 +210,11 @@
                 >
                   Cerrar
                 </button>
-                <button type="button" class="btn btn-outline-dark"
-                @click="saveDirection">
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  @click="saveDirection"
+                >
                   Guardar Dirección
                 </button>
               </div>
@@ -335,7 +334,7 @@ export default {
         userName: "",
         userDoc: "",
         userPhone: "",
-        universityId: 1,
+        universityId: '',
         userMail: "",
         userAddress: "",
         password: "",
@@ -361,7 +360,7 @@ export default {
   },
   props: {},
   mounted() {
-    this.getUserDB(); 
+    this.getUserDB();
     this.showDirections();
     EventBus.$emit("passengerRoutes-data", this.routes);
     for (let ref in this.$refs) {
@@ -389,7 +388,18 @@ export default {
   methods: {
     getFormattedDate() {
       var date = new Date();
-      var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.toLocaleDateString("es-CO", {day: "2-digit"}) + "@" +  ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
+      var str =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        date.toLocaleDateString("es-CO", { day: "2-digit" }) +
+        "@" +
+        ("0" + date.getHours()).slice(-2) +
+        ":" +
+        ("0" + date.getMinutes()).slice(-2) +
+        ":" +
+        ("0" + date.getSeconds()).slice(-2);
       return str;
     },
     editInputData() {
@@ -436,13 +446,20 @@ export default {
       });
     },
     updateUser() {
-      UserSC.updateUser(this.user, ()=>{});
+      UserSC.updateUser(this.user, () => {});
     },
     saveDirection() {
-      this.newFavoritePoint.datetimeCreationFav =this.getFormattedDate();
+      this.newFavoritePoint.datetimeCreationFav = this.getFormattedDate();
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
           console.log("OK");
+           this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
+            title: "Dirección Almacenada",
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "success",
+            solid: true,
+          });
         } else {
           alert("Datos invalidos");
         }

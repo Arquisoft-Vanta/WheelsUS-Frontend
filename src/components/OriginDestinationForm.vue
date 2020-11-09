@@ -153,9 +153,15 @@ export default {
     },
     saveRoute() {
       const db = firebase.firestore();
-      db.collection("passengerRoutes")
-        .doc()
-        .set(this.route);
+      db.collection("passengerRoutes").doc().set(this.route);
+      this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
+            title: "Ruta Almacenada",
+            autoHideDelay: 2000,
+            appendToast: true,
+            variant: "success",
+            solid: true,
+          });
+
     },
   },
 };

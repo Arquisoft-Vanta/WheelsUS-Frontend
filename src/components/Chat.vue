@@ -6,8 +6,8 @@
       <p></p>
       <div v-bind:style="collapse1" id="collapseChat">
         <div class="chatbody">
-          <div class="chatnombre card">{{ userName }}
-            <button class="btn btn-close" @click="toogleChat()" > X</button>  
+          <div class="chatnombre ">{{ userName }}
+            <button class="btn " @click="toogleChat()" > X</button>  
           </div>
           <div class="card card-body messages-body">
             <Burbuja
@@ -39,7 +39,6 @@
       </div>
     </div>
 
-    <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
 

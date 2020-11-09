@@ -113,9 +113,7 @@ export default {
 
           }
         );
-      } else {
-        // this.error = error.message;
-      }
+      } 
     }    
   }
 };
