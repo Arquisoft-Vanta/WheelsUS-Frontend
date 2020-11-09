@@ -41,6 +41,7 @@ function loginUser(user, callback, showtoast) {
         //alert("Error en la autenticación");
       } else {
         localStorage.setItem("token", response.data.access_token);
+        alert("Usuario Logueado")
         callback();
       }
     })

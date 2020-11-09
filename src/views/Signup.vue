@@ -86,7 +86,7 @@
                     <div class="form-row">
                       <div class="col">
                         <input
-                          v-model="newUser.userMail"
+                          v-model="email"
                           style="width: 100%; margin: 0 -7% 5% -4%"
                           type="text"
                           class="form-control"
@@ -205,6 +205,8 @@ export default {
         picture: "",
         Rh: "",
       },
+      email :"",
+      domain: "@unal.edu.co",
       password: "",
     };
   },
@@ -218,8 +220,7 @@ export default {
 
 
     signup() {
-      this.newUser.userMail = this.newUser.userMail + "@unal.edu.co";
-      this.newUser.registryDatetime = this.getFormattedDate();
+        this.newUser.userMail= this.email + this.domain
       AuthServiceClient.registerUser(this.newUser, (response) => {
         if (response === 201) {
           this.$router.push("login");

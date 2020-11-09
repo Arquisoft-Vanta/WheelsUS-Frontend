@@ -5,6 +5,7 @@ function getUser(callback) {
   axios
     .get(route+'/profile')
     .then(response => {
+      console.log(response.data);
       callback(response.data);
     })
     .catch(function(error) {
