@@ -142,7 +142,6 @@
                       href="#"
                       type="button"
                       class="btn btn-outline-danger"
-                      name="cancelBtn"
                       id="cancelBtn"
                       style="margin: -1% 2% 0 2%"
                     >
@@ -209,12 +208,12 @@ export default {
   },
   methods: {
     signup() {
-      this.newUser.userMail = this.newUser.userMail + "@unal.edu.co"
+      this.newUser.userMail = this.newUser.userMail + "@unal.edu.co";
       AuthServiceClient.registerUser(this.newUser, (response) => {
         if (response === 201) {
           this.$router.push("login");
-        }else{
-          alert("Datos invalidos")
+        } else {
+          alert("Datos invalidos");
         }
       });
     },
