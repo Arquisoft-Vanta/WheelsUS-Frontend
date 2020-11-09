@@ -104,7 +104,6 @@
                     href="#"
                     type="button"
                     class="btn btn-light"
-                    name="cancelBtn"
                     id="cancelBtn"
                     style="margin: 2% 2% 2% 2%"
                   >
