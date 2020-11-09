@@ -453,6 +453,13 @@ export default {
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
           console.log("OK");
+           this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
+            title: "Dirección Almacenada",
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "success",
+            solid: true,
+          });
         } else {
           alert("Datos invalidos");
         }
