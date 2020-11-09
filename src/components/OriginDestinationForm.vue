@@ -1,5 +1,5 @@
 <template>
-  <section class="origin-destination-form">    
+  <section class="origin-destination-form">
     <div class="form">
       <h4>Postula tu ruta</h4>
       <div v-show="error">{{ error }}</div>
@@ -71,7 +71,6 @@
         >
           Guardar ruta
         </button>
-        
       </div>
     </div>
   </section>
@@ -81,7 +80,6 @@
 import axios from "axios";
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
-import DirectionsMapViewVue from './DirectionsMapView.vue';
 
 export default {
   data() {
@@ -143,7 +141,7 @@ export default {
             } else {
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
-              this.route.userid = "fsduenasc@unal.edu.co";       
+              this.route.userid = "fsduenasc@unal.edu.co";
             }
           }
         })
@@ -155,10 +153,10 @@ export default {
     },
     saveRoute() {
       const db = firebase.firestore();
-      db.collection("passengerRoutes").doc().set(this.route);
+      db.collection("passengerRoutes")
+        .doc()
+        .set(this.route);
     },
-    
-    
   },
 };
 </script>
