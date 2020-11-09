@@ -49,8 +49,8 @@ const routes = [
   { path: "/driver", name: "driver", component: Driver },
   { path: "/view-passengers", name: "viewPassengers", component: viewPassengers },
   {
-    path: "/passanger-profile",
-    name: "passanger-profile",
+    path: "/passenger-profile",
+    name: "passenger-profile",
     component: PassengerProfile,
   },
 ];
