@@ -81,8 +81,6 @@ import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
-import firebase from "firebase";
-import axios from "axios";
 
 export default {
   name: "PostService",
