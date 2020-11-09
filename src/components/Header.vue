@@ -59,6 +59,7 @@
               src="~@/assets/person.png"
               width="30"
               height="30"
+              alt="persona"
             />
           </button>
           <div class="dropdown-menu dropdown-menu-lg-left">
