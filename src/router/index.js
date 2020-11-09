@@ -13,6 +13,7 @@ import Passenger from "./../views/Passenger.vue";
 import Driver from "./../views/Driver.vue";
 import RideRegistration from "./../views/RideRegistration.vue";
 import viewPassengers from "./../views/ViewPassengers.vue"
+import PassengerProfile from "./../views/PassangerProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -37,7 +38,12 @@ const routes = [
   { path: "/create-service", name: "createService", component: CreateService },
   { path: "/passenger", name: "passenger", component: Passenger },
   { path: "/driver", name: "driver", component: Driver },
-  { path: "/view-passengers", name: "viewPassengers", component: viewPassengers }
+  { path: "/view-passengers", name: "viewPassengers", component: viewPassengers },
+  {
+    path: "/passanger-profile",
+    name: "passanger-profile",
+    component: PassengerProfile,
+  },
 ];
 
 const router = new VueRouter({

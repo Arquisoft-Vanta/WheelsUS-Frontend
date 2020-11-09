@@ -1,8 +1,9 @@
 <template>
-  <section class="origin-destination-form">
+  <section class="origin-destination-form">    
     <div class="form">
+      <h4>Postula tu ruta</h4>
       <div v-show="error">{{ error }}</div>
-      <div class="two fields">
+      <div class="four fields">
         <div class="field">
           <div>
             <input
@@ -29,9 +30,48 @@
             />
           </div>
         </div>
-        <button class="btn btn-outline-dark btn-block button" @click="calculateButtonPressed" style="margin: 10% 0% -2% 0%">
-          Calcular ruta
+        <div class="field">
+          <div>
+            <input
+              v-model="route.time"
+              type="time"
+              placeholder="Tiempo"
+              ref="time"
+              style="width: 100%; margin: 5% 0% 5% 0%"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+        <div class="field">
+          <div>
+            <input
+              v-model="route.date"
+              type="date"
+              placeholder="Fecha"
+              ref="date"
+              style="width: 100%; margin: 5% 0% 5% 0%"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+        <button
+          class="btn btn-outline-dark btn-block button"
+          @click="calculateButtonPressed"
+          style="margin: 10% 0% -2% 0%"
+        >
+          Postular ruta
         </button>
+        <button
+          class="btn btn-outline-dark btn-block button"
+          @click="saveRoute"
+          style="margin: 10% 0% -2% 0%"
+          data-toggle="modal"
+        >
+          Guardar ruta
+        </button>
+        
       </div>
     </div>
   </section>
@@ -41,6 +81,8 @@
 import axios from "axios";
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
+import DirectionsMapViewVue from './DirectionsMapView.vue';
+
 export default {
   data() {
     return {
@@ -55,6 +97,8 @@ export default {
           lat: 0,
           lng: 0,
         },
+        time: "",
+        date: Date,
         distance: {},
         duration: {},
         userid: "",
@@ -99,9 +143,7 @@ export default {
             } else {
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
-              this.route.userid = "fsduenasc@unal.edu.co";
-
-              this.saveRoute();
+              this.route.userid = "fsduenasc@unal.edu.co";       
             }
           }
         })
@@ -115,6 +157,8 @@ export default {
       const db = firebase.firestore();
       db.collection("passengerRoutes").doc().set(this.route);
     },
+    
+    
   },
 };
 </script>

@@ -4,10 +4,14 @@
 <script>
 import { EventBus } from "@/EventBus";
 export default {
+  name: "DirectionsMapView",
+  props: {},
+
   data() {
     return {
       map: null,
       waypoints: [],
+      marker: null,
     };
   },
   mounted() {
@@ -99,6 +103,19 @@ export default {
         });
       }
     });
+
+    EventBus.$on("newMarker", (coords) => {
+      let myLatLng = new google.maps.LatLng(coords[0], coords[1]);
+
+      this.marker = new google.maps.Marker({
+        position: myLatLng,
+        map: this.map,
+        title: "Hello World!",
+      });
+
+      this.map.setCenter(myLatLng);
+    });
+
     /**
      * Esta función recibe una posible ruta tentativa del conductor
      * con sus puntos de parada y la pinta en el mapa.
@@ -159,6 +176,20 @@ export default {
           }
         }
       );
+    });
+    EventBus.$on("generateMarker", (point) => {
+      this.map = new google.maps.Map(this.$refs["map"], {
+        center: new google.maps.LatLng(point.lat, point.lng),
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      });
+      if (point === undefined) {
+      } else {
+        new google.maps.Marker({
+          position: { lat: point.lat, lng: point.lng },
+          map: this.map,
+        });
+      }
     });
   },
   methods: {
