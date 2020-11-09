@@ -378,6 +378,11 @@ export default {
     }
   },
   methods: {
+    getFormattedDate() {
+      var date = new Date();
+      var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.toLocaleDateString("es-CO", {day: "2-digit"}) + "@" +  ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
+      return str;
+    },
     editInputData() {
       this.estadoInput = document.getElementById(
         "validationDefault01"
@@ -421,6 +426,7 @@ export default {
     },
     updateUser() {},
     saveDirection() {
+      this.newFavoritePoint.datetimeCreationFav =getFormattedDate();
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
           console.log("OK");
