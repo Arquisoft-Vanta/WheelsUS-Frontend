@@ -10,13 +10,6 @@
             <button class="btn btn-close" @click="toogleChat()" > X</button>  
           </div>
           <div class="card card-body messages-body">
-            <!-- <Burbuja
-              v-for="(message, index) in conversation"
-              :key="index"
-              :type="message.sender"
-              :message="message.msg"
-            ></Burbuja>-->
-
             <Burbuja
               v-for="(message, index) in conversation"
               :key="index"
