@@ -129,13 +129,21 @@
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="col-12 mt-3 mb-3">
+                  <div class="col-6 mt-3 mb-3">
                     <a
-                      v-on:click="getUserDB"
+                      v-on:click="editInputData"
                       type="button"
                       class="btn btn-outline-dark btn-block"
                     >
-                      {{ textoBotonEditar }}
+                      Editar
+                    </a>
+                  </div>
+                  <div class="col-6 mt-3 mb-3">
+                    <a
+                      type="button"
+                      class="btn btn-outline-primary btn-block "
+                    >
+                      Guardar
                     </a>
                   </div>
                 </div>
@@ -294,8 +302,7 @@
                   <DirectionsMapView class="map" />
                 </div>
               </div>
-              <div class="modal-footer">
-              </div>
+              <div class="modal-footer"></div>
             </div>
           </div>
         </div>
@@ -324,17 +331,17 @@ export default {
     return {
       Foto: Foto,
       user: {
-        userName: "Sebastian Moreno",
-        userDoc: "1013681625",
-        userPhone: "3134340058",
+        userName: "",
+        userDoc: "",
+        userPhone: "",
         universityId: 1,
-        userMail: "sebastian@gmail.com",
-        userAddress: "Calle siempre viva 123",
-        password: "pas123456",
-        registryDatetime: "2020-10-04@11:59:59",
-        picture: "imagen.jpg",
+        userMail: "",
+        userAddress: "",
+        password: "",
+        registryDatetime: "",
+        picture: "",
         vehicleModel: [],
-        Rh: "O+",
+        Rh: "",
       },
       newFavoritePoint: {
         favAddress: "",
@@ -348,11 +355,12 @@ export default {
       listRoutes: [],
 
       //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
-      estadoInput: true,
+      estadoInput: false,
     };
   },
   props: {},
   mounted() {
+    this.getUserDB(); 
     this.showDirections();
     EventBus.$emit("passengerRoutes-data", this.routes);
     for (let ref in this.$refs) {
@@ -418,10 +426,12 @@ export default {
     },
     getUserDB() {
       UserSC.getUser((data) => {
-        console.log(data);
+        this.user = data;
       });
     },
-    updateUser() {},
+    updateUser() {
+      UserSC.updateUser(this.user, ()=>{});
+    },
     saveDirection() {
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
@@ -434,12 +444,11 @@ export default {
     showDirections() {
       FavoriteServiceClient.getDirectionsByUser((response) => {
         this.listRoutes = response;
-        });
+      });
     },
-    showPoint(route){
-              EventBus.$emit("generateMarker", route);
-
-    }
+    showPoint(route) {
+      EventBus.$emit("generateMarker", route);
+    },
   },
 };
 </script>
