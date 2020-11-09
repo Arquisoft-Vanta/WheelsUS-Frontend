@@ -4,16 +4,20 @@
 <script>
 import { EventBus } from "@/EventBus";
 export default {
+  name: "DirectionsMapView",
+  props: {},
+
   data() {
     return {
       map: null,
       waypoints: [],
+      marker: null,
     };
   },
   mounted() {
     const directionsService = new google.maps.DirectionsService();
     /**
-     * Esta función, permita pintar en el mapa la información de la ruta 
+     * Esta función, permita pintar en el mapa la información de la ruta
      * traida en la variable "routes" donde debería ser la ruta de un posible pasajero
      * que el conductor quiera ver.
      */
@@ -23,71 +27,97 @@ export default {
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
-      routes.forEach(({ origin, destination, distance, duration }) => {
-        directionsService.route(
-          {
-            origin: { lat: origin.lat, lng: origin.lng },
-            destination: { lat: destination.lat, lng: destination.lng },
-            travelMode: "DRIVING",
-          },
-          (response, status) => {
-            if (status === "OK") {
-              new google.maps.DirectionsRenderer({
-                suppressMarkers: true,
-                directions: response,
-                map: this.map,
-                polylineOptions: {
-                  strokeColor: "#06416d",
-                  strokeWeight: 2,
-                },
-              });
-              /**
-               * Esta parte del código envia a la función "createInfoWindowWith" información para mostrar
-               * en el mapa.
-               */
-              this.createInfoWindowWith("Partida", origin.address,origin.lat,origin.lng);
-              this.createInfoWindowWith("Destino", destination.address,destination.lat,destination.lng);
-              const overviewPath = response.routes[0].overview_path;
-              const middleIndex = parseInt(overviewPath.length / 2);
-              const middleLoc = overviewPath[middleIndex];
+      if (routes === undefined) {
+      } else {
+        routes.forEach(({ origin, destination, distance, duration }) => {
+          directionsService.route(
+            {
+              origin: { lat: origin.lat, lng: origin.lng },
+              destination: { lat: destination.lat, lng: destination.lng },
+              travelMode: "DRIVING",
+            },
+            (response, status) => {
+              if (status === "OK") {
+                new google.maps.DirectionsRenderer({
+                  suppressMarkers: true,
+                  directions: response,
+                  map: this.map,
+                  polylineOptions: {
+                    strokeColor: "#06416d",
+                    strokeWeight: 2,
+                  },
+                });
+                /**
+                 * Esta parte del código envia a la función "createInfoWindowWith" información para mostrar
+                 * en el mapa.
+                 */
+                this.createInfoWindowWith(
+                  "Partida",
+                  origin.address,
+                  origin.lat,
+                  origin.lng
+                );
+                this.createInfoWindowWith(
+                  "Destino",
+                  destination.address,
+                  destination.lat,
+                  destination.lng
+                );
+                const overviewPath = response.routes[0].overview_path;
+                const middleIndex = parseInt(overviewPath.length / 2);
+                const middleLoc = overviewPath[middleIndex];
 
-              const distanceDurationLabel = new google.maps.InfoWindow({
-                content: `<div style="background-color:#06416d;padding:5px; color:white;">${distance.text} - ${duration.text}</div>`,
-                position: new google.maps.LatLng(
-                  middleLoc.lat(),
-                  middleLoc.lng()
-                ),
-              });
-              distanceDurationLabel.open(this.map, null);
-              /**
-               * Se llama a "google.maps.Marker" para brindar al conductor una mayor claridad en cuanto a la ubicacion
-               * del pasajero tanto para su recogida como para su destino.
-               */
-              new google.maps.Marker({
-                position: { lat: origin.lat, lng: origin.lng },
-                map: this.map,
-                icon: {
-                  path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                  strokeColor: "#06416d",
-                  scale: 3,
-                },
-              });
-              new google.maps.Marker({
-                position: { lat: destination.lat, lng: destination.lng },
-                map: this.map,
-                icon: {
-                  path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                  strokeColor: "#06416d",
-                  scale: 3,
-                },
-              });
+                const distanceDurationLabel = new google.maps.InfoWindow({
+                  content: `<div style="background-color:#06416d;padding:5px; color:white;">${distance.text} - ${duration.text}</div>`,
+                  position: new google.maps.LatLng(
+                    middleLoc.lat(),
+                    middleLoc.lng()
+                  ),
+                });
+                distanceDurationLabel.open(this.map, null);
+                /**
+                 * Se llama a "google.maps.Marker" para brindar al conductor una mayor claridad en cuanto a la ubicacion
+                 * del pasajero tanto para su recogida como para su destino.
+                 */
+                new google.maps.Marker({
+                  position: { lat: origin.lat, lng: origin.lng },
+                  map: this.map,
+                  icon: {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    strokeColor: "#06416d",
+                    scale: 3,
+                  },
+                });
+                new google.maps.Marker({
+                  position: { lat: destination.lat, lng: destination.lng },
+                  map: this.map,
+                  icon: {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    strokeColor: "#06416d",
+                    scale: 3,
+                  },
+                });
+              }
             }
-          }
-        );
-      });
+          );
+        });
+      }
     });
+
+    EventBus.$on("newMarker", (coords) => {
+      let myLatLng = new google.maps.LatLng(coords[0], coords[1]);
+
+      this.marker = new google.maps.Marker({
+        position: myLatLng,
+        map: this.map,
+        title: "Hello World!",
+      });
+
+      this.map.setCenter(myLatLng);
+    });
+
     /**
-     * Esta función recibe una posible ruta tentativa del conductor 
+     * Esta función recibe una posible ruta tentativa del conductor
      * con sus puntos de parada y la pinta en el mapa.
      */
     EventBus.$on("possibleRoute-data", (routes) => {
@@ -99,7 +129,7 @@ export default {
       });
       /**
        * Esta parte del código recibe los "paradas" que el conductor va a realizar
-       * y las guarda en la variable "waypoints", con el fin de pintarlas 
+       * y las guarda en la variable "waypoints", con el fin de pintarlas
        * en el mapa.
        */
       routes[2].forEach(({ address, lat, lng }) => {
@@ -146,6 +176,20 @@ export default {
           }
         }
       );
+    });
+    EventBus.$on("generateMarker", (point) => {
+      this.map = new google.maps.Map(this.$refs["map"], {
+        center: new google.maps.LatLng(parseFloat(point.favLatitude), parseFloat(point.favLongitude)),
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      });
+      if (point === undefined) {
+      } else {
+        new google.maps.Marker({
+          position: { lat: parseFloat(point.favLatitude), lng: parseFloat(point.favLongitude) },
+          map: this.map,
+        });
+      }
     });
   },
   methods: {

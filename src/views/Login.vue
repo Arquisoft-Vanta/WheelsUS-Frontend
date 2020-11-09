@@ -30,9 +30,8 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav mr-right">
               <li class="nav-item active">
-                <router-link to="about-us" class="nav-link text-white" href="#"
-                  >Acerca de nosotros<span class="sr-only"></span
-                ></router-link>
+                <router-link to="about-us" class="nav-link text-white"
+                  >Acerca de nosotros</router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/signup" class="nav-link text-white"
@@ -124,13 +123,26 @@ export default {
         userMail: "",
         password: "",
       },
+      logging: false, 
     };
   },
   methods: {
     login(event) {
-      AuthServiceClient.loginUser(this.credentials, () => {
-        this.$router.push("home");
-      });
+      AuthServiceClient.loginUser(
+        this.credentials,
+        () => {
+          this.$router.push("home");
+        },
+        (text) => {
+          this.$bvToast.toast(text, {
+            title: "Error de Autenticación",
+            autoHideDelay: 2000,
+            appendToast: true,
+            variant: "danger",
+            solid: true,
+          });
+        }
+      );
       event.preventDefault();
     },
   },

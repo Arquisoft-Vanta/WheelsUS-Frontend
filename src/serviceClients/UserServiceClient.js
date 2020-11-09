@@ -1,20 +1,14 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/user/";
-function getUsers(callback) {
-  axios
-    .get(route)
-    .then(response => {
-      callback(response.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-}
+const route = "http://localhost:8080/api/user";
 
-function getUser(id, callback) {
+function getUser(callback) {
   axios
-    .get(`${route}${id}`)
-    .then(response => {
+    .get(route + "/profile", {
+      params: {
+        access_token: localStorage.getItem("token"),
+      },
+    })
+    .then((response) => {
       callback(response.data);
     })
     .catch(function(error) {
@@ -25,7 +19,7 @@ function getUser(id, callback) {
 function createUser(user, callback) {
   axios
     .post(route, user)
-    .then(response => {
+    .then((response) => {
       callback(response.status);
     })
     .catch(function(error) {
@@ -35,8 +29,12 @@ function createUser(user, callback) {
 
 function updateUser(user, callback) {
   axios
-    .put(route+"0", user)
-    .then(response => {
+    .put(route + "/profile", user, {
+      params: {
+        access_token: localStorage.getItem("token"),
+      },
+    })
+    .then((response) => {
       callback(response.status);
     })
     .catch(function(error) {
@@ -47,7 +45,7 @@ function updateUser(user, callback) {
 function deleteUser(id, callback) {
   axios
     .delete(`${route}${id}`)
-    .then(response => {
+    .then((response) => {
       callback(response.status);
     })
     .catch(function(error) {
@@ -56,9 +54,8 @@ function deleteUser(id, callback) {
 }
 
 export default {
-  getUsers,
   getUser,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };
