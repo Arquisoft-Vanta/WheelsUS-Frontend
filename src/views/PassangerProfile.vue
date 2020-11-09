@@ -1,11 +1,11 @@
 <template>
   <div>
-    <FooterwithBackground></FooterwithBackground>
+    <Header></Header>
     <div>
       <div class="container">
         <div class="row align-items-start h-100">
           <div
-            class="col-12 pl-md-5 pr-md-5 pl-lg-0 pr-lg-0 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-5 mb-5"
+            class="col-12 pl-md-5 pr-md-5 pl-lg-0 pr-lg-0 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-5 mb-0"
           >
             <div class="datosusuario card pt-3">
               <img
@@ -16,32 +16,26 @@
               <div class="card-body">
                 <h5 class="card-title pt-3">Usuario</h5>
                 <a type="button" class="btn btn-outline-dark btn-block">
-                  Añadir dirección
+                  Añadir ruta
                 </a>
               </div>
             </div>
           </div>
           <div
-            class="col-12 pl-md-5 pr-md-5 col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-lg-5 mt-0 mb-5"
+            class="history-panel col-12 pl-md-5 pr-md-5 col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-lg-5 mt-5 mb-5"
           >
-            <div class="list-group">
-              <h5>Tus viajes</h5>
-              <a href="#" class="list-group-item list-group-item-action">
-                Universidad Nacional - Facatativá
-              </a>
-            </div>
+            <h5>Tus viajes</h5>
+            <history-passanger />
           </div>
           <div
-            class="col-12 pl-md-0 pr-md-0 col-sm-12 col-md-12 col-lg-5 col-xl-5 mt-lg-5 mt-0 mb-5 h-75 "
+            class="container-map col-12 pl-md-0 pr-md-0 col-sm-12 col-md-12 col-lg-5 col-xl-5 mt-lg-5 mt-5 mb-5"
           >
-            <div class="mapa card card-body h-50 mb-5">
-              <h5>Mapa</h5>
-            </div>
+            <DirectionsMapView />
           </div>
         </div>
       </div>
     </div>
-    <Header></Header>
+    <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
 
@@ -50,32 +44,24 @@ import Header from "../components/Header";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
+import DirectionsMapView from "../components/DirectionsMapView.vue";
+import { EventBus } from "@/EventBus.js";
+import HistoryPassanger from "./../components/HistoryPassanger.vue";
 
 export default {
-  name: "Perfil",
+  name: "PassangerProfile",
   components: {
     Header,
     FooterwithBackground,
+    DirectionsMapView,
+    HistoryPassanger,
+  },
+  mounted() {
+    EventBus.$emit("passengerRoutes-data", this.routes);
   },
   data() {
     return {
       Foto: Foto,
-      user: {
-        userName: "Gonzalo Diaz",
-        userDoc: "1013681625",
-        userPhone: "3134340058",
-        universityId: 1,
-        userMail: "egonzalodm@gmail.com",
-        userAddress: "Calle siempre viva 123",
-        password: "contraseña",
-        registryDatetime: "2020-10-04@11:59:59",
-        picture: "imagen.jpg",
-        Rh: "O+",
-      },
-      textoBotonEditar: "Editar",
-
-      //Estado del botón que permite editar y guardar los cambios realizados a la información de un usuario
-      estadoInput: true,
     };
   },
   props: {},
@@ -103,6 +89,20 @@ export default {
 }
 
 .container {
-  height: 85vh;
+  height: 70vh;
+}
+
+.container-map {
+  height: 75vh;
+}
+
+.history-panel {
+  height: 60vh;
+}
+
+@media (max-width: 991px) {
+  .container-map {
+    height: 90vh;
+  }
 }
 </style>
