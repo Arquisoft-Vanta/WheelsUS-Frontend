@@ -1,10 +1,11 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/user/";
-
+const route = "http://localhost:8080/api/user";
+const path = "http://localhost:8080";
 function registerUser(user, callback) {
   axios
-    .post(route, user)
+    .post(route + "/signup", user)
     .then((response) => {
+      console.log(route + "/signup");
       callback(response.status);
     })
     .catch(function(error) {
@@ -13,14 +14,37 @@ function registerUser(user, callback) {
 }
 
 function loginUser(user, callback) {
-  var credentials = { userMail: user.userMail, password: user.password };
   axios
-    .post(route, credentials)
+    .post(
+      path + "/oauth/token",
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: {
+          username: user.userMail,
+          password: user.password,
+          grant_type: "password",
+        },
+        auth: {
+          username: "wheels-us",
+          password: "dragonfly-software",
+        },
+      }
+    )
     .then((response) => {
-      callback(response.status);
+      if (response.status !== 200) {
+        alert("Error en la autenticación");
+      } else {
+        localStorage.setItem("token", response.data.access_token);
+        callback();
+      }
     })
-    .catch(function(error) {
-      console.log(error);
+    .catch((error) => {
+      if (error.response.status === 400) {
+        alert("Datos invalidos");
+      }
     });
 }
 
@@ -32,5 +56,5 @@ export default {
   registerUser,
   loginUser,
   setUserLogged,
-  getUserLogged
+  getUserLogged,
 };
