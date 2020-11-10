@@ -397,26 +397,40 @@ export default {
     saveRoute() {
       var textAlert = "";
       if (this.route.originDriver.address === "") {
-        textAlert = textAlert + "Punto de Origen \n";
+        textAlert = textAlert + "Punto de Origen, \n";
       }
       if (this.route.destinationDriver.address === "") {
-        textAlert = textAlert + "Punto de Destino \n";
+        textAlert = textAlert + "Punto de Destino, \n";
       }
       if (this.route.date === "") {
-        textAlert = textAlert + "Fecha de Servicio \n";
+        textAlert = textAlert + "Fecha de Servicio, \n";
       }
       if (this.route.time === "") {
-        textAlert = textAlert + "Hora de Partida \n";
+        textAlert = textAlert + "Hora de Partida, \n";
       }
       if (this.route.value === "") {
-        textAlert = textAlert + "Valor de Servicio \n";
+        textAlert = textAlert + "Valor de Servicio. \n";
       }
       if (textAlert === "") {
         const db = firebase.firestore();
-        db.collection("driverRoute").doc().set(this.route);
-        alert("Ruta guardada.");
+        db.collection("driverRoute")
+          .doc()
+          .set(this.route);
+        this.$bvToast.toast("La ruta se guardo correctamente.", {
+          title: "Ruta guardada",
+          autoHideDelay: 2000,
+          appendToast: true,
+          variant: "success",
+          solid: true,
+        });
       } else {
-        alert("Faltan campos por llenar \n" + textAlert);
+        this.$bvToast.toast(textAlert, {
+          title: "Faltan campos por llenar",
+          autoHideDelay: 3000,
+          appendToast: true,
+          variant: "danger",
+          solid: true,
+        });
       }
     },
     /**
