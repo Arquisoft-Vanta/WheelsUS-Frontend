@@ -455,13 +455,19 @@ export default {
           console.log("OK");
            this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
             title: "Dirección Almacenada",
-            autoHideDelay: 5000,
+            autoHideDelay: 2000,
             appendToast: true,
             variant: "success",
             solid: true,
           });
         } else {
-          alert("Datos invalidos");
+          this.$bvToast.toast("Por favor verifique los datos.", {
+          title: "Datos invalidos",
+          autoHideDelay: 3000,
+          appendToast: true,
+          variant: "danger",
+          solid: true,
+        });
         }
       });
     },
