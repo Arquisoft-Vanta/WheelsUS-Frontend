@@ -182,6 +182,13 @@ export default {
       alert(
         "Los pasajeros han sido confirmados, por favor, dirígete a ordenar la ruta."
       );
+      this.$bvToast.toast("Los pasajeros han sido confirmados, por favor, dirígete a ordenar la ruta.", {
+            title: "Pasajeros confirmados",
+            autoHideDelay: 4000,
+            appendToast: true,
+            variant: "success",
+            solid: true,
+          });
     },
     /**
      * Esta función, avisa al conductor cuando ha seleccionado a un pasajero
