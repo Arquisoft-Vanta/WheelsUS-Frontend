@@ -28,7 +28,6 @@
                   type="button"
                   data-toggle="modal"
                   data-target="#exampleModal2"
-                  @click="showDirections"
                 >
                   Ver direcciones
                 </a>
@@ -222,91 +221,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="modal fade"
-          id="exampleModal2"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Mis Direcciones
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="accordion" id="accordionExample">
-                  <div
-                    class="card"
-                    v-for="route in listRoutes"
-                    :key="route.idFavoriteDirection"
-                  >
-                    <div class="card-header" id="headingOne">
-                      <h2 class="mb-0">
-                        <button
-                          class="btn btn-link btn-block text-left"
-                          type="button"
-                          data-toggle="collapse"
-                          :data-target="`#data${route.idFavoriteDirection}`"
-                          aria-expanded="true"
-                          :aria-controls="`data${route.idFavoriteDirection}`"
-                          style="color: #06416d"
-                        >
-                          Nombre: {{ route.nameFd }}
-                        </button>
-                      </h2>
-                    </div>
-                    <div
-                      :id="`data${route.idFavoriteDirection}`"
-                      class="collapse"
-                      aria-labelledby="headingOne"
-                      data-parent="#accordionExample"
-                    >
-                      <div class="card-body">
-                        <div>{{ route.favAddress }}</div>
-                        <div class="row">
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-outline-dark btn-block button"
-                              style="margin: 5% 0 5% 0"
-                              @click="showPoint(route)"
-                            >
-                              Ver Dirección
-                            </button>
-                          </div>
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-outline-dark btn-block button"
-                              @click="cancelPassengerItemPressed(route)"
-                              style="margin: 5% 0 5% 0"
-                            >
-                              Eliminar Dirección
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <DirectionsMapView class="map" />
-                </div>
-              </div>
-              <div class="modal-footer"></div>
-            </div>
-          </div>
-        </div>
+        <Directions state="Watch Direction"/>
       </div>
     </div>
     <Header></Header>
@@ -317,6 +232,7 @@
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header";
+import Directions from "../components/WatchCurrentDirections";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
@@ -327,6 +243,7 @@ export default {
     Header,
     FooterwithBackground,
     DirectionsMapView,
+    Directions,
   },
   data() {
     return {
@@ -362,7 +279,6 @@ export default {
   props: {},
   mounted() {
     this.getUserDB();
-    this.showDirections();
     EventBus.$emit("passengerRoutes-data", this.routes);
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
@@ -465,14 +381,6 @@ export default {
           alert("Datos invalidos");
         }
       });
-    },
-    showDirections() {
-      FavoriteServiceClient.getDirectionsByUser((response) => {
-        this.listRoutes = response;
-      });
-    },
-    showPoint(route) {
-      EventBus.$emit("generateMarker", route);
     },
   },
 };
