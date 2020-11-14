@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="exampleModal2"
+    id="modalDirections"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
@@ -65,7 +65,7 @@
                       <button
                         type="button"
                         class="btn btn-outline-dark btn-block button"
-                        @click="cancelPassengerItemPressed(route)"
+                        @click="sendPoint(route)"
                         style="margin: 5% 0 5% 0"
                       >
                         {{ button }}
@@ -75,7 +75,9 @@
                 </div>
               </div>
             </div>
-            <DirectionsMapView class="map" />
+            <div id="visibilityMap">
+              <DirectionsMapView class="map" />
+            </div>
           </div>
         </div>
         <div class="modal-footer"></div>
@@ -111,16 +113,20 @@ export default {
     showDirections() {
       FavoriteServiceClient.getDirectionsByUser((response) => {
         this.listRoutes = response;
-        console.log(this.listRoutes);
       });
     },
+    sendPoint(route) {
+      EventBus.$emit("point", route);
+    },
     nameButton() {
+      var x = document.getElementById("visibilityMap");
       if (this.state == "Watch Direction") {
+        x.style.display = "block";
         this.button = "Eliminar Dirección";
       } else if (this.state == "Choose Direction") {
         this.button = "Escoger Dirección";
+        x.style.display = "none";
       }
-      console.log(this.button);
     },
     showPoint(route) {
       EventBus.$emit("generateMarker", route);

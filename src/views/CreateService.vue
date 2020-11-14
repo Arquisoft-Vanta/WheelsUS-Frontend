@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header></Header>
+    <Directions state="Choose Direction" />
     <div
       class="modal fade"
       id="exampleModal"
@@ -101,9 +102,18 @@
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Salida"
-                    style="border: 0; background: #f1f1f1; width: 100%"
+                    style="border: 0; background: #f1f1f1; width: 88%"
                     ref="originDriver"
                   />
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    data-toggle="modal"
+                    data-target="#modalDirections"
+                    @click="typeInput = 'originDriver'"
+                  >
+                    +
+                  </button>
                 </div>
                 <div class="form-inline" style="margin: 0 0 5% 0">
                   <input
@@ -111,9 +121,18 @@
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Llegada"
-                    style="border: 0; background: #f1f1f1; width: 100%"
+                    style="border: 0; background: #f1f1f1; width: 88%"
                     ref="destinationDriver"
                   />
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    data-toggle="modal"
+                    data-target="#modalDirections"
+                    @click="typeInput = 'destinationDriver'"
+                  >
+                    +
+                  </button>
                 </div>
                 <form>
                   <div class="form-group text-left">
@@ -200,13 +219,16 @@ import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import firebase from "firebase";
 import Draggable from "vuedraggable";
+import Directions from "../components/WatchCurrentDirections";
 
 export default {
   name: "CreateService",
   data() {
     return {
+      typeInput: "",
       orderedRoutesOfPassengers: [],
       routeDefinitive: [],
+      pointChoosed: "",
       route: {
         originDriver: {
           address: "",
@@ -297,10 +319,19 @@ export default {
     RouteList,
     DirectionsMapView,
     Header,
+    Directions,
     FooterwithBackground,
     Draggable,
   },
   mounted() {
+    EventBus.$on("point", (point) => {
+      try {
+        this.$refs[this.typeInput].value = point.favAddress;
+        this.route[this.typeInput].address = point.favAddress;
+        this.route[this.typeInput].lat = parseFloat(point.favLatitude);
+        this.route[this.typeInput].lng = parseFloat(point.favLongitude);
+      } catch (error) {}
+    });
     EventBus.$on("choosePassengerRoutes-data", (routes) => {
       /**
        *En esta función se traen los datos de los pasajeros seleccionados

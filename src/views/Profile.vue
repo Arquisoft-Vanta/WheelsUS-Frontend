@@ -27,7 +27,7 @@
                   class="btn btn-outline-dark btn-block"
                   type="button"
                   data-toggle="modal"
-                  data-target="#exampleModal2"
+                  data-target="#modalDirections"
                 >
                   Ver direcciones
                 </a>

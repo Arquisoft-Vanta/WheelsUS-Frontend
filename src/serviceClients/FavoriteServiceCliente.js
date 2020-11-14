@@ -17,7 +17,6 @@ function addDirection(direction, callback) {
 }
 
 function getDirectionsByUser(callback) {
-    console.log(localStorage.getItem("token"));
     axios.get(route + "/show-directions",
         {
             params: {
@@ -25,13 +24,13 @@ function getDirectionsByUser(callback) {
             }
         }).then((response) => {
             if (response.status !== 200) {
-                alert("Error obteniendo sus roles.");
+                alert("Error obteniendo sus direcciones.");
             } else {
                 callback(response.data);
             }
         })
         .catch((error) => {
-            alert("Error en la petición");
+            alert("Se ha vencido el tiempo de logueo");
             console.log(error);
         });
 }
