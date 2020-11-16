@@ -57,7 +57,7 @@
           </div>
         </div>
         <div class="col2 col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5">
-          <div class="Login card">
+          <div class="login-card card">
             <div class="card-body">
               <img class="logo" src="~@/assets/logo.png" alt="logo"/>
               <form @submit="login">
@@ -149,16 +149,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .card-body {
   color: black;
   position: relative;
   top: 15%;
 }
-.Login {
+.login-card {
   color: black;
   background-color: white;
-  opacity: 90%;
+  opacity: 0.9;
   border-radius: 2%;
   margin: 0 0 40% 0;
 }
