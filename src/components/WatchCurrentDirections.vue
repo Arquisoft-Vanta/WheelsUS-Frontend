@@ -96,9 +96,7 @@ export default {
   components: {
     DirectionsMapView,
   },
-  props: {
-    state: "",
-  },
+  props: ['state'],
   data() {
     return {
       listRoutes: [],

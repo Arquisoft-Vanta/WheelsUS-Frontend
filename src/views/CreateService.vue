@@ -330,7 +330,9 @@ export default {
         this.route[this.typeInput].address = point.favAddress;
         this.route[this.typeInput].lat = parseFloat(point.favLatitude);
         this.route[this.typeInput].lng = parseFloat(point.favLongitude);
-      } catch (error) {}
+      } catch (error) {
+        console.log("");
+      }
     });
     EventBus.$on("choosePassengerRoutes-data", (routes) => {
       /**

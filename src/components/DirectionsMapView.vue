@@ -187,8 +187,7 @@ export default {
         zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
-      if (point === undefined) {
-      } else {
+      if (point !== undefined) {
         new google.maps.Marker({
           position: {
             lat: parseFloat(point.favLatitude),
