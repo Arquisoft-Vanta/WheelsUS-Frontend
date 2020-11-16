@@ -18,6 +18,14 @@
                 <option value="duration-asc">Mayor</option>
                 <option value="duration-desc">Menor</option>
               </optgroup>
+              <optgroup label="Hora">
+                <option value="time-asc">Temprano</option>
+                <option value="time-desc">Tarde</option>
+              </optgroup>
+              <optgroup label="Fecha">
+                <option value="date-asc">Más Cerca</option>
+                <option value="date-desc">Más lejos</option>
+              </optgroup>
             </select>
           </div>
           <div class="col">
@@ -77,6 +85,8 @@
               <div>Salida: {{ route.origin.address }}</div>
               <div>Distancia: {{ route.distance.text }}</div>
               <div>Tiempo aproximado: {{ route.duration.text }}</div>
+              <div>Día de Salida: {{ route.date }}</div>
+              <div>Hora de Salida: {{ route.time }}</div>
               <div class="row">
                 <div class="col">
                   <button
@@ -153,10 +163,25 @@ export default {
     sortRoute(e) {
       const sortName = e.target.value.split("-")[0];
       const sortOrder = e.target.value.split("-")[1];
-
+      console.log(this.routes)
       const db = firebase.firestore();
-      db.collection("passengerRoutes")
-        .orderBy(sortName + ".value", sortOrder)
+      if (sortName === "distance" || sortName === "duration") {
+        db.collection("passengerRoutes")
+          .orderBy(sortName + ".value", sortOrder)
+          .get()
+          .then((snap) => {
+            this.routes = [];
+            snap.forEach((doc) => {
+              let route = doc.data();
+              route.id = doc.id;
+              this.routes.push(route);
+            });
+          });
+        console.log(sortName);
+        console.log(sortOrder);
+      } else {
+        db.collection("passengerRoutes")
+        .orderBy(sortName, sortOrder)
         .get()
         .then((snap) => {
           this.routes = [];
@@ -166,6 +191,9 @@ export default {
             this.routes.push(route);
           });
         });
+        console.log(sortName);
+        console.log(sortOrder);
+      }
     },
     /**
      * Esta función enviar la ruta del pasajero al componente
