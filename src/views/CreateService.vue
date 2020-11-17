@@ -2,6 +2,7 @@
   <div>
     <Header></Header>
     <Directions state="Choose Direction" />
+    <VehiclesByUser state="Choose Vehicle"/>
     <div
       class="modal fade"
       id="exampleModal"
@@ -180,6 +181,20 @@
                       type="button"
                       class="btn btn-outline-dark btn-block"
                       data-toggle="modal"
+                      data-target="#modalVehicles"
+                      data-display="static"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Escoger vehículo
+                    </button>
+                  </div>
+
+                  <div style="margin: 2% 0 0 0">
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark btn-block"
+                      data-toggle="modal"
                       data-target="#exampleModal2"
                     >
                       Ordenar Ruta
@@ -220,6 +235,7 @@ import FooterwithBackground from "../components/FooterwithBackground.vue";
 import firebase from "firebase";
 import Draggable from "vuedraggable";
 import Directions from "../components/WatchCurrentDirections";
+import VehiclesByUser from "../components/VehiclesByUser";
 
 export default {
   name: "CreateService",
@@ -228,6 +244,7 @@ export default {
       typeInput: "",
       orderedRoutesOfPassengers: [],
       routeDefinitive: [],
+      listVehicles: [],
       pointChoosed: "",
       route: {
         originDriver: {
@@ -322,6 +339,7 @@ export default {
     Directions,
     FooterwithBackground,
     Draggable,
+    VehiclesByUser,
   },
   mounted() {
     EventBus.$on("point", (point) => {
@@ -476,7 +494,7 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-  margin: 4% 0 0% 0;
+  margin: 1% 0 0% 0;
 }
 strong {
   display: inline-block;
