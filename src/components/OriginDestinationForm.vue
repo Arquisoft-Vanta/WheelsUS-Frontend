@@ -36,7 +36,6 @@
               v-model="route.time"
               type="time"
               placeholder="Tiempo"
-              ref="time"
               style="width: 100%; margin: 5% 0% 5% 0%"
               class="form-control"
               required
@@ -49,7 +48,6 @@
               v-model="route.date"
               type="date"
               placeholder="Fecha"
-              ref="date"
               style="width: 100%; margin: 5% 0% 5% 0%"
               class="form-control"
               required
@@ -107,6 +105,7 @@ export default {
 
   mounted() {
     for (let ref in this.$refs) {
+      console.log(ref)
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
         {
@@ -139,9 +138,11 @@ export default {
             if (elements[0].status === "ZERO_RESULTS") {
               this.error = "No Results Found.";
             } else {
+              console.log(elements[0].distance)
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
               this.route.userid = "fsduenasc@unal.edu.co";
+              console.log(this.route)
             }
           }
         })

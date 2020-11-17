@@ -18,13 +18,8 @@
                 <option value="duration-asc">Mayor</option>
                 <option value="duration-desc">Menor</option>
               </optgroup>
-              <optgroup label="Hora">
-                <option value="time-asc">Temprano</option>
-                <option value="time-desc">Tarde</option>
-              </optgroup>
               <optgroup label="Fecha">
-                <option value="date-asc">Más Cerca</option>
-                <option value="date-desc">Más lejos</option>
+                <option value="date-asc">Fecha</option>
               </optgroup>
             </select>
           </div>
@@ -42,6 +37,36 @@
               <option>1</option>
               <option>0</option>
             </select>
+          </div>
+        </div>
+        <div id="filter" style="display: none">
+          <div class="row">
+            <div class="col">
+              <select
+                id="inputState3"
+                class="form-control"
+                style="border: 0; background: #f1f1f1; margin: 5% 0 0 0"
+                @change="sortRouteByDate($event)"
+              >
+                <option disabled value="" selected>Seleccione fecha</option>
+                <option v-for="dat in date" :key="dat" :value="dat">
+                  {{ dat }}
+                </option>
+              </select>
+            </div>
+            <div class="col">
+              <select
+                id="inputState4"
+                class="form-control"
+                style="border: 0; background: #f1f1f1; margin: 5% 0 0 0"
+                @change="sortRouteByHour($event)"
+              >
+                <option disabled value="" selected>Seleccione hora</option>
+                <option v-for="hour in hours" :key="hour" :value="hour">
+                  {{ hour }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="row">
@@ -141,6 +166,10 @@ export default {
       selected: "",
       quotaMessage: "",
       confirmed: "",
+      date: [],
+      hours: [],
+      datefilter: "",
+      hoursfilter: "",
     };
   },
   created() {
@@ -150,6 +179,9 @@ export default {
       snap.forEach((doc) => {
         let route = doc.data();
         route.id = doc.id;
+        if (this.date.indexOf(route.date) === -1) {
+          this.date.push(route.date);
+        }
         this.routes.push(route);
       });
     });
@@ -163,9 +195,10 @@ export default {
     sortRoute(e) {
       const sortName = e.target.value.split("-")[0];
       const sortOrder = e.target.value.split("-")[1];
-      console.log(this.routes)
+      var x = document.getElementById("filter");
       const db = firebase.firestore();
-      if (sortName === "distance" || sortName === "duration") {
+      if (sortName === "duration" || sortName === "distance") {
+        x.style.display = "none";
         db.collection("passengerRoutes")
           .orderBy(sortName + ".value", sortOrder)
           .get()
@@ -177,11 +210,36 @@ export default {
               this.routes.push(route);
             });
           });
-        console.log(sortName);
-        console.log(sortOrder);
       } else {
-        db.collection("passengerRoutes")
-        .orderBy(sortName, sortOrder)
+        x.style.display = "block";
+      }
+    },
+    sortRouteByDate(e) {
+      this.datefilter = e.target.value;
+      const db = firebase.firestore();
+      db.collection("passengerRoutes")
+        .where("date", "==", this.datefilter)
+        .get()
+        .then((snap) => {
+          this.routes = [];
+          this.hours = [];
+          snap.forEach((doc) => {
+            let route = doc.data();
+            route.id = doc.id;
+            this.routes.push(route);
+            if (this.hours.indexOf(route.time) === -1) {
+              this.hours.push(route.time);
+            }
+          });
+        });
+    },
+    sortRouteByHour(e) {
+      this.hourfilter = e.target.value;
+      console.log(this.datefilter);
+      const db = firebase.firestore();
+      db.collection("passengerRoutes")
+        .where("date", "==", this.datefilter)
+        .where("time", "==", this.hourfilter)
         .get()
         .then((snap) => {
           this.routes = [];
@@ -191,9 +249,6 @@ export default {
             this.routes.push(route);
           });
         });
-        console.log(sortName);
-        console.log(sortOrder);
-      }
     },
     /**
      * Esta función enviar la ruta del pasajero al componente
