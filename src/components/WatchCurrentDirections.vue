@@ -67,6 +67,7 @@
                         class="btn btn-outline-dark btn-block button"
                         @click="sendPoint(route)"
                         style="margin: 5% 0 5% 0"
+                        data-dismiss="modal"
                       >
                         {{ button }}
                       </button>
@@ -96,7 +97,7 @@ export default {
   components: {
     DirectionsMapView,
   },
-  props: ['state'],
+  props: ["state"],
   data() {
     return {
       listRoutes: [],
@@ -114,7 +115,25 @@ export default {
       });
     },
     sendPoint(route) {
-      EventBus.$emit("point", route);
+      if (this.button === "Eliminar Dirección") {
+        console.log(route);
+        FavoriteServiceClient.deleteDirection(route, (response) => {
+          if (response === 201) {
+            this.$bvToast.toast("¡Dirección Eliminada Correctamente!", {
+              title: "Dirección Eliminada",
+              autoHideDelay: 5000,
+              appendToast: true,
+              variant: "success",
+              solid: true,
+            });
+          } else {
+            alert("Datos invalidos");
+          }
+        });
+      } else {
+        EventBus.$emit("point", route);
+        console.log(route);
+      }
     },
     nameButton() {
       var x = document.getElementById("visibilityMap");
@@ -129,6 +148,7 @@ export default {
     showPoint(route) {
       EventBus.$emit("generateMarker", route);
     },
+    deleteDirection(id) {},
   },
 };
 </script>

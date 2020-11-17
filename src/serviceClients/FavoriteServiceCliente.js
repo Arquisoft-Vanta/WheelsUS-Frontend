@@ -35,7 +35,21 @@ function getDirectionsByUser(callback) {
         });
 }
 
+function deleteDirection(id, callback) {
+    axios.post(route + "/delete-direction", id, {
+            params: {
+                access_token: localStorage.getItem("token")
+            }
+        }).then(response => {
+            callback(response.status);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
 export default {
     addDirection,
-    getDirectionsByUser
+    getDirectionsByUser,
+    deleteDirection
 }

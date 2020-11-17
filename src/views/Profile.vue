@@ -28,6 +28,7 @@
                   type="button"
                   data-toggle="modal"
                   data-target="#modalDirections"
+                  @click="reRender()"
                 >
                   Ver direcciones
                 </a>
@@ -221,7 +222,7 @@
             </div>
           </div>
         </div>
-        <Directions state="Watch Direction"/>
+        <Directions ref="myComp" state="Watch Direction" />
       </div>
     </div>
     <Header></Header>
@@ -252,7 +253,7 @@ export default {
         userName: "",
         userDoc: "",
         userPhone: "",
-        universityId: '',
+        universityId: "",
         userMail: "",
         userAddress: "",
         password: "",
@@ -281,28 +282,33 @@ export default {
     this.getUserDB();
     EventBus.$emit("passengerRoutes-data", this.routes);
     for (let ref in this.$refs) {
-      const autocomplete = new google.maps.places.Autocomplete(
-        this.$refs[ref],
-        {
-          bounds: new google.maps.LatLngBounds(
-            new google.maps.LatLng(45.4215296, -75.6971931)
-          ),
-          componentRestrictions: { country: "co" },
-        }
-      );
+      if (ref !== "myComp") {
+        const autocomplete = new google.maps.places.Autocomplete(
+          this.$refs[ref],
+          {
+            bounds: new google.maps.LatLngBounds(
+              new google.maps.LatLng(45.4215296, -75.6971931)
+            ),
+            componentRestrictions: { country: "co" },
+          }
+        );
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        this[ref].nameFd = this.nameFavd;
-        this[ref].favAddress = `${place.name}, ${place.vicinity}`;
-        this[ref].favLatitude = "" + place.geometry.location.lat();
-        this[ref].favLongitude = "" + place.geometry.location.lng();
-        this[ref].datetimeCreationFav = "2020-05-07@10:20:15";
-        EventBus.$emit("generateMarker", this.newFavoritePoint);
-      });
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          this[ref].nameFd = this.nameFavd;
+          this[ref].favAddress = `${place.name}, ${place.vicinity}`;
+          this[ref].favLatitude = "" + place.geometry.location.lat();
+          this[ref].favLongitude = "" + place.geometry.location.lng();
+          this[ref].datetimeCreationFav = "2020-05-07@10:20:15";
+          EventBus.$emit("generateMarker", this.newFavoritePoint);
+        });
+      }
     }
   },
   methods: {
+    reRender() {
+      this.$refs["myComp"].showDirections();
+    },
     getFormattedDate() {
       var date = new Date();
       var str =
@@ -370,7 +376,7 @@ export default {
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
           console.log("OK");
-           this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
+          this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
             title: "Dirección Almacenada",
             autoHideDelay: 5000,
             appendToast: true,
