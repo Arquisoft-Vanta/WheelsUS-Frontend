@@ -70,11 +70,11 @@
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault07">Rh</label>
                     <input
-                      v-model="user.Rh"
+                      v-model="user.rh"
                       type="text"
                       class="form-control form-control-sm text-center"
                       id="validationDefault03"
-                      placeholder="N° de documento"
+                      placeholder="Rh"
                       readonly
                     />
                   </div>
@@ -342,7 +342,7 @@ export default {
         registryDatetime: "",
         picture: "",
         vehicleModel: [],
-        Rh: "",
+        rh: "",
       },
       newFavoritePoint: {
         favAddress: "",
@@ -444,6 +444,7 @@ export default {
     getUserDB() {
       UserSC.getUser((data) => {
         this.user = data;
+        console.log(data);
       });
     },
     updateUser() {
