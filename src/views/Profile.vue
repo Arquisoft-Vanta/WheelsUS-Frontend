@@ -138,7 +138,7 @@
                     </a>
                   </div>
                   <div class="col-6 mt-3 mb-3">
-                    <a type="button" class="btn btn-outline-primary btn-block">
+                    <a type="button" class="btn btn-outline-primary btn-block" @click="updateUser">
                       Guardar
                     </a>
                   </div>

@@ -9,10 +9,10 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import { BVToastPlugin } from 'bootstrap-vue'
 import { ToastPlugin } from 'bootstrap-vue'
 
-import 'bootstrap'
+//import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'bootstrap/scss/bootstrap.scss'
+//import 'bootstrap/scss/bootstrap.scss'
 
 var firebaseConfig = {
   apiKey: "AIzaSyBYLj8XtE_HgnebkWa0Go4W_4bnsttl6nA",
