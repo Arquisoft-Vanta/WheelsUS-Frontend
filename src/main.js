@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import store from "./store/index";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import firebase from "firebase"
@@ -9,9 +9,10 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import { BVToastPlugin } from 'bootstrap-vue'
 import { ToastPlugin } from 'bootstrap-vue'
 
-
+//import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+//import 'bootstrap/scss/bootstrap.scss'
 
 var firebaseConfig = {
   apiKey: "AIzaSyBYLj8XtE_HgnebkWa0Go4W_4bnsttl6nA",

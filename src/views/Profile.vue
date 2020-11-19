@@ -70,11 +70,11 @@
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault07">Rh</label>
                     <input
-                      v-model="user.Rh"
+                      v-model="user.rh"
                       type="text"
                       class="form-control form-control-sm text-center"
                       id="validationDefault03"
-                      placeholder="N° de documento"
+                      placeholder="Rh"
                       readonly
                     />
                   </div>
@@ -138,7 +138,11 @@
                     </a>
                   </div>
                   <div class="col-6 mt-3 mb-3">
-                    <a type="button" class="btn btn-outline-primary btn-block">
+                    <a
+                      type="button"
+                      class="btn btn-outline-primary btn-block"
+                      @click="updateUser"
+                    >
                       Guardar
                     </a>
                   </div>
@@ -260,7 +264,7 @@ export default {
         registryDatetime: "",
         picture: "",
         vehicleModel: [],
-        Rh: "",
+        rh: "",
       },
       newFavoritePoint: {
         favAddress: "",
@@ -365,11 +369,17 @@ export default {
     },
     getUserDB() {
       UserSC.getUser((data) => {
+        if (!this.$store.state.user) {
+          this.$store.commit("updateUser", data);
+        }
         this.user = data;
+
+        console.log(data);
       });
     },
     updateUser() {
       UserSC.updateUser(this.user, () => {});
+      this.$store.commit("updateUser", this.user);
     },
     saveDirection() {
       this.newFavoritePoint.datetimeCreationFav = this.getFormattedDate();

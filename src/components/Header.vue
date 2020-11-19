@@ -31,68 +31,82 @@
               >Acerca de nosotros<span class="sr-only"></span
             ></router-link>
           </li>
-          <li class="nav-item">
-            <a
-              href="#"
-              @click="goToHome"
-              class="nav-link menu-item nav-active text-white"
-              >Inicio</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link menu-item text-white"
-              >Hola {{ nombre }}
-            </a>
-          </li>
-        </ul>
-        <div class="btn-group dropleft my-2 my-lg-0">
-          <button
-            type="button"
-            class="btn btn-light"
-            data-toggle="dropdown"
-            data-display="static"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <img
-              class="person"
-              src="~@/assets/person.png"
-              width="30"
-              height="30"
-              alt="persona"
-            />
-          </button>
-          <div class="dropdown-menu dropdown-menu-lg-left">
-            <button
-              class="header-button dropdown-item"
-              @click="goToProfile"
-              type="button"
-            >
-              Mi perfil
-            </button>
-            <button
-              class="header-button dropdown-item"
-              @click="goToVehicleRegistration"
-              type="button"
-            >
-              Registrar vehiculo
-            </button>
-            <div class="header-button dropdown-divider"></div>
-            <button class="dropdown-item" @click="closeSession" type="button">
-              Cerrar Sesión
-            </button>
+          <div v-if="authenticated">
+            <li class="nav-item">
+              <a
+                href="#"
+                @click="goToHome"
+                class="nav-link menu-item nav-active text-white"
+                >Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link menu-item text-white"
+                >Hola {{ user.userName }}
+              </a>
+            </li>
           </div>
+        </ul>
+        <div v-if="authenticated">
+          <div class="btn-group dropleft my-2 my-lg-0">
+            <button
+              type="button"
+              class="btn btn-light"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                class="person"
+                src="~@/assets/person.png"
+                width="30"
+                height="30"
+                alt="persona"
+              />
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg-left">
+              <button
+                class="header-button dropdown-item"
+                @click="goToProfile"
+                type="button"
+              >
+                Mi perfil
+              </button>
+              <button
+                class="header-button dropdown-item"
+                @click="goToVehicleRegistration"
+                type="button"
+              >
+                Registrar vehiculo
+              </button>
+              <div class="header-button dropdown-divider"></div>
+              <button class="dropdown-item" @click="closeSession" type="button">
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <ul class="navbar-nav mr-right">
+            <li class="nav-item">
+              <router-link to="/login" class="nav-link text-white"
+                >Ingresar</router-link
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
-    
-    <ChatList></ChatList>
+    <div v-if="authenticated">
+      <ChatList></ChatList>
+    </div>
   </div>
 </template>
 
 <script>
-
 import ChatList from "../components/ListaChat";
+import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
   name: "Header",
@@ -100,12 +114,19 @@ export default {
     nombre: String,
   },
   components: {
-    
     ChatList,
   },
   data() {
     return {};
   },
+  mounted() {
+    if (!this.$store.state.user) {
+      UserSC.getUser((data) => {
+        this.$store.commit("updateUser", data);
+      });
+    }
+  },
+
   methods: {
     goToHome() {
       this.$router.push("home");
@@ -125,6 +146,14 @@ export default {
     },
     goToPostService() {
       this.$router.push("post-service");
+    },
+  },
+  computed: {
+    authenticated() {
+      return localStorage.getItem("token");
+    },
+    user() {
+      return this.$store.state.user;
     },
   },
 };
