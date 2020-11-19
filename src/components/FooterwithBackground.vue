@@ -5,10 +5,12 @@
       <div>
         <div id="footer" class="container-fluid pt-3 pb-2">
           <div id="bottom-footer" class="row text-center">
-            <div class="col-6 col-lg">
+            <div class="col-1"></div>
+            <div class="col-5 col-lg">
               <p class="text-left">© 2020 - Todos los derechos reservados.</p>
             </div>
-            <div class="col-6 col-lg pb-2 pb-sm-0">
+            <div class="col-2"></div>
+            <div class="col-4 col-lg pb-2 pb-sm-0">
               <a href="#" class="text-right"
                 ><img
                   src="~@/assets/twitter.svg"
@@ -17,7 +19,7 @@
                   alt=""
                   loading="lazy"
               /></a>
-              <a href="#"
+              <a href="#" class="text-right"
                 ><img
                   src="~@/assets/facebook.svg"
                   width="60"
@@ -25,7 +27,7 @@
                   alt=""
                   loading="lazy"
               /></a>
-              <a href="#"
+              <a href="#" class="text-right"
                 ><img
                   src="~@/assets/instagram.svg"
                   width="30"
