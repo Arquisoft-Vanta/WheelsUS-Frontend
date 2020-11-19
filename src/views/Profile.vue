@@ -405,7 +405,7 @@ export default {
 <style scoped>
 .datosvehiculo {
   margin: 4% 0 0 0;
-  opacity: 90%;
+  opacity: 0.9;
 }
 
 .form-control {
@@ -413,7 +413,7 @@ export default {
   border: 0;
 }
 .datosusuario {
-  opacity: 95%;
+  opacity: 0.95;
 }
 
 .container {

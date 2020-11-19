@@ -3,7 +3,7 @@
     <Header></Header>
     <div class="container">
       <div class="row">
-        <div class="col col-md-6 col-sm-12">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
           <div class="card" style="margin: 5% 0 0 0">
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -114,7 +114,6 @@
                                 Ver Ruta
                               </button>
                             </div>
-                            
                           </div>
                         </div>
                       </div>
@@ -177,7 +176,7 @@
                                 Ver Ruta
                               </button>
                             </div>
-                             <div class="col">
+                            <div class="col">
                               <button
                                 type="button"
                                 class="btn btn-outline-dark btn-block button"
@@ -198,7 +197,9 @@
           </div>
         </div>
 
-        <div class="col col-md-6 col-sm-12">
+        <div
+          class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
+        >
           <DirectionsMapView />
         </div>
       </div>
@@ -285,12 +286,12 @@ export default {
     deleteRoute(route) {
       const db = firebase.firestore();
       for (let i = 65; i < 69; i++) {
-            if (route.passengers[String.fromCharCode(i)].id !== "") {
-              this.changeStateofPassenger(
-                route.passengers[String.fromCharCode(i)].id
-              );
-            }
-          }
+        if (route.passengers[String.fromCharCode(i)].id !== "") {
+          this.changeStateofPassenger(
+            route.passengers[String.fromCharCode(i)].id
+          );
+        }
+      }
       db.collection("driverRoute").doc(route.id).delete();
       this.$bvToast.toast("Ruta Cancelada Correctamente!", {
         title: "Ruta Cancelada",
