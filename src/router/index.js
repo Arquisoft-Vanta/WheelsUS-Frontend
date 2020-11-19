@@ -15,7 +15,6 @@ import RideRegistration from "./../views/RideRegistration.vue";
 import Chat from "./../components/Chat.vue";
 import Burbujas from "./../components/Burbujas.vue";
 import Lista from "./../components/ListaChat.vue";
-import viewPassengers from "./../views/ViewPassengers.vue"
 import PassengerProfile from "./../views/PassangerProfile.vue";
 import ServicesDriver from "./../views/ServicesDriver.vue";
 
@@ -48,7 +47,6 @@ const routes = [
   { path: "/create-service", name: "createService", component: CreateService },
   { path: "/passenger", name: "passenger", component: Passenger },
   { path: "/driver", name: "driver", component: Driver, children: []},
-  { path: "/view-passengers", name: "viewPassengers", component: viewPassengers },
   {
     path: "/passenger-profile",
     name: "passenger-profile",

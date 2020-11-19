@@ -5,24 +5,11 @@
       <div>
         <div id="footer" class="container-fluid pt-3 pb-2">
           <div id="bottom-footer" class="row text-center">
-            <div class="col-12 col-lg">
-              <p>
-                © 2020 - Todos los derechos reservados.
-              </p>
+            <div class="col-6 col-lg">
+              <p class="text-left">© 2020 - Todos los derechos reservados.</p>
             </div>
-            <div class="col-12 col-lg">
-              <p>
-                Diseño de sitio web
-                <a
-                  href="https://github.com/orgs/Ingesoft-II/dashboard"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Grupo 3</a
-                >
-              </p>
-            </div>
-            <div class="col-12 col-lg pb-2 pb-sm-0">
-              <a href="#"
+            <div class="col-6 col-lg pb-2 pb-sm-0">
+              <a href="#" class="text-right"
                 ><img
                   src="~@/assets/twitter.svg"
                   width="30"

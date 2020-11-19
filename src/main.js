@@ -13,7 +13,6 @@ import { ToastPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 //import 'bootstrap/scss/bootstrap.scss'
-
 var firebaseConfig = {
   apiKey: "AIzaSyBYLj8XtE_HgnebkWa0Go4W_4bnsttl6nA",
   authDomain: "wheelsus.firebaseapp.com",
@@ -33,7 +32,6 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(BVToastPlugin);
 Vue.use(ToastPlugin);
-
 new Vue({
   router,
   VueAxios,

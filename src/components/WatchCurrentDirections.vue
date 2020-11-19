@@ -148,7 +148,6 @@ export default {
     showPoint(route) {
       EventBus.$emit("generateMarker", route);
     },
-    deleteDirection(id) {},
   },
 };
 </script>

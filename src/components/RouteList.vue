@@ -82,7 +82,7 @@
           </div>
         </div>
       </div>
-      <div class="accordion" id="accordionExample">
+      <div class="accordion" id="accordionExample56">
         <div class="card" v-for="route in routes" :key="route.id">
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
@@ -103,7 +103,7 @@
             :id="`data${route.id}`"
             class="collapse"
             aria-labelledby="headingOne"
-            data-parent="#accordionExample"
+            data-parent="#accordionExample56"
           >
             <div class="card-body">
               <div>Usuario: {{ route.userid }}</div>
