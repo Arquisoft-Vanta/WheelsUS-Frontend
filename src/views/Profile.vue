@@ -138,7 +138,11 @@
                     </a>
                   </div>
                   <div class="col-6 mt-3 mb-3">
-                    <a type="button" class="btn btn-outline-primary btn-block" @click="updateUser">
+                    <a
+                      type="button"
+                      class="btn btn-outline-primary btn-block"
+                      @click="updateUser"
+                    >
                       Guardar
                     </a>
                   </div>
@@ -335,7 +339,7 @@ export default {
         userName: "",
         userDoc: "",
         userPhone: "",
-        universityId: '',
+        universityId: "",
         userMail: "",
         userAddress: "",
         password: "",
@@ -443,19 +447,24 @@ export default {
     },
     getUserDB() {
       UserSC.getUser((data) => {
+        if (!this.$store.state.user) {
+          this.$store.commit("updateUser", data);
+        }
         this.user = data;
+
         console.log(data);
       });
     },
     updateUser() {
       UserSC.updateUser(this.user, () => {});
+      this.$store.commit("updateUser", this.user);
     },
     saveDirection() {
       this.newFavoritePoint.datetimeCreationFav = this.getFormattedDate();
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
           console.log("OK");
-           this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
+          this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
             title: "Dirección Almacenada",
             autoHideDelay: 5000,
             appendToast: true,

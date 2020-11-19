@@ -111,6 +111,8 @@
 <script>
 import FooterwithBackground from "../components/FooterwithBackground";
 import AuthServiceClient from "../serviceClients/AuthServiceClient";
+import UserSC from "../serviceClients/UserServiceClient";
+
 export default {
   name: "Login",
   components: {
@@ -132,6 +134,10 @@ export default {
         this.credentials,
         () => {
           this.$router.push("home");
+      UserSC.getUser((data) => {
+        this.$store.commit('updateUser', data);
+        console.log(data);
+      });
         },
         (text) => {
           this.$bvToast.toast(text, {

@@ -1,15 +1,22 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+import UserSC from "../serviceClients/UserServiceClient";
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: false
   },
   mutations: {
+    updateUser(state, newUser) {
+      state.user = newUser;
+    },
   },
-  actions: {
+  getters: {
+
   },
-  modules: {
-  }
-})
+  actions: {},
+  modules: {},
+});

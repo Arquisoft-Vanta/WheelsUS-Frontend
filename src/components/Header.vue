@@ -42,7 +42,7 @@
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link menu-item text-white"
-                >Hola {{ nombre }}
+                >Hola {{ user.userName }}
               </a>
             </li>
           </div>
@@ -106,6 +106,7 @@
 
 <script>
 import ChatList from "../components/ListaChat";
+import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
   name: "Header",
@@ -118,6 +119,14 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    if (!this.$store.state.user) {
+      UserSC.getUser((data) => {
+        this.$store.commit("updateUser", data);
+      });
+    }
+  },
+
   methods: {
     goToHome() {
       this.$router.push("home");
@@ -142,6 +151,9 @@ export default {
   computed: {
     authenticated() {
       return localStorage.getItem("token");
+    },
+    user() {
+      return this.$store.state.user;
     },
   },
 };
