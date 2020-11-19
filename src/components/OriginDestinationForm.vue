@@ -7,7 +7,6 @@
         <div class="field">
           <div>
             <input
-              v-model="origin"
               type="text"
               placeholder="Origen"
               ref="origin"
@@ -20,7 +19,6 @@
         <div class="field">
           <div>
             <input
-              v-model="destination"
               type="text"
               placeholder="Destino"
               ref="destination"
@@ -78,6 +76,7 @@
 import axios from "axios";
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
+import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
   data() {
@@ -97,15 +96,19 @@ export default {
         date: Date,
         distance: {},
         duration: {},
-        userid: "",
+        dataPassenger: {
+          passengerMail: "",
+          passengerName: "",
+        },
+        selected: Boolean,
       },
       error: "",
     };
   },
 
   mounted() {
+    this.getUserDB();
     for (let ref in this.$refs) {
-      console.log(ref)
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
         {
@@ -125,6 +128,12 @@ export default {
     }
   },
   methods: {
+    getUserDB() {
+      UserSC.getUser((data) => {
+        this.route.dataPassenger.passengerMail = data.userMail;
+        this.route.dataPassenger.passengerName = data.userName;
+      });
+    },
     calculateButtonPressed() {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=${this.route.origin.lat},${this.route.origin.lng}&destinations=${this.route.destination.lat},${this.route.destination.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
       axios
@@ -138,31 +147,28 @@ export default {
             if (elements[0].status === "ZERO_RESULTS") {
               this.error = "No Results Found.";
             } else {
-              console.log(elements[0].distance)
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
-              this.route.userid = "fsduenasc@unal.edu.co";
-              console.log(this.route)
             }
+            EventBus.$emit("passengerRoutes-data", [this.route]);
           }
         })
         .catch((error) => {
           console.log(error.message);
           this.error = error.message;
         });
-      EventBus.$emit("passengerRoutes-data", [this.route]);
     },
     saveRoute() {
       const db = firebase.firestore();
+      this.route.selected = false;
       db.collection("passengerRoutes").doc().set(this.route);
       this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
-            title: "Ruta Almacenada",
-            autoHideDelay: 2000,
-            appendToast: true,
-            variant: "success",
-            solid: true,
-          });
-
+        title: "Ruta Almacenada",
+        autoHideDelay: 2000,
+        appendToast: true,
+        variant: "success",
+        solid: true,
+      });
     },
   },
 };

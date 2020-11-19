@@ -76,6 +76,7 @@
               class="btn btn-outline-dark btn-block button"
               style="margin: 5% 0 0 0"
               @click="sendPassengerItemPressed()"
+              data-dismiss="modal"
             >
               Confirmar Pasajeros
             </button>
@@ -95,7 +96,7 @@
                 :aria-controls="`data${route.id}`"
                 style="color: #06416d"
               >
-                Destino: {{ route.destination.address }}
+                Destino: {{ route.destination.address.split(",")[0] }}
               </button>
             </h2>
           </div>
@@ -106,8 +107,8 @@
             data-parent="#accordionExample56"
           >
             <div class="card-body">
-              <div>Usuario: {{ route.userid }}</div>
-              <div>Salida: {{ route.origin.address }}</div>
+              <div>Usuario: {{ route.dataPassenger.passengerName }}</div>
+              <div>Salida: {{ route.origin.address.split(",")[0] }}</div>
               <div>Distancia: {{ route.distance.text }}</div>
               <div>Tiempo aproximado: {{ route.duration.text }}</div>
               <div>Día de Salida: {{ route.date }}</div>
@@ -157,11 +158,14 @@
 <script>
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
+import UserSC from "../serviceClients/UserServiceClient";
+
 export default {
   components: {},
   data() {
     return {
       routes: [],
+      routesMyself: [],
       routesSelected: [],
       selected: "",
       quotaMessage: "",
@@ -170,28 +174,44 @@ export default {
       hours: [],
       datefilter: "",
       hoursfilter: "",
+      userMail: "",
     };
   },
-  created() {
-    const db = firebase.firestore();
-    db.collection("passengerRoutes").onSnapshot((snap) => {
-      this.routes = [];
-      snap.forEach((doc) => {
-        let route = doc.data();
-        route.id = doc.id;
-        if (this.date.indexOf(route.date) === -1) {
-          this.date.push(route.date);
-        }
-        this.routes.push(route);
-      });
-    });
+  mounted() {
+    this.getUserDB();
   },
   methods: {
+    getUserDB() {
+      UserSC.getUser((data) => {
+        this.userMail = data.userMail;
+        this.getListPassengersActives();
+        this.getListPassengersActivesWithoutMe();
+      });
+    },
     /**
      * Esta función, ordena a los pasajeros por distancia de origen a destino
      * o por tiempo de duracion en el servicio.
      * Esta función se basó en el curso: https://www.udemy.com/course/vuejs-google-maps-api-for-beginners/
      */
+    getListPassengersActives() {
+      const db = firebase.firestore();
+      console.log(this.routesMyself);
+      db.collection("passengerRoutes")
+        .where("selected", "==", false)
+        .onSnapshot((snap) => {
+          this.routes = [];
+          snap.forEach((doc) => {
+            let route = doc.data();
+            if (this.userMail !== route.dataPassenger.passengerMail) {
+              route.id = doc.id;
+              if (this.date.indexOf(route.date) === -1) {
+                this.date.push(route.date);
+              }
+              this.routes.push(route);
+            }
+          });
+        });
+    },
     sortRoute(e) {
       const sortName = e.target.value.split("-")[0];
       const sortOrder = e.target.value.split("-")[1];
@@ -261,33 +281,57 @@ export default {
      * Esta función, envia la lista de pasajeros a llevar al componente "Create Service"
      */
     sendPassengerItemPressed() {
+      console.log(this.routesSelected);
       EventBus.$emit("choosePassengerRoutes-data", this.routesSelected);
-      alert(
-        "Los pasajeros han sido confirmados, por favor, dirígete a ordenar la ruta."
+      this.toast(
+        "Los pasajeros han sido confirmados, por favor, dirígete a ordenar la ruta.",
+        "Pasajeros Seleccionados",
+        "success"
       );
     },
     /**
      * Esta función, avisa al conductor cuando ha seleccionado a un pasajero
      * Y actualiza el numero de pasajero para completar su servicio.
      */
+    toast(text, title, varian) {
+      this.$bvToast.toast(text, {
+        title: title,
+        autoHideDelay: 5000,
+        appendToast: true,
+        variant: varian,
+        solid: true,
+      });
+    },
     choosePassengerItemPressed(route) {
       if (this.selected === "") {
-        alert("Primero escoja el número de pasajeros que desea llevar");
+        this.toast(
+          "Primero escoja el número de pasajeros que desea llevar",
+          "Error",
+          "danger"
+        );
       } else {
         this.selected = this.selected - 1;
         if (this.selected == 0) {
           this.routesSelected.push(route);
-          alert(
-            " Pasajero Seleccionado. \n Cupo completado, por favor confirme los pasajeros"
+          this.toast(
+            "Cupo completado, por favor confirme los pasajeros",
+            "Pasajero Seleccionado",
+            "success"
           );
         } else if (this.selected < 0) {
           this.selected = 0;
-          alert(
-            " Operación fallida. \n No puede ingresar más pasajeros, confirme pasajeros o cancele alguno."
+          this.toast(
+            "No puede ingresar más pasajeros, confirme pasajeros o cancele alguno.",
+            "Operación fallida.",
+            "success"
           );
         } else {
           this.routesSelected.push(route);
-          alert(" Pasajero Seleccionado. \n Número de cupos: " + this.selected);
+          this.toast(
+            "Número de cupos: " + this.selected,
+            "Pasajero Seleccionado",
+            "success"
+          );
         }
       }
     },
@@ -297,12 +341,16 @@ export default {
         if (route === this.routesSelected[index]) {
           this.routesSelected.splice(index, 1);
           count++;
-          alert("Usuario cancelado correctamente.");
+          this.toast("Usuario Cancelado Correctamente", "Hecho", "success");
           this.selected = this.selected + 1;
         }
       }
       if (count == 0) {
-        alert("Este pasajero no se encuentra en la lista.");
+        this.toast(
+          "Este pasajero no se encuentra en la lista.",
+          "Error",
+          "success"
+        );
       }
     },
   },

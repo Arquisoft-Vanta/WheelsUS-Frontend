@@ -248,6 +248,7 @@ export default {
       pointChoosed: "",
       currentDate: Date,
       route: {
+        idVehicle: "",
         originDriver: {
           address: "",
           lat: 0,
@@ -323,10 +324,22 @@ export default {
           driverName: "",
         },
         passengers: {
-          A: "",
-          B: "",
-          C: "",
-          D: "",
+          A: {
+            name: "",
+            id: "",
+          },
+          B: {
+            name: "",
+            id: "",
+          },
+          C: {
+            name: "",
+            id: "",
+          },
+          D: {
+            name: "",
+            id: "",
+          },
         },
         value: "",
         date: "",
@@ -360,14 +373,15 @@ export default {
         console.log("");
       }
     });
-    EventBus.$on("choosePassengerRoutes-data", (routes) => {
+    EventBus.$on("choosePassengerRoutes-data", (routesReceived) => {
       /**
        *En esta función se traen los datos de los pasajeros seleccionados
        *por parte del conductor en el componente "Route List" y se guardan
        *en el objeto "route" para posteriormente enviar a Firebase
        */
+      console.log(routesReceived);
       let letterchar = 65;
-      routes.forEach(({ origin, destination, userid }) => {
+      routesReceived.forEach(({ origin, destination, id, dataPassenger }) => {
         let repeatDirectionOrigin = 0;
         let repeatDirectionDestination = 0;
 
@@ -384,7 +398,9 @@ export default {
           destination.lat;
         this.route.destinationPassengers[String.fromCharCode(letterchar)].lng =
           destination.lng;
-        this.route.passengers[String.fromCharCode(letterchar)] = userid;
+        this.route.passengers[String.fromCharCode(letterchar)].name =
+          dataPassenger.passengerName;
+        this.route.passengers[String.fromCharCode(letterchar)].id = id;
 
         /**
          *Existen casos donde algunos pasajeros salen del mismo lugar.
@@ -408,7 +424,6 @@ export default {
             repeatDirectionDestination = repeatDirectionDestination + 1;
           }
         });
-        console.log(this.orderedRoutesOfPassengers);
         if (repeatDirectionOrigin == 0) {
           this.orderedRoutesOfPassengers.push(
             this.route.originPassengers[String.fromCharCode(letterchar)]
@@ -472,33 +487,59 @@ export default {
     saveRoute() {
       var textAlert = "";
       if (this.route.originDriver.address === "") {
-        textAlert = textAlert + "Punto de Origen \n";
+        textAlert = textAlert + "Punto de Origen, \n";
       }
       if (this.route.destinationDriver.address === "") {
-        textAlert = textAlert + "Punto de Destino \n";
+        textAlert = textAlert + "Punto de Destino, \n";
       }
       if (this.route.date === "") {
-        textAlert = textAlert + "Fecha de Servicio \n";
+        textAlert = textAlert + "Fecha de Servicio, \n";
       }
       if (this.route.time === "") {
-        textAlert = textAlert + "Hora de Partida \n";
+        textAlert = textAlert + "Hora de Partida, \n";
       }
       if (this.route.value === "") {
-        textAlert = textAlert + "Valor de Servicio \n";
+        textAlert = textAlert + "Valor de Servicio, \n";
       }
       if (textAlert === "") {
         if (new Date(this.currentDate) > new Date(this.route.date)) {
           alert("Modifica la fecha");
         } else {
           const db = firebase.firestore();
-          this.route.routeActive = true,
-          this.route.servicePerformed = false,
+          this.route.routeActive = true;
+          this.route.servicePerformed = false;
+          for (let i = 65; i < 69; i++) {
+            if (this.route.passengers[String.fromCharCode(i)].id !== "") {
+              this.changeStateofPassenger(
+                this.route.passengers[String.fromCharCode(i)].id
+              );
+            }
+          }
           db.collection("driverRoute").doc().set(this.route);
-          alert("Ruta guardada.");
+          this.$bvToast.toast("Ruta Creada Correctamente!", {
+            title: "Ruta Creada",
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "success",
+            solid: true,
+          });
         }
       } else {
-        alert("Faltan campos por llenar \n" + textAlert);
+        this.$bvToast.toast(textAlert, {
+          title: "Faltan Campos por Llenar",
+          autoHideDelay: 5000,
+          appendToast: true,
+          variant: "danger",
+          solid: true,
+        });
       }
+    },
+    changeStateofPassenger(id) {
+      const db = firebase.firestore();
+      const a = db.collection("passengerRoutes").doc(id);
+      a.update({
+        selected: true,
+      });
     },
     /**
      * Esta función, envia "routeDefinitive" al componente "DirectionsMapView",

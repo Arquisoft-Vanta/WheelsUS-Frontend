@@ -114,6 +114,7 @@
                                 Ver Ruta
                               </button>
                             </div>
+                            
                           </div>
                         </div>
                       </div>
@@ -174,6 +175,16 @@
                                 @click="routePassengerItemPressed(route)"
                               >
                                 Ver Ruta
+                              </button>
+                            </div>
+                             <div class="col">
+                              <button
+                                type="button"
+                                class="btn btn-outline-dark btn-block button"
+                                style="margin: 5% 0 5% 0"
+                                @click="chooseRoute(route)"
+                              >
+                                Calificar Pasajeros
                               </button>
                             </div>
                           </div>
@@ -264,8 +275,22 @@ export default {
           });
         });
     },
+    changeStateofPassenger(id) {
+      const db = firebase.firestore();
+      const a = db.collection("passengerRoutes").doc(id);
+      a.update({
+        selected: false,
+      });
+    },
     deleteRoute(route) {
       const db = firebase.firestore();
+      for (let i = 65; i < 69; i++) {
+            if (route.passengers[String.fromCharCode(i)].id !== "") {
+              this.changeStateofPassenger(
+                route.passengers[String.fromCharCode(i)].id
+              );
+            }
+          }
       db.collection("driverRoute").doc(route.id).delete();
       this.$bvToast.toast("Ruta Cancelada Correctamente!", {
         title: "Ruta Cancelada",
