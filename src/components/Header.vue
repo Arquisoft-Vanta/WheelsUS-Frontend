@@ -41,13 +41,40 @@
               >
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link menu-item text-white"
-                >Hola {{ user.userName }}
+              <a href="#" class="nav-link menu-item text-white">
+                Hola {{ user.userName }}
               </a>
             </li>
           </div>
         </ul>
         <div v-if="authenticated">
+          <div class="btn-group dropleft my-2 my-lg-0">
+             <button
+              type="button"
+              class="btn btn-light"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                class="notifications"
+                src="~@/assets/bell.png"
+                width="30"
+                height="30"
+                alt="notifications"
+              />
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg-left">
+              <h5>Notificaciones</h5>
+              <div class="header-button dropdown-divider"></div>
+              <div v-for="notification in notifications" :key = "notification.id">
+                <button class="dropdown-item" type="button" @click = "goToNotification(notification.goto)">
+                  {{ notification.Data }}
+                </button>
+              </div>
+            </div>
+          </div>
           <div class="btn-group dropleft my-2 my-lg-0">
             <button
               type="button"
@@ -107,6 +134,8 @@
 <script>
 import ChatList from "../components/ListaChat";
 import UserSC from "../serviceClients/UserServiceClient";
+import firebase from "firebase";
+import { EventBus } from "@/EventBus.js";
 
 export default {
   name: "Header",
@@ -117,14 +146,34 @@ export default {
     ChatList,
   },
   data() {
-    return {};
+    return {
+      notifications: [],
+    };
   },
+    created() {
+    
+  },
+
   mounted() {
+
     if (!this.$store.state.user) {
       UserSC.getUser((data) => {
         this.$store.commit("updateUser", data);
       });
     }
+
+    const db = firebase.firestore();
+    db.collection("notifications").onSnapshot((snap) => {
+      this.notifications = [];
+      snap.forEach((doc) => {
+        let notification = doc.data();
+        notification.id = doc.id;
+        if (this.user.idUser == notification.idUser) {
+          this.notifications.push(notification);
+        }
+      });
+    });
+   
   },
 
   methods: {
@@ -147,6 +196,10 @@ export default {
     goToPostService() {
       this.$router.push("post-service");
     },
+    goToNotification(value) {
+      this.$router.push(value);
+    },
+    
   },
   computed: {
     authenticated() {
@@ -190,5 +243,8 @@ export default {
 }
 #Titulo img {
   margin-right: 5%;
+}
+h5{
+  margin-left: 5%;
 }
 </style>
