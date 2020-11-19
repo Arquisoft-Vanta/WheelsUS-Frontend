@@ -2,7 +2,7 @@
   <div>
     <Header></Header>
     <Directions state="Choose Direction" />
-    <VehiclesByUser state="Choose Vehicle"/>
+    <VehiclesByUser state="Choose Vehicle" />
     <div
       class="modal fade"
       id="exampleModal"
@@ -226,7 +226,6 @@
 </template>
 
 <script>
-//import OriginDestination from "../components/OriginDestinationForm";
 import { EventBus } from "@/EventBus.js";
 import RouteList from "../components/RouteList.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
@@ -236,6 +235,7 @@ import firebase from "firebase";
 import Draggable from "vuedraggable";
 import Directions from "../components/WatchCurrentDirections";
 import VehiclesByUser from "../components/VehiclesByUser";
+import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
   name: "CreateService",
@@ -246,6 +246,7 @@ export default {
       routeDefinitive: [],
       listVehicles: [],
       pointChoosed: "",
+      currentDate: Date,
       route: {
         originDriver: {
           address: "",
@@ -317,7 +318,10 @@ export default {
           lat: 0,
           lng: 0,
         },
-        driverId: "",
+        dataDriver: {
+          driverMail: "",
+          driverName: "",
+        },
         passengers: {
           A: "",
           B: "",
@@ -327,6 +331,8 @@ export default {
         value: "",
         date: "",
         time: "",
+        routeActive: Boolean,
+        servicePerformed: Boolean,
       },
 
       error: "",
@@ -342,6 +348,8 @@ export default {
     VehiclesByUser,
   },
   mounted() {
+    this.getUserDB();
+    this.getFormattedDate();
     EventBus.$on("point", (point) => {
       try {
         this.$refs[this.typeInput].value = point.favAddress;
@@ -400,6 +408,7 @@ export default {
             repeatDirectionDestination = repeatDirectionDestination + 1;
           }
         });
+        console.log(this.orderedRoutesOfPassengers);
         if (repeatDirectionOrigin == 0) {
           this.orderedRoutesOfPassengers.push(
             this.route.originPassengers[String.fromCharCode(letterchar)]
@@ -441,6 +450,21 @@ export default {
     }
   },
   methods: {
+    getFormattedDate() {
+      var date = new Date();
+      this.currentDate =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        date.toLocaleDateString("es-CO", { day: "2-digit" });
+    },
+    getUserDB() {
+      UserSC.getUser((data) => {
+        this.route.dataDriver.driverMail = data.userMail;
+        this.route.dataDriver.driverName = data.userName;
+      });
+    },
     /**
      * Esta función guarda el objeto "route" con todas las paradas y datos
      *  en la colección "driverRoute", de firebase.
@@ -463,9 +487,15 @@ export default {
         textAlert = textAlert + "Valor de Servicio \n";
       }
       if (textAlert === "") {
-        const db = firebase.firestore();
-        db.collection("driverRoute").doc().set(this.route);
-        alert("Ruta guardada.");
+        if (new Date(this.currentDate) > new Date(this.route.date)) {
+          alert("Modifica la fecha");
+        } else {
+          const db = firebase.firestore();
+          this.route.routeActive = true,
+          this.route.servicePerformed = false,
+          db.collection("driverRoute").doc().set(this.route);
+          alert("Ruta guardada.");
+        }
       } else {
         alert("Faltan campos por llenar \n" + textAlert);
       }

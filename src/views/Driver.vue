@@ -46,7 +46,7 @@
         </div>
         <div class="col-12 col-md-4">
           <h2 role="">Ver mis servicios</h2>
-          <button class="botondri" type="button">
+          <button class="botondri" type="button" @click="goToMyServices">
             <img
               src="~@/assets/listw.png"
               width="150"
@@ -86,6 +86,9 @@ export default {
     },
     goToCreateService() {
       this.$router.push("/create-service");
+    },
+    goToMyServices() {
+      this.$router.push({name: 'route-services'});
     },
     goToViewPassengers(){
       this.$router.push("/view-passengers");
