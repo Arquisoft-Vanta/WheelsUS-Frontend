@@ -5,17 +5,15 @@
       <div>
         <div id="footer" class="container-fluid pt-3 pb-2">
           <div id="bottom-footer" class="row text-center">
-            <div class="col-1"></div>
-            <div class="col-5 col-lg">
-              <p class="text-left">© 2020 - Todos los derechos reservados.</p>
+            <div class="col-6">
+              <p class="text-center">© 2020 - Todos los derechos reservados.</p>
             </div>
-            <div class="col-2"></div>
-            <div class="col-4 col-lg pb-2 pb-sm-0">
+            <div class="col-6">
               <a href="#" class="text-right"
                 ><img
                   src="~@/assets/twitter.svg"
-                  width="30"
-                  height="30"
+                  width="25"
+                  height="25"
                   alt=""
                   loading="lazy"
               /></a>
@@ -23,15 +21,15 @@
                 ><img
                   src="~@/assets/facebook.svg"
                   width="60"
-                  height="30"
+                  height="25"
                   alt=""
                   loading="lazy"
               /></a>
               <a href="#" class="text-right"
                 ><img
                   src="~@/assets/instagram.svg"
-                  width="30"
-                  height="30"
+                  width="25"
+                  height="25"
                   alt=""
                   loading="lazy"
               /></a>
