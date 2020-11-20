@@ -103,7 +103,7 @@
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Salida"
-                    style="border: 0; background: #f1f1f1; width: 88%"
+                    style="border: 0; background: #f1f1f1; width: 87%"
                     ref="originDriver"
                   />
                   <button
@@ -122,7 +122,7 @@
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Llegada"
-                    style="border: 0; background: #f1f1f1; width: 88%"
+                    style="border: 0; background: #f1f1f1; width: 87%"
                     ref="destinationDriver"
                   />
                   <button
@@ -327,18 +327,22 @@ export default {
           A: {
             name: "",
             id: "",
+            email:"",
           },
           B: {
             name: "",
             id: "",
+            email:"",
           },
           C: {
             name: "",
             id: "",
+            email:"",
           },
           D: {
             name: "",
             id: "",
+            email:"",
           },
         },
         value: "",
@@ -401,6 +405,7 @@ export default {
         this.route.passengers[String.fromCharCode(letterchar)].name =
           dataPassenger.passengerName;
         this.route.passengers[String.fromCharCode(letterchar)].id = id;
+        this.route.passengers[String.fromCharCode(letterchar)].email = dataPassenger.passengerMail;
 
         /**
          *Existen casos donde algunos pasajeros salen del mismo lugar.

@@ -81,6 +81,7 @@
                         <div class="card-body">
                           <div>Dia: {{ route.date }}</div>
                           <div>Hora: {{ route.time }}</div>
+
                           <div class="row">
                             <div class="col">
                               <button
@@ -165,6 +166,10 @@
                         <div class="card-body">
                           <div>Dia: {{ route.date }}</div>
                           <div>Hora: {{ route.time }}</div>
+                          <div v-for="passenger in route.passengers" :key="passenger.id">
+                            <p v-if="passenger.id!==''">Pasajeros: {{passenger.name}}</p>
+                          </div>
+
                           <div class="row">
                             <div class="col">
                               <button
@@ -181,7 +186,7 @@
                                 type="button"
                                 class="btn btn-outline-dark btn-block button"
                                 style="margin: 5% 0 5% 0"
-                                @click="chooseRoute(route)"
+                                @click="returnRoute(route)"
                               >
                                 Calificar Pasajeros
                               </button>
@@ -318,6 +323,9 @@ export default {
       this.getRoutesActives();
       this.getRoutesMade();
     },
+    returnRoute(route){
+      console.log(route)
+    }
   },
 };
 </script>
