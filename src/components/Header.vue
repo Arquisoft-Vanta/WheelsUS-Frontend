@@ -31,8 +31,8 @@
               >Acerca de nosotros<span class="sr-only"></span
             ></router-link>
           </li>
-          <div v-if="authenticated">
-            <li class="nav-item">
+          <!--div v-if="authenticated">-->
+            <li class="nav-item" v-if="authenticated">
               <a
                 href="#"
                 @click="goToHome"
@@ -40,12 +40,10 @@
                 >Inicio</a
               >
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link menu-item text-white"
-                >Hola {{ user.userName }}
-              </a>
+            <li class="nav-item" v-if="authenticated">
+              <a href="#" class="nav-link menu-item text-white">Hola {{ user.userName }}  </a>
             </li>
-          </div>
+          <!--</div>-->
         </ul>
         <div v-if="authenticated">
           <div class="btn-group dropleft my-2 my-lg-0">

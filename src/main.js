@@ -36,7 +36,6 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(BVToastPlugin);
 Vue.use(ToastPlugin);
-
 new Vue({
   router,
   VueAxios,

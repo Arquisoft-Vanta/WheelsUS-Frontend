@@ -19,27 +19,39 @@ function addDirection(direction, callback) {
 }
 
 function getDirectionsByUser(callback) {
-  console.log(localStorage.getItem("token"));
-  axios
-    .get(route + "/show-directions", {
-      params: {
-        access_token: localStorage.getItem("token"),
-      },
-    })
-    .then((response) => {
-      if (response.status !== 200) {
-        alert("Error obteniendo sus roles.");
-      } else {
-        callback(response.data);
-      }
-    })
-    .catch((error) => {
-      alert("Error en la petición");
-      console.log(error);
-    });
+    axios.get(route + "/show-directions",
+        {
+            params: {
+                access_token: localStorage.getItem("token")
+            }
+        }).then((response) => {
+            if (response.status !== 200) {
+                alert("Error obteniendo sus direcciones.");
+            } else {
+                callback(response.data);
+            }
+        })
+        .catch((error) => {
+            alert("Se ha vencido el tiempo de logueo");
+            console.log(error);
+        });
+}
+
+function deleteDirection(id, callback) {
+    axios.post(route + "/delete-direction", id, {
+            params: {
+                access_token: localStorage.getItem("token")
+            }
+        }).then(response => {
+            callback(response.status);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 export default {
-  addDirection,
-  getDirectionsByUser,
-};
+    addDirection,
+    getDirectionsByUser,
+    deleteDirection
+}

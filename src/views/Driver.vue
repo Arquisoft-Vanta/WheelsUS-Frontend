@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-6">
           <h2 role="">Crear servicio</h2>
           <button class="botondri" type="button" @click="goToCreateService">
             <img
@@ -32,21 +32,9 @@
             />
           </button>
         </div>
-        <div class="col-12 col-md-4">
-          <h2 role="">Ver pasajeros en linea</h2>
-          <button class="botondri" type="button" @click="goToViewPassengers">
-            <img
-              src="~@/assets/online.png"
-              width="150"
-              height="150"
-              alt=""
-              loading="lazy"
-            />
-          </button>
-        </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-6">
           <h2 role="">Ver mis servicios</h2>
-          <button class="botondri" type="button">
+          <button class="botondri" type="button" @click="goToMyServices">
             <img
               src="~@/assets/listw.png"
               width="150"
@@ -86,6 +74,9 @@ export default {
     },
     goToCreateService() {
       this.$router.push("/create-service");
+    },
+    goToMyServices() {
+      this.$router.push({name: 'route-services'});
     },
     goToViewPassengers(){
       this.$router.push("/view-passengers");

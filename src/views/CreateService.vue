@@ -1,6 +1,8 @@
 <template>
   <div>
     <Header></Header>
+    <Directions state="Choose Direction" />
+    <VehiclesByUser state="Choose Vehicle" />
     <div
       class="modal fade"
       id="exampleModal"
@@ -101,9 +103,18 @@
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Salida"
-                    style="border: 0; background: #f1f1f1; width: 100%"
+                    style="border: 0; background: #f1f1f1; width: 88%"
                     ref="originDriver"
                   />
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    data-toggle="modal"
+                    data-target="#modalDirections"
+                    @click="typeInput = 'originDriver'"
+                  >
+                    +
+                  </button>
                 </div>
                 <div class="form-inline" style="margin: 0 0 5% 0">
                   <input
@@ -111,9 +122,18 @@
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Llegada"
-                    style="border: 0; background: #f1f1f1; width: 100%"
+                    style="border: 0; background: #f1f1f1; width: 88%"
                     ref="destinationDriver"
                   />
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    data-toggle="modal"
+                    data-target="#modalDirections"
+                    @click="typeInput = 'destinationDriver'"
+                  >
+                    +
+                  </button>
                 </div>
                 <form>
                   <div class="form-group text-left">
@@ -161,6 +181,20 @@
                       type="button"
                       class="btn btn-outline-dark btn-block"
                       data-toggle="modal"
+                      data-target="#modalVehicles"
+                      data-display="static"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Escoger vehículo
+                    </button>
+                  </div>
+
+                  <div style="margin: 2% 0 0 0">
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark btn-block"
+                      data-toggle="modal"
                       data-target="#exampleModal2"
                     >
                       Ordenar Ruta
@@ -192,7 +226,6 @@
 </template>
 
 <script>
-//import OriginDestination from "../components/OriginDestinationForm";
 import { EventBus } from "@/EventBus.js";
 import RouteList from "../components/RouteList.vue";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
@@ -200,14 +233,22 @@ import Header from "../components/Header.vue";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import firebase from "firebase";
 import Draggable from "vuedraggable";
+import Directions from "../components/WatchCurrentDirections";
+import VehiclesByUser from "../components/VehiclesByUser";
+import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
   name: "CreateService",
   data() {
     return {
+      typeInput: "",
       orderedRoutesOfPassengers: [],
       routeDefinitive: [],
+      listVehicles: [],
+      pointChoosed: "",
+      currentDate: Date,
       route: {
+        idVehicle: "",
         originDriver: {
           address: "",
           lat: 0,
@@ -278,16 +319,33 @@ export default {
           lat: 0,
           lng: 0,
         },
-        driverId: "",
+        dataDriver: {
+          driverMail: "",
+          driverName: "",
+        },
         passengers: {
-          A: "",
-          B: "",
-          C: "",
-          D: "",
+          A: {
+            name: "",
+            id: "",
+          },
+          B: {
+            name: "",
+            id: "",
+          },
+          C: {
+            name: "",
+            id: "",
+          },
+          D: {
+            name: "",
+            id: "",
+          },
         },
         value: "",
         date: "",
         time: "",
+        routeActive: Boolean,
+        servicePerformed: Boolean,
       },
 
       error: "",
@@ -297,18 +355,33 @@ export default {
     RouteList,
     DirectionsMapView,
     Header,
+    Directions,
     FooterwithBackground,
     Draggable,
+    VehiclesByUser,
   },
   mounted() {
-    EventBus.$on("choosePassengerRoutes-data", (routes) => {
+    this.getUserDB();
+    this.getFormattedDate();
+    EventBus.$on("point", (point) => {
+      try {
+        this.$refs[this.typeInput].value = point.favAddress;
+        this.route[this.typeInput].address = point.favAddress;
+        this.route[this.typeInput].lat = parseFloat(point.favLatitude);
+        this.route[this.typeInput].lng = parseFloat(point.favLongitude);
+      } catch (error) {
+        console.log("");
+      }
+    });
+    EventBus.$on("choosePassengerRoutes-data", (routesReceived) => {
       /**
        *En esta función se traen los datos de los pasajeros seleccionados
        *por parte del conductor en el componente "Route List" y se guardan
        *en el objeto "route" para posteriormente enviar a Firebase
        */
+      console.log(routesReceived);
       let letterchar = 65;
-      routes.forEach(({ origin, destination, userid }) => {
+      routesReceived.forEach(({ origin, destination, id, dataPassenger }) => {
         let repeatDirectionOrigin = 0;
         let repeatDirectionDestination = 0;
 
@@ -325,7 +398,9 @@ export default {
           destination.lat;
         this.route.destinationPassengers[String.fromCharCode(letterchar)].lng =
           destination.lng;
-        this.route.passengers[String.fromCharCode(letterchar)] = userid;
+        this.route.passengers[String.fromCharCode(letterchar)].name =
+          dataPassenger.passengerName;
+        this.route.passengers[String.fromCharCode(letterchar)].id = id;
 
         /**
          *Existen casos donde algunos pasajeros salen del mismo lugar.
@@ -390,6 +465,21 @@ export default {
     }
   },
   methods: {
+    getFormattedDate() {
+      var date = new Date();
+      this.currentDate =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        date.toLocaleDateString("es-CO", { day: "2-digit" });
+    },
+    getUserDB() {
+      UserSC.getUser((data) => {
+        this.route.dataDriver.driverMail = data.userMail;
+        this.route.dataDriver.driverName = data.userName;
+      });
+    },
     /**
      * Esta función guarda el objeto "route" con todas las paradas y datos
      *  en la colección "driverRoute", de firebase.
@@ -397,27 +487,59 @@ export default {
     saveRoute() {
       var textAlert = "";
       if (this.route.originDriver.address === "") {
-        textAlert = textAlert + "Punto de Origen \n";
+        textAlert = textAlert + "Punto de Origen, \n";
       }
       if (this.route.destinationDriver.address === "") {
-        textAlert = textAlert + "Punto de Destino \n";
+        textAlert = textAlert + "Punto de Destino, \n";
       }
       if (this.route.date === "") {
-        textAlert = textAlert + "Fecha de Servicio \n";
+        textAlert = textAlert + "Fecha de Servicio, \n";
       }
       if (this.route.time === "") {
-        textAlert = textAlert + "Hora de Partida \n";
+        textAlert = textAlert + "Hora de Partida, \n";
       }
       if (this.route.value === "") {
-        textAlert = textAlert + "Valor de Servicio \n";
+        textAlert = textAlert + "Valor de Servicio, \n";
       }
       if (textAlert === "") {
-        const db = firebase.firestore();
-        db.collection("driverRoute").doc().set(this.route);
-        alert("Ruta guardada.");
+        if (new Date(this.currentDate) > new Date(this.route.date)) {
+          alert("Modifica la fecha");
+        } else {
+          const db = firebase.firestore();
+          this.route.routeActive = true;
+          this.route.servicePerformed = false;
+          for (let i = 65; i < 69; i++) {
+            if (this.route.passengers[String.fromCharCode(i)].id !== "") {
+              this.changeStateofPassenger(
+                this.route.passengers[String.fromCharCode(i)].id
+              );
+            }
+          }
+          db.collection("driverRoute").doc().set(this.route);
+          this.$bvToast.toast("Ruta Creada Correctamente!", {
+            title: "Ruta Creada",
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "success",
+            solid: true,
+          });
+        }
       } else {
-        alert("Faltan campos por llenar \n" + textAlert);
+        this.$bvToast.toast(textAlert, {
+          title: "Faltan Campos por Llenar",
+          autoHideDelay: 5000,
+          appendToast: true,
+          variant: "danger",
+          solid: true,
+        });
       }
+    },
+    changeStateofPassenger(id) {
+      const db = firebase.firestore();
+      const a = db.collection("passengerRoutes").doc(id);
+      a.update({
+        selected: true,
+      });
     },
     /**
      * Esta función, envia "routeDefinitive" al componente "DirectionsMapView",
@@ -441,9 +563,9 @@ export default {
 .createservice {
   color: black;
   background-color: white;
-  opacity: 90%;
+  opacity: 0.9;
   border-radius: 2%;
-  margin: 4% 0 0% 0;
+  margin: 1% 0 0% 0;
 }
 strong {
   display: inline-block;

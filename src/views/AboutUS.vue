@@ -729,7 +729,7 @@ export default {
 
 <style>
 .informacion {
-  opacity: 95%;
+  opacity: 0.95;
   height: 70vh;
   overflow: auto;
   text-align: left;

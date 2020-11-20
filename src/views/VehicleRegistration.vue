@@ -555,7 +555,7 @@ export default {
 
 <style scoped>
 .datosvehiculo {
-  opacity: 90%;
+  opacity: 0.9;
   margin: 0 0 10% 0;
 }
 p {

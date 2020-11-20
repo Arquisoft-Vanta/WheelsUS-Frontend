@@ -40,6 +40,7 @@ function loginUser(user, callback, showtoast) {
         showtoast("Error en la Autenticación");
         //alert("Error en la autenticación");
       } else {
+        console.log(response.data)
         localStorage.setItem("token", response.data.access_token);
         alert("Usuario Logueado");
         callback();
