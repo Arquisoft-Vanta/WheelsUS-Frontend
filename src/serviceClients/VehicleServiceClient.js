@@ -1,9 +1,10 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/vehicle/";
+const environment = require("./../environment.js");
+const route = environment.serverUrl + "/api/vehicle/";
 /*function getVehicles(callback) {
   axios
     .get(route)
-    .then(response => {
+    .then((response) => {
       callback(response.data);
     })
     .catch(function (error) {
@@ -29,7 +30,7 @@ function getVehicles(callback) {
 function createVehicle(vehicle, callback) {
   axios
     .post(route, vehicle)
-    .then(response => {
+    .then((response) => {
       callback(response.status);
     })
     .catch(function (error) {
@@ -51,7 +52,7 @@ function updateVehicle(vehicle, callback) {
 function deleteVehicle(id, callback) {
   axios
     .delete(`${route}${id}`)
-    .then(response => {
+    .then((response) => {
       callback(response.status);
     })
     .catch(function (error) {
@@ -64,5 +65,5 @@ export default {
   //getVehicle,
   createVehicle,
   updateVehicle,
-  deleteVehicle
+  deleteVehicle,
 };

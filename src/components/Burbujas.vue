@@ -1,30 +1,56 @@
 <template>
   <div class="comentarios">
-    <div class="burbuja entrada" v-if="type==2">
-      <p>{{message}}</p>
+    <div class="burbuja entrada" v-if="type != user.userMail">
+      <p>{{ message }}</p>
     </div>
-    <div class="burbuja salida" v-if="type==1">
-      <p>{{message}}</p>
+    <div class="burbuja salida" v-if="type==user.userMail">
+      <p>{{ message }}</p>
     </div>
-    <div>
-        
-    </div>
+    <div></div>
   </div>
-  
 </template>
 
 <script>
+
+import UserSC from "../serviceClients/UserServiceClient";
+
 export default {
+
+
   name: "Burbuja",
   props: {
-    type:Number,
-    message:String
+    type: String,
+    message: String,
+    
   },
+  //pasar cor,
   data() {
-    return {};
+    return {
+      user: {
+        userName: "",
+        userDoc: "",
+        userPhone: "",
+        universityId: "",
+        userMail: "",
+        userAddress: "",
+        password: "",
+        registryDatetime: "",
+        picture: "",
+        vehicleModel: [],
+        Rh: "",
+      },
+    };
+  },
+  mounted(){
+    this.getUserDB();
+
   },
   methods: {
-    
+    getUserDB() {
+      UserSC.getUser((data) => {
+        this.user = data;
+      });
+    },
   },
 };
 </script>
@@ -51,13 +77,11 @@ body {
   position: relative;
   background-color: #fff;
   border-color: darkgray;
-  border: 2px solid gray ;
+  border: 2px solid gray;
   padding: 10px 10px 10px 20px;
   color: #222;
   border-radius: 3px;
   margin-left: 10px;
-  
-
 }
 
 .entrada:after {
@@ -72,7 +96,7 @@ body {
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-    
+
   border-right: 15px solid gray;
 }
 .salida {

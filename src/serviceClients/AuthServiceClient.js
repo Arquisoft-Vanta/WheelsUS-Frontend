@@ -1,7 +1,7 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/user";
-const path = "http://localhost:8080";
-
+const environment = require("./../environment.js");
+const route = environment.serverUrl + "/api/user";
+const path = environment.serverUrl;
 function registerUser(user, callback) {
   axios
     .post(route + "/signup", user)
@@ -42,7 +42,7 @@ function loginUser(user, callback, showtoast) {
       } else {
         console.log(response.data)
         localStorage.setItem("token", response.data.access_token);
-        alert("Usuario Logueado")
+        alert("Usuario Logueado");
         callback();
       }
     })
