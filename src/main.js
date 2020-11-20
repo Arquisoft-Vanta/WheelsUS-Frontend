@@ -15,7 +15,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 //import 'bootstrap/scss/bootstrap.scss'
 
 if (process.env.NODE_ENV != "production") {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "1";
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 }
 var firebaseConfig = {
   apiKey: "AIzaSyBYLj8XtE_HgnebkWa0Go4W_4bnsttl6nA",
