@@ -1,0 +1,9 @@
+{
+    "development": {
+      "serverUrl": "http://localhost:3000"
+    },
+    "production": {
+      "serverUrl": "https://echo-api.endpoints.wheelsus.cloud.goog"
+    }
+  }
+  
