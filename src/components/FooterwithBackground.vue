@@ -1,12 +1,11 @@
 <template>
   <div>
-    <body></body>
-    <div class="fixed-bottom">
+    <div class="fixed-bottom mt-5">
       <div>
         <div id="footer" class="container-fluid pt-3 pb-2">
           <div id="bottom-footer" class="row text-center">
-            <div class="col-6 col-lg">
-              <p class="text-left">© 2020 - Todos los derechos reservados.</p>
+            <div class="col-6">
+              <p class="text-center">© 2020 - Todos los derechos reservados.</p>
             </div>
             <div class="col-6 col-lg pb-2 pb-sm-0">
               <a href="#" class="text-right"
@@ -49,13 +48,13 @@ export default {};
 #FooterApp {
   background-color: #262626;
 }
-body {
+/* body {
   background-image: url("~@/assets/Enfermeria2.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-}
+} */
 .derechos {
   font-size: 70%;
 }
