@@ -42,7 +42,7 @@
                     <p>{{ rate.name }}</p>
                   </div>
                   <div class="rate-btn col-4">
-                    <b-button variant="primary" @click="rateUser"
+                    <b-button variant="primary" @click="rateUser(rate)"
                       >Califcar</b-button
                     >
                   </div>
@@ -123,6 +123,7 @@ export default {
         grade: rate.grade,
         rideId: rate.rideId,
       };
+      console.log(rating)
       RateSC.createRate(rating, () => {
         this.$bvToast.toast(
           "Se ha calificado correctamente el usuario " + rate.name,
