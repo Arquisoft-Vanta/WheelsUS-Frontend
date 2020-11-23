@@ -42,13 +42,6 @@ function loginUser(user, callback, showtoast) {
         console.log(response.data);
         localStorage.setItem("token", response.data.access_token);
         callback();
-        this.$bvToast.toast("Inicio de Sesión correcto", {
-          title: "¡Usuario autenticado!",
-          autoHideDelay: 5000,
-          appendToast: true,
-          variant: "success",
-          solid: true,
-        });
       }
     })
     .catch((error) => {
