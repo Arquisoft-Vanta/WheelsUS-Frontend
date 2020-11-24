@@ -373,6 +373,9 @@ export default {
       });
       this.getRoutesActives();
     },
+    returnRoute(route) {
+      this.$router.push("/service-ended");
+    },
   },
 };
 </script>

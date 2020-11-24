@@ -83,9 +83,6 @@ export default {
     this.getRoutesMade();
   },
   methods: {
-    acordeonId(index) {
-      return "s" + index;
-    },
     getRoutesMade() {
       const db = firebase.firestore();
       db.collection("driverRoute")

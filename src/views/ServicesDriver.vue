@@ -346,7 +346,7 @@ export default {
       this.getRoutesMade();
     },
     returnRoute(route) {
-      console.log(route);
+      this.$router.push("/service-ended");
     },
   },
 };
