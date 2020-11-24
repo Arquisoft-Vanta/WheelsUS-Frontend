@@ -81,7 +81,7 @@
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-outline-dark btn-block"
+                class="btn btn-dark btn-block"
                 @click="sendPossibleRouteToMap"
               >
                 Ver Ruta
@@ -94,7 +94,7 @@
     <div>
       <div class="container-fluid mb-5">
         <div class="row">
-          <div class="col-12 col-sm-2 offset-sm-5 mt-4">
+          <div class="col-12 col-md-2 offset-md-5 mt-4">
             <button
               class="btn btn-dark btn-block btn-lg"
               type="button"
@@ -177,7 +177,7 @@
                   <div>
                     <button
                       type="button"
-                      class="btn btn-dark btn-block btn-block"
+                      class="btn btn-dark btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal"
                       data-display="static"
@@ -190,7 +190,7 @@
                   <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-dark btn-block btn-block"
+                      class="btn btn-dark btn-block"
                       data-toggle="modal"
                       data-target="#modalVehicles"
                       data-display="static"
@@ -204,7 +204,7 @@
                   <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-dark btn-block btn-block"
+                      class="btn btn-dark btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal2"
                     >
