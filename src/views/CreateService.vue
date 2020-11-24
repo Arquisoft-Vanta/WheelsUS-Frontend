@@ -92,10 +92,21 @@
       </div>
     </div>
     <div>
-      <div class="container">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-sm-2 offset-sm-5 mt-5">
+            <button
+              class="btn btn-dark btn-block btn-lg"
+              type="button"
+              @click="goToDrive"
+            >
+              Atrás
+            </button>
+          </div>
+        </div>
         <div class="row justify-content-between mb-5">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
-            <div class="createservice card">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-5 mb-5 mr-5 ml-5">
+            <div class="card">
               <div class="card-body">
                 <div class="form-inline" style="margin: 0 0 5% 0">
                   <input
@@ -108,7 +119,7 @@
                   />
                   <button
                     type="button"
-                    class="btn btn-outline-dark"
+                    class="btn btn-dark"
                     data-toggle="modal"
                     data-target="#modalDirections"
                     @click="typeInput = 'originDriver'"
@@ -116,7 +127,7 @@
                     +
                   </button>
                 </div>
-                <div class="form-inline" style="margin: 0 0 5% 0">
+                <div class="form-inline mb-3">
                   <input
                     id="placeofdeparture"
                     class="form-control"
@@ -127,7 +138,7 @@
                   />
                   <button
                     type="button"
-                    class="btn btn-outline-dark"
+                    class="btn btn-dark"
                     data-toggle="modal"
                     data-target="#modalDirections"
                     @click="typeInput = 'destinationDriver'"
@@ -214,7 +225,7 @@
             </div>
           </div>
           <div
-            class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
+            class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-5 mb-5 mb-md-0"
           >
             <DirectionsMapView />
           </div>
@@ -327,22 +338,22 @@ export default {
           A: {
             name: "",
             id: "",
-            email:"",
+            email: "",
           },
           B: {
             name: "",
             id: "",
-            email:"",
+            email: "",
           },
           C: {
             name: "",
             id: "",
-            email:"",
+            email: "",
           },
           D: {
             name: "",
             id: "",
-            email:"",
+            email: "",
           },
         },
         value: "",
@@ -410,7 +421,8 @@ export default {
         this.route.passengers[String.fromCharCode(letterchar)].name =
           dataPassenger.passengerName;
         this.route.passengers[String.fromCharCode(letterchar)].id = id;
-        this.route.passengers[String.fromCharCode(letterchar)].email = dataPassenger.passengerMail;
+        this.route.passengers[String.fromCharCode(letterchar)].email =
+          dataPassenger.passengerMail;
 
         /**
          *Existen casos donde algunos pasajeros salen del mismo lugar.
@@ -475,6 +487,9 @@ export default {
     }
   },
   methods: {
+    goToDrive() {
+      this.$router.push("/driver");
+    },
     getFormattedDate() {
       var date = new Date();
       this.currentDate =
@@ -528,7 +543,9 @@ export default {
               );
             }
           }
-          db.collection("driverRoute").doc().set(this.route);
+          db.collection("driverRoute")
+            .doc()
+            .set(this.route);
           this.$bvToast.toast("Ruta Creada Correctamente!", {
             title: "Ruta Creada",
             autoHideDelay: 5000,
@@ -578,7 +595,6 @@ export default {
   background-color: white;
   opacity: 0.9;
   border-radius: 2%;
-  margin: 1% 0 0% 0;
 }
 strong {
   display: inline-block;
@@ -587,8 +603,6 @@ strong {
 .sortable {
   width: 100%;
   background: white;
-  padding: 1em;
-  margin: 0 0 2% 0;
   cursor: move;
   border-style: solid;
   border-width: 1px;

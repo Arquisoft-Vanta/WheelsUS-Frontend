@@ -38,18 +38,15 @@ function loginUser(user, callback, showtoast) {
     .then((response) => {
       if (response.status !== 200) {
         showtoast("Error en la Autenticación");
-        //alert("Error en la autenticación");
       } else {
-        console.log(response.data)
+        console.log(response.data);
         localStorage.setItem("token", response.data.access_token);
-        alert("Usuario Logueado");
         callback();
       }
     })
     .catch((error) => {
       if (error.response.status === 400) {
         showtoast("Datos de Ingreso Invalidos");
-        //alert("Datos invalidos");
       }
     });
 }
