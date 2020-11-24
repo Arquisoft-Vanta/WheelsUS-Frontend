@@ -94,8 +94,8 @@
     <div>
       <div class="container">
         <div class="row justify-content-between mb-5">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
-            <div class="createservice card">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-5">
+            <div class="card">
               <div class="card-body">
                 <div class="form-inline" style="margin: 0 0 5% 0">
                   <input
@@ -214,7 +214,7 @@
             </div>
           </div>
           <div
-            class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
+            class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-5 mb-5 mb-md-0"
           >
             <DirectionsMapView />
           </div>
@@ -565,7 +565,6 @@ export default {
   background-color: white;
   opacity: 90%;
   border-radius: 2%;
-  margin: 1% 0 0% 0;
 }
 strong {
   display: inline-block;
@@ -574,8 +573,6 @@ strong {
 .sortable {
   width: 100%;
   background: white;
-  padding: 1em;
-  margin: 0 0 2% 0;
   cursor: move;
   border-style: solid;
   border-width: 1px;
