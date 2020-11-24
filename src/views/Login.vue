@@ -96,19 +96,6 @@
                 <button type="submit" class="mt-5 btn btn-dark btn-block">
                   Ingresar
                 </button>
-                <div id="BotonGoogle">
-                  <button
-                    class="btn btn-dark align-middle btn-block mt-2"
-                  >
-                    <img
-                      class="logo mb-0 mr-2"
-                      src="~@/assets/google.png"
-                      alt="logo"
-                      width="20"
-                    />
-                    Ingresar con Google
-                  </button>
-                </div>
               </form>
             </div>
           </div>
