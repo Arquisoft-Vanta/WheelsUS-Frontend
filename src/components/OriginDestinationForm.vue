@@ -1,5 +1,5 @@
 <template>
-  <section class="origin-destination-form">
+  <section class="">
     <div class="form">
       <h4>Postula tu ruta</h4>
       <div v-show="error">{{ error }}</div>
@@ -10,8 +10,7 @@
               type="text"
               placeholder="Origen"
               ref="origin"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-2"
               required
             />
           </div>
@@ -22,8 +21,7 @@
               type="text"
               placeholder="Destino"
               ref="destination"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-2"
               required
             />
           </div>
@@ -34,8 +32,7 @@
               v-model="route.time"
               type="time"
               placeholder="Tiempo"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-2"
               required
             />
           </div>
@@ -46,23 +43,20 @@
               v-model="route.date"
               type="date"
               placeholder="Fecha"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-3"
               required
             />
           </div>
         </div>
         <button
-          class="btn btn-outline-dark btn-block button"
+          class="btn btn-dark btn-block button mb-2"
           @click="calculateButtonPressed"
-          style="margin: 10% 0% -2% 0%"
         >
           Postular ruta
         </button>
         <button
-          class="btn btn-outline-dark btn-block button"
+          class="btn btn-dark btn-block button mb-2"
           @click="saveRoute"
-          style="margin: 10% 0% -2% 0%"
           data-toggle="modal"
         >
           Guardar ruta
@@ -173,12 +167,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.origin-destination-form {
-  position: relative;
-  z-index: 1;
-  max-width: 610px;
-  margin: 10px;
-}
-</style>
