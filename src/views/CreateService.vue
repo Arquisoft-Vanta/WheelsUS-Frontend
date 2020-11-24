@@ -186,7 +186,7 @@
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Escoger vehículo
+                      Escoger Vehículo
                     </button>
                   </div>
 
@@ -367,12 +367,17 @@ export default {
   mounted() {
     this.getUserDB();
     this.getFormattedDate();
-    EventBus.$on("point", (point) => {
+    EventBus.$on("vehicle", (vehicle) => {
       try {
         this.$refs[this.typeInput].value = point.favAddress;
+        this.route.idVehicle = vehicle.vehicleLicenseplate;
+      } catch (error) {
+        console.log("");
+      }
+    });
+    EventBus.$on("vehicle", (vehicle) => {
+      try {
         this.route[this.typeInput].address = point.favAddress;
-        this.route[this.typeInput].lat = parseFloat(point.favLatitude);
-        this.route[this.typeInput].lng = parseFloat(point.favLongitude);
       } catch (error) {
         console.log("");
       }
@@ -505,6 +510,9 @@ export default {
       }
       if (this.route.value === "") {
         textAlert = textAlert + "Valor de Servicio, \n";
+      }
+      if (this.route.idVehicle === "") {
+        textAlert = textAlert + "Vehículo, \n";
       }
       if (textAlert === "") {
         if (new Date(this.currentDate) > new Date(this.route.date)) {

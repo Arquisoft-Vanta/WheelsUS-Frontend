@@ -195,7 +195,6 @@ export default {
      */
     getListPassengersActives() {
       const db = firebase.firestore();
-      console.log(this.routesMyself);
       db.collection("passengerRoutes")
         .where("selected", "==", false)
         .onSnapshot((snap) => {
