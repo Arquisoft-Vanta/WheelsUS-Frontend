@@ -1,11 +1,22 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container">
+    <div class="container-fluid mb-5">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
-          <div class="card" style="height: 480px">
-            <div class="card" style="margin: 5% 0 0 0">
+          <div class="col-12 col-md-2 offset-md-5 mt-4">
+            <button
+              class="btn btn-dark btn-block btn-lg"
+              type="button"
+              @click="goToPassenger"
+            >
+              Atrás
+            </button>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-12 col-md-4 offset-md-1">
+          <div class="card mt-4 mb-3 mb-md-4" style="height: 480px">
+            <div class="card">
               <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                   <a
@@ -253,9 +264,8 @@
             </div>
           </div>
         </div>
-
         <div
-          class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
+          class="col-12 col-md-6 mt-md-4 mb-5"
         >
           <DirectionsMapView />
         </div>
@@ -295,7 +305,10 @@ export default {
   mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
   },
-  methods: {
+  methods: {    
+    goToPassenger() {
+      this.$router.push("/passenger");
+    },
     getUserDB() {
       UserSC.getUser((data) => {
         this.userMail = data.userMail;
@@ -379,6 +392,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

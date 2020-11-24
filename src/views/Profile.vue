@@ -2,12 +2,12 @@
   <div>
     <FooterwithBackground></FooterwithBackground>
     <div>
-      <div class="container">
-        <div class="row align-items-start h-100">
+      <div class="container-fluid mb-5">
+        <div class="row">
           <div
-            class="col-12 pl-md-5 pr-md-5 pl-lg-0 pr-lg-0 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-5 mb-5"
+            class="col-md-12 col-lg-3 offset-lg-1 mt-5 mb-5"
           >
-            <div class="datosusuario card pt-3">
+            <div class="card pt-3">
               <img
                 src="../assets/person.png"
                 class="img-thumbnail align-self-center h-25"
@@ -16,7 +16,7 @@
               <div class="card-body">
                 <h5 class="card-title pt-3">Usuario</h5>
                 <a
-                  class="btn btn-outline-dark btn-block"
+                  class="btn btn-dark btn-block text-white"
                   type="button"
                   data-toggle="modal"
                   data-target="#exampleModal"
@@ -24,7 +24,7 @@
                   Añadir dirección
                 </a>
                 <a
-                  class="btn btn-outline-dark btn-block"
+                  class="btn btn-dark btn-block text-white"
                   type="button"
                   data-toggle="modal"
                   data-target="#modalDirections"
@@ -36,9 +36,9 @@
             </div>
           </div>
           <div
-            class="col-12 pl-md-5 pr-md-5 col-sm-12 col-md-12 col-lg-9 col-xl-9 mt-lg-5 mt-0 mb-5"
+            class="col-md-12 col-lg-7 mt-lg-5 mt-0 mb-5"
           >
-            <div class="datosvehiculo card card-body mb-5">
+            <div class="card card-body mb-5">
               <form>
                 <h4 class="mb-3">Tu información</h4>
 
@@ -132,7 +132,7 @@
                     <a
                       v-on:click="editInputData"
                       type="button"
-                      class="btn btn-outline-dark btn-block"
+                      class="btn btn-dark btn-block text-white"
                     >
                       Editar
                     </a>
@@ -140,7 +140,7 @@
                   <div class="col-6 mt-3 mb-3">
                     <a
                       type="button"
-                      class="btn btn-outline-primary btn-block"
+                      class="btn btn-primary btn-block text-white"
                       @click="updateUser"
                     >
                       Guardar
@@ -403,26 +403,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.datosvehiculo {
-  margin: 4% 0 0 0;
-  opacity: 0.9;
-}
-
-.form-control {
-  background: #f1f1f1;
-  border: 0;
-}
-.datosusuario {
-  opacity: 0.95;
-}
-
-.container {
-  height: 85vh;
-}
-.map {
-  margin: 0 0 -4% 0;
-  height: 250px !important;
-}
-</style>

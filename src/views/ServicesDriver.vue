@@ -1,49 +1,85 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container">
+    <div class="container-fluid mb-5">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
-          <div class="card" style="height: 480px">
-            <div class="card" style="margin: 5% 0 0 0">
-              <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <a
-                    class="nav-item nav-link active"
-                    id="nav-active-tab"
-                    data-toggle="tab"
-                    href="#nav-home"
-                    role="tab"
-                    aria-controls="nav-home"
-                    aria-selected="true"
-                    >Activos</a
-                  >
-                  <a
-                    class="nav-item nav-link"
-                    id="nav-made-tab"
-                    data-toggle="tab"
-                    href="#nav-profile"
-                    role="tab"
-                    aria-controls="nav-profile"
-                    aria-selected="false"
-                    >Realizados</a
-                  >
-                </div>
-              </nav>
-            </div>
-            <div
-              class="card"
-              style="height: 80%; overflow: scroll; margin: 0 0 -20% 0"
-            >
-              <div class="card-body">
-                <div class="tab-content" id="nav-tabContent">
-                  <div
-                    class="tab-pane fade show active"
-                    id="nav-home"
-                    role="tabpanel"
-                    aria-labelledby="nav-home-tab"
-                  >
-                    <div class="accordion" id="accordionExample">
+        <div class="col-12 col-md-2 offset-md-5 mt-4">
+          <button
+            class="btn btn-dark btn-block btn-lg"
+            type="button"
+            @click="goToDrive"
+          >
+            Atrás
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4 offset-md-1 mb-5">
+          <div class="card mt-4 mb-0">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a
+                  class="nav-item nav-link active"
+                  id="nav-active-tab"
+                  data-toggle="tab"
+                  href="#nav-home"
+                  role="tab"
+                  aria-controls="nav-home"
+                  aria-selected="true"
+                  >Activos</a
+                >
+                <a
+                  class="nav-item nav-link"
+                  id="nav-made-tab"
+                  data-toggle="tab"
+                  href="#nav-profile"
+                  role="tab"
+                  aria-controls="nav-profile"
+                  aria-selected="false"
+                  >Realizados</a
+                >
+              </div>
+            </nav>
+          </div>
+          <div class="card">
+            <div class="card-body mb-5">
+              <div class="tab-content" id="nav-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="nav-home"
+                  role="tabpanel"
+                  aria-labelledby="nav-home-tab"
+                >
+                  <div class="accordion" id="accordionExample">
+                    <div
+                      class="card"
+                      v-for="route in routesActive"
+                      :key="route.id"
+                    >
+                      <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                          <button
+                            class="btn btn-link btn-block text-left"
+                            type="button"
+                            data-toggle="collapse"
+                            :data-target="`#data${route.id}`"
+                            aria-expanded="true"
+                            :aria-controls="`data${route.id}`"
+                            style="color: #06416d"
+                          >
+                            <div>
+                              Origen:
+                              {{ route.originDriver.address.split(",")[0]}}
+                            </div>
+                            <div>
+                              Destino:
+                              {{
+                                route.destinationDriver.address.split(",")[0]
+                              }}
+                            </div>
+                          </button>
+                        </h2>
+                      </div>
                       <div
                         class="card"
                         v-for="route in routesActive"
@@ -209,9 +245,7 @@
           </div>
         </div>
 
-        <div
-          class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
-        >
+        <div class="col-12 col-md-6 mt-md-4 mb-5">
           <DirectionsMapView />
         </div>
       </div>
@@ -250,6 +284,9 @@ export default {
     EventBus.$emit("passengerRoutes-data", this.routes);
   },
   methods: {
+    goToDrive() {
+      this.$router.push("/driver");
+    },
     getUserDB() {
       UserSC.getUser((data) => {
         this.userMail = data.userMail;
@@ -312,7 +349,9 @@ export default {
           );
         }
       }
-      db.collection("driverRoute").doc(route.id).delete();
+      db.collection("driverRoute")
+        .doc(route.id)
+        .delete();
       this.$bvToast.toast("Ruta Cancelada Correctamente!", {
         title: "Ruta Cancelada",
         autoHideDelay: 5000,
@@ -351,6 +390,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

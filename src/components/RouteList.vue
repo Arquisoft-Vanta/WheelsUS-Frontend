@@ -73,7 +73,7 @@
           <div class="col">
             <button
               type="button"
-              class="btn btn-outline-dark btn-block button"
+              class="btn btn-dark btn-block button"
               style="margin: 5% 0 0 0"
               @click="sendPassengerItemPressed()"
               data-dismiss="modal"
@@ -150,7 +150,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-outline-dark btn-block button"
+                    class="btn btn-dark btn-block button"
                     @click="choosePassengerItemPressed(route)"
                     style="margin: 5% 0 5% 0"
                     data-toggle="modal"
@@ -162,7 +162,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-outline-dark btn-block button"
+                    class="btn btn-dark btn-block button"
                     @click="cancelPassengerItemPressed(route)"
                     style="margin: 5% 0 5% 0"
                   >
@@ -172,7 +172,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-outline-dark btn-block button"
+                    class="btn btn-dark btn-block button"
                     style="margin: 5% 0 5% 0"
                     @click="routePassengerItemPressed(route)"
                   >
@@ -403,21 +403,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.route-list-view-header {
-  padding: 10px;
-}
-
-.item {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.item:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.show-all {
-  padding: 4px 10px;
-}
-</style>
