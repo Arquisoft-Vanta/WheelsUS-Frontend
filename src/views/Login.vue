@@ -44,7 +44,7 @@
         </nav>
       </div>
     </div>
-    <div class="container-fluid text-dark mr-0 ml-0 mt-0 mb-5 mb-md-5 mh-100">
+    <div class="container-fluid text-dark mt-0 mb-5">
       <div class="row">
         <div
           class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 pt-5 mt-0 mt-lg-5 pb-5 mb-0 mb-md-0"
@@ -69,7 +69,7 @@
         >
           <div class="login-card card">
             <div class="card-body text-dark border-light rounded shadow">
-              <img class="logo mt-2 mb-4" src="~@/assets/logo.png" alt="logo" />
+              <img class="logo mt-2 mb-5" src="~@/assets/logo.png" alt="logo" />
               <form @submit="login">
                 <div class="form-group text-left">
                   <label for="exampleInputEmail1">Correo electrónico</label>
@@ -93,7 +93,7 @@
                     v-model="credentials.password"
                   />
                 </div>
-                <button type="submit" class="mt-5 btn btn-dark btn-block">
+                <button type="submit" class="mt-5 mb-4 btn btn-dark btn-block">
                   Ingresar
                 </button>
               </form>
