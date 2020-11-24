@@ -52,7 +52,7 @@
           class="btn btn-dark btn-block button mb-2"
           @click="calculateButtonPressed"
         >
-          Postular ruta
+          Ver ruta
         </button>
         <button
           class="btn btn-dark btn-block button mb-2"
@@ -95,6 +95,8 @@ export default {
           passengerName: "",
         },
         selected: Boolean,
+        servicePerformed: Boolean,
+        idRoute:"",
       },
       error: "",
     };
@@ -155,6 +157,7 @@ export default {
     saveRoute() {
       const db = firebase.firestore();
       this.route.selected = false;
+      this.route.servicePerformed = false;
       db.collection("passengerRoutes").doc().set(this.route);
       this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
         title: "Ruta Almacenada",

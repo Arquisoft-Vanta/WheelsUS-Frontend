@@ -1,91 +1,65 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container-fluid mb-5">
+    <div class="container">
       <div class="row">
-        <div class="col-12 col-md-2 offset-md-5 mt-4">
-          <button
-            class="btn btn-dark btn-block btn-lg"
-            type="button"
-            @click="goToDrive"
-          >
-            Atrás
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-4 offset-md-1 mb-5">
-          <div class="card mt-4 mb-0">
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a
-                  class="nav-item nav-link active"
-                  id="nav-active-tab"
-                  data-toggle="tab"
-                  href="#nav-home"
-                  role="tab"
-                  aria-controls="nav-home"
-                  aria-selected="true"
-                  >Activos</a
-                >
-                <a
-                  class="nav-item nav-link"
-                  id="nav-made-tab"
-                  data-toggle="tab"
-                  href="#nav-profile"
-                  role="tab"
-                  aria-controls="nav-profile"
-                  aria-selected="false"
-                  >Realizados</a
-                >
-              </div>
-            </nav>
-          </div>
-          <div class="card">
-            <div class="card-body mb-5">
-              <div class="tab-content" id="nav-tabContent">
-                <div
-                  class="tab-pane fade show active"
-                  id="nav-home"
-                  role="tabpanel"
-                  aria-labelledby="nav-home-tab"
-                >
-                  <div class="accordion" id="accordionExample">
-                    <div
-                      class="card"
-                      v-for="route in routesActive"
-                      :key="route.id"
-                    >
-                      <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                          <button
-                            class="btn btn-link btn-block text-left"
-                            type="button"
-                            data-toggle="collapse"
-                            :data-target="`#data${route.id}`"
-                            aria-expanded="true"
-                            :aria-controls="`data${route.id}`"
-                            style="color: #06416d"
-                          >
-                            <div>
-                              Origen:
-                              {{ route.originDriver.address.split(",")[0]}}
-                            </div>
-                            <div>
-                              Destino:
-                              {{
-                                route.destinationDriver.address.split(",")[0]
-                              }}
-                            </div>
-                          </button>
-                        </h2>
-                      </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
+          <div class="card" style="height: 480px">
+            <div class="card" style="margin: 5% 0 0 0">
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a
+                    class="nav-link"
+                    id="active-tab"
+                    data-toggle="tab"
+                    href="#active"
+                    role="tab"
+                    aria-controls="active"
+                    aria-selected="false"
+                    >Activos</a
+                  >
+                  <a
+                    class="nav-link"
+                    id="profile-tab"
+                    data-toggle="tab"
+                    href="#profile"
+                    role="tab"
+                    aria-controls="profile"
+                    aria-selected="false"
+                    >Seleccionados</a
+                  >
+                  <a
+                    class="nav-link"
+                    id="contact-tab"
+                    data-toggle="tab"
+                    href="#contact"
+                    role="tab"
+                    aria-controls="contact"
+                    aria-selected="false"
+                    >Realizados</a
+                  >
+                </div>
+              </nav>
+            </div>
+            <div
+              class="card"
+              style="height: 80%; overflow: scroll; margin: 0 0 -20% 0"
+            >
+              <div class="card-body">
+                <div class="tab-content" id="nav-tabContent">
+                  <div
+                    class="tab-pane fade active show"
+                    id="active"
+                    role="tabpanel"
+                    aria-labelledby="active-tab"
+                  >
+                    <div class="accordion" id="accordionExample">
                       <div
                         class="card"
                         v-for="route in routesActive"
                         :key="route.id"
                       >
-                        <div class="card-header" id="headingOne">
+                        <div class="card-header" id="headingOne3">
                           <h2 class="mb-0">
                             <button
                               class="btn btn-link btn-block text-left"
@@ -98,13 +72,11 @@
                             >
                               <div>
                                 Origen:
-                                {{ route.originDriver.address.split(",")[0] }}
+                                {{ route.origin.address.split(",")[0] }}
                               </div>
                               <div>
                                 Destino:
-                                {{
-                                  route.destinationDriver.address.split(",")[0]
-                                }}
+                                {{ route.destination.address.split(",")[0] }}
                               </div>
                             </button>
                           </h2>
@@ -112,7 +84,7 @@
                         <div
                           :id="`data${route.id}`"
                           class="collapse"
-                          aria-labelledby="headingOne"
+                          aria-labelledby="headingOne3"
                           data-parent="#accordionExample"
                         >
                           <div class="card-body">
@@ -120,18 +92,6 @@
                             <div>Hora: {{ route.time }}</div>
 
                             <div class="row">
-                              <div class="col">
-                                <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-block button"
-                                  @click="changeStateofRoute(route)"
-                                  style="margin: 5% 0 5% 0"
-                                  data-toggle="modal"
-                                  data-target="#modalConfirmation"
-                                >
-                                  Servicio Realizado
-                                </button>
-                              </div>
                               <div class="col">
                                 <button
                                   type="button"
@@ -160,15 +120,15 @@
                   </div>
                   <div
                     class="tab-pane fade"
-                    id="nav-profile"
+                    id="profile"
                     role="tabpanel"
-                    aria-labelledby="nav-profile-tab"
+                    aria-labelledby="profile-tab"
                   >
                     <div class="accordion" id="accordionExample2">
                       <div
                         class="card"
-                        v-for="route in routesMade"
-                        :key="route.id"
+                        v-for="route1 in routesChoosed"
+                        :key="route1.id"
                       >
                         <div class="card-header" id="headingOne">
                           <h2 class="mb-0">
@@ -176,49 +136,98 @@
                               class="btn btn-link btn-block text-left"
                               type="button"
                               data-toggle="collapse"
-                              :data-target="`#data${route.id}`"
+                              :data-target="`#data${route1.id}`"
                               aria-expanded="true"
-                              :aria-controls="`data${route.id}`"
+                              :aria-controls="`data${route1.id}`"
                               style="color: #06416d"
                             >
                               <div>
                                 Origen:
-                                {{ route.originDriver.address.split(",")[0] }}
+                                {{ route1.origin.address.split(",")[0] }}
                               </div>
                               <div>
                                 Destino:
-                                {{
-                                  route.destinationDriver.address.split(",")[0]
-                                }}
+                                {{ route1.destination.address.split(",")[0] }}
                               </div>
                             </button>
                           </h2>
                         </div>
                         <div
-                          :id="`data${route.id}`"
+                          :id="`data${route1.id}`"
                           class="collapse"
                           aria-labelledby="headingOne"
                           data-parent="#accordionExample2"
                         >
                           <div class="card-body">
-                            <div>Dia: {{ route.date }}</div>
-                            <div>Hora: {{ route.time }}</div>
-                            <div
-                              v-for="passenger in route.passengers"
-                              :key="passenger.id"
-                            >
-                              <p v-if="passenger.id !== ''">
-                                Pasajeros: {{ passenger.name }}
-                              </p>
-                            </div>
-
+                            <div>Dia: {{ route1.date }}</div>
+                            <div>Hora: {{ route1.time }}</div>
                             <div class="row">
                               <div class="col">
                                 <button
                                   type="button"
                                   class="btn btn-outline-dark btn-block button"
                                   style="margin: 5% 0 5% 0"
-                                  @click="routePassengerItemPressed(route)"
+                                  @click="routePassengerItemPressed(route1)"
+                                >
+                                  Ver Ruta
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    id="contact"
+                    role="tabpanel"
+                    aria-labelledby="contact-tab"
+                  >
+                    <div class="accordion" id="accordionExample3">
+                      <div
+                        class="card"
+                        v-for="route2 in routesMade"
+                        :key="route2.id"
+                      >
+                        <div class="card-header" id="headingOne2">
+                          <h2 class="mb-0">
+                            <button
+                              class="btn btn-link btn-block text-left"
+                              type="button"
+                              data-toggle="collapse"
+                              :data-target="`#data${route2.id}`"
+                              aria-expanded="true"
+                              :aria-controls="`data${route2.id}`"
+                              style="color: #06416d"
+                            >
+                              <div>
+                                Origen:
+                                {{ route2.origin.address.split(",")[0] }}
+                              </div>
+                              <div>
+                                Destino:
+                                {{ route2.destination.address.split(",")[0] }}
+                              </div>
+                            </button>
+                          </h2>
+                        </div>
+                        <div
+                          :id="`data${route2.id}`"
+                          class="collapse"
+                          aria-labelledby="headingOne2"
+                          data-parent="#accordionExample3"
+                        >
+                          <div class="card-body">
+                            <div>Dia: {{ route2.date }}</div>
+                            <div>Hora: {{ route2.time }}</div>
+                            <div class="row">
+                              <div class="col">
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-dark btn-block button"
+                                  style="margin: 5% 0 5% 0"
+                                  @click="routePassengerItemPressed(route2)"
                                 >
                                   Ver Ruta
                                 </button>
@@ -228,7 +237,7 @@
                                   type="button"
                                   class="btn btn-outline-dark btn-block button"
                                   style="margin: 5% 0 5% 0"
-                                  @click="returnRoute(route)"
+                                  @click="returnRoute(route2)"
                                 >
                                   Calificar Pasajeros
                                 </button>
@@ -245,7 +254,9 @@
           </div>
         </div>
 
-        <div class="col-12 col-md-6 mt-md-4 mb-5">
+        <div
+          class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
+        >
           <DirectionsMapView />
         </div>
       </div>
@@ -273,6 +284,7 @@ export default {
   data() {
     return {
       routesActive: [],
+      routesChoosed: [],
       routesMade: [],
       userMail: "",
     };
@@ -284,21 +296,19 @@ export default {
     EventBus.$emit("passengerRoutes-data", this.routes);
   },
   methods: {
-    goToDrive() {
-      this.$router.push("/driver");
-    },
     getUserDB() {
       UserSC.getUser((data) => {
         this.userMail = data.userMail;
         this.getRoutesActives();
         this.getRoutesMade();
+        this.getRoutesChoosed();
       });
     },
     getRoutesActives() {
       const db = firebase.firestore();
-      db.collection("driverRoute")
-        .where("dataDriver.driverMail", "==", this.userMail)
-        .where("routeActive", "==", true)
+      db.collection("passengerRoutes")
+        .where("dataPassenger.passengerMail", "==", this.userMail)
+        .where("selected", "==", false)
         .where("servicePerformed", "==", false)
         .get()
         .then((snap) => {
@@ -308,13 +318,32 @@ export default {
             route.id = doc.id;
             this.routesActive.push(route);
           });
+          console.log(this.routesActive);
+        });
+    },
+    getRoutesChoosed() {
+      const db = firebase.firestore();
+      db.collection("passengerRoutes")
+        .where("dataPassenger.passengerMail", "==", this.userMail)
+        .where("servicePerformed", "==", false)
+        .where("selected", "==", true)
+        .get()
+        .then((snap) => {
+          this.routesChoosed = [];
+          snap.forEach((doc) => {
+            let route = doc.data();
+            route.id = doc.id;
+            this.routesChoosed.push(route);
+          });
+          console.log(this.routesChoosed);
         });
     },
     getRoutesMade() {
       const db = firebase.firestore();
-      db.collection("driverRoute")
-        .where("dataDriver.driverMail", "==", this.userMail)
+      db.collection("passengerRoutes")
+        .where("dataPassenger.passengerMail", "==", this.userMail)
         .where("servicePerformed", "==", true)
+        .where("selected", "==", true)
         .get()
         .then((snap) => {
           this.routesMade = [];
@@ -332,61 +361,21 @@ export default {
         selected: false,
       });
     },
-    changeStateofPassengerbyMade(id) {
-      const db = firebase.firestore();
-      const a = db.collection("passengerRoutes").doc(id);
-      a.update({
-        servicePerformed: true,
-      });
-    },
-
     deleteRoute(route) {
       const db = firebase.firestore();
-      for (let i = 65; i < 69; i++) {
-        if (route.passengers[String.fromCharCode(i)].id !== "") {
-          this.changeStateofPassenger(
-            route.passengers[String.fromCharCode(i)].id
-          );
-        }
-      }
-      db.collection("driverRoute")
-        .doc(route.id)
-        .delete();
-      this.$bvToast.toast("Ruta Cancelada Correctamente!", {
-        title: "Ruta Cancelada",
+      db.collection("passengerRoutes").doc(route.id).delete();
+      this.$bvToast.toast("Postulación Cancelada Correctamente!", {
+        title: "Postulación Cancelada",
         autoHideDelay: 5000,
         appendToast: true,
         variant: "success",
         solid: true,
       });
       this.getRoutesActives();
-    },
-    changeStateofRoute(route) {
-      const db = firebase.firestore();
-      for (let i = 65; i < 69; i++) {
-        if (route.passengers[String.fromCharCode(i)].id !== "") {
-          this.changeStateofPassengerbyMade(
-            route.passengers[String.fromCharCode(i)].id
-          );
-        }
-      }
-      const a = db.collection("driverRoute").doc(route.id);
-      this.$bvToast.toast("Ruta Realizada Correctamente!", {
-        title: "Servicio Realizado",
-        autoHideDelay: 5000,
-        appendToast: true,
-        variant: "success",
-        solid: true,
-      });
-      a.update({
-        servicePerformed: true,
-      });
-      this.getRoutesActives();
-      this.getRoutesMade();
-    },
-    returnRoute(route) {
-      console.log(route);
     },
   },
 };
 </script>
+
+<style>
+</style>

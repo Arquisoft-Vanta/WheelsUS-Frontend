@@ -99,7 +99,7 @@
                       placeholder="N° de teléfono"
                       readonly
                     />
-                  </div>
+                    </div>
                 </div>
                 <div class="form-row">
                   <div class="col-md-6 mb-3">
@@ -378,6 +378,8 @@ export default {
       });
     },
     updateUser() {
+      this.user.picture = "HolaSuCadena"
+      console.log(this.user);
       UserSC.updateUser(this.user, () => {});
       this.$store.commit("updateUser", this.user);
     },

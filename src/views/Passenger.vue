@@ -28,7 +28,7 @@
               <a
                 href=""
                 class="btn btn-dark btn-block btn-lg mt-4"
-                @click="goToPassangerProfile"
+                @click="goToHistory"
                 >Entrar</a
               >
             </div>
@@ -87,6 +87,9 @@ export default {
     },
     goToPassangerProfile() {
       this.$router.push("/passenger-profile");
+    },
+    goToHistory() {
+      this.$router.push("/nomination-services");
     },
   },
 };
