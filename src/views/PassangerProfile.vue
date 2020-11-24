@@ -82,10 +82,10 @@ export default {
 
 <style scoped>
 .mapa {
-  opacity: 95%;
+  opacity: 0.95;
 }
 .datosusuario {
-  opacity: 95%;
+  opacity: 0.95;
 }
 
 .container {

@@ -250,7 +250,7 @@ h2 {
 }
 
 .signup {
-  opacity: 90%;
+  opacity: 0.9;
   position: center;
   margin: -7% 0 5% 0;
   border-radius: 2%;

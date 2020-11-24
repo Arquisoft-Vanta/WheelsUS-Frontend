@@ -17,6 +17,7 @@ import Burbujas from "./../components/Burbujas.vue";
 import Lista from "./../components/ListaChat.vue";
 import PassengerProfile from "./../views/PassangerProfile.vue";
 import ServicesDriver from "./../views/ServicesDriver.vue";
+import ServiceEnded from './../views/ServiceEnded.vue'
 
 Vue.use(VueRouter);
 
@@ -56,7 +57,9 @@ const routes = [
     path: "/route-services",
     name: "route-services",
     component: ServicesDriver
-  }
+  },
+  { path: "/service-ended", name: "serviceEnded", component: ServiceEnded, children: []},
+
 ];
 
 const router = new VueRouter({

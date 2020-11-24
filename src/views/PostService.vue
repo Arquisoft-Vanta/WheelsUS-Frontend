@@ -123,12 +123,12 @@ export default {
 .createservice {
   color: black;
   background-color: white;
-  opacity: 90%;
+  opacity: 0.9;
   border-radius: 2%;
   /* margin: 10% 0 20% 0; */
 }
 .mapg {
-  opacity: 100%;
+  opacity: 1;
   border-radius: 2%;
   margin: 0% 0 6% 5%;
 }

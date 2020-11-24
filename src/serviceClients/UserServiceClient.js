@@ -1,5 +1,6 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/user";
+const environment = require("./../environment.js");
+const route = environment.serverUrl + "/api/user";
 
 function getUser(callback) {
   axios
