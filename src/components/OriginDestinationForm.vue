@@ -101,6 +101,7 @@ export default {
           passengerName: "",
         },
         selected: Boolean,
+        servicePerformed: Boolean,
       },
       error: "",
     };
@@ -161,6 +162,7 @@ export default {
     saveRoute() {
       const db = firebase.firestore();
       this.route.selected = false;
+      this.route.servicePerformed = false;
       db.collection("passengerRoutes").doc().set(this.route);
       this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
         title: "Ruta Almacenada",
