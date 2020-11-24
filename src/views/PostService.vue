@@ -45,15 +45,6 @@
                 <button
                   type="button"
                   class="btn btn-outline-dark btn-block button"
-                  style="margin: 9% 0% 0% 3.1%; width: 93.5%; position: center"
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                >
-                  Mira tus rutas postuladas
-                </button>
-               <button
-                  type="button"
-                  class="btn btn-outline-dark btn-block button"
                   style="margin: 7% 0% 0% 3.1%; width: 93.5%; position: center"
                   @click="locatorButtonPressed"               
                 >

@@ -60,6 +60,7 @@
                           class="btn btn-outline-dark btn-block button"
                           @click="chooseSelection(vehicle)"
                           style="margin: 5% 0 5% 0"
+                          data-dismiss="modal"
                         >
                           {{ button }}
                         </button>
@@ -84,7 +85,6 @@
             <div class="modal-body">
               <p>No existen vehículos asociados con tu usuario.</p>
               <p>Serás redireccionado al menú principal.</p>
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click="goToHome">
@@ -100,6 +100,7 @@
 
 <script>
 import VehicleServiceClient from "../serviceClients/VehicleServiceClient";
+import { EventBus } from "@/EventBus.js";
 
 export default {
   name: "VehiclesByUser",
@@ -121,7 +122,7 @@ export default {
       VehicleServiceClient.getVehicles((response) => {
         this.listVehicles = response;
         if (this.listVehicles.length == 0) {
-            x.style.display = "block";
+          x.style.display = "block";
         }
         console.log(this.listVehicles.length);
       });

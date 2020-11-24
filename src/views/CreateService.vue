@@ -378,15 +378,18 @@ export default {
     this.getFormattedDate();
     EventBus.$on("vehicle", (vehicle) => {
       try {
-        this.$refs[this.typeInput].value = point.favAddress;
         this.route.idVehicle = vehicle.vehicleLicenseplate;
       } catch (error) {
         console.log("");
       }
     });
-    EventBus.$on("vehicle", (vehicle) => {
+    EventBus.$on("point", (point) => {
+      console.log(point);
       try {
+        this.$refs[this.typeInput].value = point.favAddress;
         this.route[this.typeInput].address = point.favAddress;
+        this.route[this.typeInput].lat = parseFloat(point.favLatitude);
+        this.route[this.typeInput].lng = parseFloat(point.favLongitude);
       } catch (error) {
         console.log("");
       }
@@ -509,6 +512,7 @@ export default {
      */
     saveRoute() {
       var textAlert = "";
+      let idRoute;
       if (this.route.originDriver.address === "") {
         textAlert = textAlert + "Punto de Origen, \n";
       }
@@ -534,16 +538,30 @@ export default {
           const db = firebase.firestore();
           this.route.routeActive = true;
           this.route.servicePerformed = false;
-          for (let i = 65; i < 69; i++) {
-            if (this.route.passengers[String.fromCharCode(i)].id !== "") {
-              this.changeStateofPassenger(
-                this.route.passengers[String.fromCharCode(i)].id
-              );
-            }
-          }
+          db.collection("driverRoute").doc().set(this.route);
           db.collection("driverRoute")
-            .doc()
-            .set(this.route);
+            .where(
+              "dataDriver.driverMail",
+              "==",
+              this.route.dataDriver.driverMail
+            )
+            .where("date", "==", this.route.date)
+            .where("time", "==", this.route.time)
+            .get()
+            .then((snap) => {
+              snap.forEach((doc) => {
+                idRoute = doc.id;
+                for (let i = 65; i < 69; i++) {
+                  if (this.route.passengers[String.fromCharCode(i)].id !== "") {
+                    this.changeStateofPassenger(
+                      this.route.passengers[String.fromCharCode(i)].id,
+                      idRoute
+                    );
+                  }
+                }
+              });
+            });
+          
           this.$bvToast.toast("Ruta Creada Correctamente!", {
             title: "Ruta Creada",
             autoHideDelay: 5000,
@@ -562,11 +580,13 @@ export default {
         });
       }
     },
-    changeStateofPassenger(id) {
+    changeStateofPassenger(id, idRoute) {
+      console.log(idRoute);
       const db = firebase.firestore();
       const a = db.collection("passengerRoutes").doc(id);
       a.update({
         selected: true,
+        idRoute: idRoute,
       });
     },
     /**

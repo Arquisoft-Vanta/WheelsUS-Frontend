@@ -23,7 +23,7 @@
       <div class="row">
         <div class="col-12 col-md-6">
           <h2 role="">Historial de servicios</h2>
-          <button class="botondri" type="button">
+          <button class="botondri" type="button" @click="goToHistory">
             <img
               src="~@/assets/listw.png"
               width="100"
@@ -75,6 +75,9 @@ export default {
     },
     goToPostulation() {
       this.$router.push("/post-service");
+    },
+    goToHistory() {
+      this.$router.push("/nomination-services");
     },
   },
 };

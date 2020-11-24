@@ -57,7 +57,7 @@
           @click="calculateButtonPressed"
           style="margin: 10% 0% -2% 0%"
         >
-          Postular ruta
+          Ver ruta
         </button>
         <button
           class="btn btn-outline-dark btn-block button"
@@ -102,6 +102,7 @@ export default {
         },
         selected: Boolean,
         servicePerformed: Boolean,
+        idRoute:"",
       },
       error: "",
     };
