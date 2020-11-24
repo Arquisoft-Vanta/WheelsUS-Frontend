@@ -218,7 +218,6 @@ export default {
 .map {
   width: 100%;
   height: 450px !important;
-  margin: 5% 0 15% 0;
 }
 
 .gm-style-iw button {
