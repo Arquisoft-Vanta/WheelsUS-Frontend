@@ -22,13 +22,14 @@ export default {
      * que el conductor quiera ver.
      */
     EventBus.$on("passengerRoutes-data", (routes) => {
-      this.map = new google.maps.Map(this.$refs["map"], {
-        center: new google.maps.LatLng(4.636973, -74.079335),
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-      });
-      if (routes === undefined) {
-      } else {
+      if (this.$refs["map"] !== undefined) {
+        this.map = new google.maps.Map(this.$refs["map"], {
+          center: new google.maps.LatLng(4.636973, -74.079335),
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+        });
+      }
+      if (routes !== undefined) {
         routes.forEach(({ origin, destination, distance, duration }) => {
           directionsService.route(
             {
@@ -179,14 +180,19 @@ export default {
     });
     EventBus.$on("generateMarker", (point) => {
       this.map = new google.maps.Map(this.$refs["map"], {
-        center: new google.maps.LatLng(parseFloat(point.favLatitude), parseFloat(point.favLongitude)),
+        center: new google.maps.LatLng(
+          parseFloat(point.favLatitude),
+          parseFloat(point.favLongitude)
+        ),
         zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
-      if (point === undefined) {
-      } else {
+      if (point !== undefined) {
         new google.maps.Marker({
-          position: { lat: parseFloat(point.favLatitude), lng: parseFloat(point.favLongitude) },
+          position: {
+            lat: parseFloat(point.favLatitude),
+            lng: parseFloat(point.favLongitude),
+          },
           map: this.map,
         });
       }

@@ -2,30 +2,38 @@
   <div id="home">
     <Header></Header>
     <div class="container-fluid">
-      <div class="row home-margin">
-        <div class="col-12 col-md-6">
-          <h2 role="">Conductor</h2>
-          <button class="botondri ml-0" type="button" @click="goToDrive">
-            <img
-              src="~@/assets/coche1.png"
-              width="100"
-              height="100"
-              alt=""
-              loading="lazy"
-            />
-          </button>
+      <div class="row">
+        <div class="col-12 col-md-6 mt-0 mb-0 mt-md-5 mb-md-0">
+          <div
+            class="card border shadow mt-2 mb-2 bg-white rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5"
+          >
+            <div class="card-body">
+              <h1 class="card-title pt-3">Conductor</h1>
+              <p class="card-text font-weight-normal pt-2">
+                Ingresa en esta sección y descubre todo lo que la plataforma
+                tiene para ti como <strong>conductor</strong>.
+              </p>
+              <a href="" class="btn btn-dark btn-block btn-lg mt-4" @click="goToDrive"
+                >Entrar</a
+              >
+            </div>
+          </div>
         </div>
-        <div class="col-12 col-md-6">
-          <h2 role="">Pasajero</h2>
-          <button class="botondri ml-0" type="button" @click="goToPassenger">
-            <img
-              src="~@/assets/persons.png"
-              width="100"
-              height="100"
-              alt=""
-              loading="lazy"
-            />
-          </button>
+        <div class="col-12 col-md-6 mt-0 mb-5 mt-md-5 mb-md-0">
+          <div
+            class="card text-dark bg-white rounded shadow border shadow mt-2 mb-2 text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5 mb-5"
+          >
+            <div class="card-body">
+              <h1 class="card-title pt-3">Pasajero</h1>
+              <p class="card-text font-weight-normal pt-2">
+                Ingresa en esta sección y descubre todo lo que la plataforma
+                tiene para ti como <strong>pasajero</strong>.
+              </p>
+              <a href="" class="btn btn-dark btn-block btn-lg mt-4" @click="goToPassenger"
+                >Entrar</a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -59,7 +67,6 @@ export default {
     },
   },
   beforeCreate() {
-
     if (!localStorage.getItem("token")) {
       this.$router.push("/");
     }
@@ -67,19 +74,3 @@ export default {
 };
 </script>
 
-<style>
-#home {
-  padding-top: 1%;
-}
-
-.botondri {
-  background-color: #1455d9;
-  height: 100%;
-  width: 90%;
-  border-radius: 10px;
-  border: beige 10px;
-}
-.home-margin {
-  margin-top: 10%;
-}
-</style>

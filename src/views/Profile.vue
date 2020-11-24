@@ -39,8 +39,8 @@
                   class="btn btn-outline-dark btn-block"
                   type="button"
                   data-toggle="modal"
-                  data-target="#exampleModal2"
-                  @click="showDirections"
+                  data-target="#modalDirections"
+                  @click="reRender()"
                 >
                   Ver direcciones
                 </a>
@@ -81,11 +81,11 @@
                   <div class="col-md-3 mb-3">
                     <label for="validationDefault07">Rh</label>
                     <input
-                      v-model="user.Rh"
+                      v-model="user.rh"
                       type="text"
                       class="form-control form-control-sm text-center"
                       id="validationDefault03"
-                      placeholder="N° de documento"
+                      placeholder="Rh"
                       readonly
                     />
                   </div>
@@ -149,7 +149,11 @@
                     </a>
                   </div>
                   <div class="col-6 mt-3 mb-3">
-                    <a type="button" class="btn btn-outline-primary btn-block">
+                    <a
+                      type="button"
+                      class="btn btn-outline-primary btn-block"
+                      @click="updateUser"
+                    >
                       Guardar
                     </a>
                   </div>
@@ -233,91 +237,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="modal fade"
-          id="exampleModal2"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Mis Direcciones
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="accordion" id="accordionExample">
-                  <div
-                    class="card"
-                    v-for="route in listRoutes"
-                    :key="route.idFavoriteDirection"
-                  >
-                    <div class="card-header" id="headingOne">
-                      <h2 class="mb-0">
-                        <button
-                          class="btn btn-link btn-block text-left"
-                          type="button"
-                          data-toggle="collapse"
-                          :data-target="`#data${route.idFavoriteDirection}`"
-                          aria-expanded="true"
-                          :aria-controls="`data${route.idFavoriteDirection}`"
-                          style="color: #06416d"
-                        >
-                          Nombre: {{ route.nameFd }}
-                        </button>
-                      </h2>
-                    </div>
-                    <div
-                      :id="`data${route.idFavoriteDirection}`"
-                      class="collapse"
-                      aria-labelledby="headingOne"
-                      data-parent="#accordionExample"
-                    >
-                      <div class="card-body">
-                        <div>{{ route.favAddress }}</div>
-                        <div class="row">
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-outline-dark btn-block button"
-                              style="margin: 5% 0 5% 0"
-                              @click="showPoint(route)"
-                            >
-                              Ver Dirección
-                            </button>
-                          </div>
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-outline-dark btn-block button"
-                              @click="cancelPassengerItemPressed(route)"
-                              style="margin: 5% 0 5% 0"
-                            >
-                              Eliminar Dirección
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <DirectionsMapView class="map" />
-                </div>
-              </div>
-              <div class="modal-footer"></div>
-            </div>
-          </div>
-        </div>
+        <Directions ref="myComp" state="Watch Direction" />
       </div>
     </div>
     <Header></Header>
@@ -329,6 +249,7 @@ import axios from "axios";
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header";
+import Directions from "../components/WatchCurrentDirections";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
@@ -340,6 +261,7 @@ export default {
     Header,
     FooterwithBackground,
     DirectionsMapView,
+    Directions,
   },
   data() {
     return {
@@ -349,14 +271,14 @@ export default {
         userName: "",
         userDoc: "",
         userPhone: "",
-        universityId: '',
+        universityId: "",
         userMail: "",
         userAddress: "",
         password: "",
         registryDatetime: "",
         picture: "",
         vehicleModel: [],
-        Rh: "",
+        rh: "",
       },
       newFavoritePoint: {
         favAddress: "",
@@ -376,31 +298,35 @@ export default {
   props: {},
   mounted() {
     this.getUserDB();
-    this.showDirections();
     EventBus.$emit("passengerRoutes-data", this.routes);
     for (let ref in this.$refs) {
-      const autocomplete = new google.maps.places.Autocomplete(
-        this.$refs[ref],
-        {
-          bounds: new google.maps.LatLngBounds(
-            new google.maps.LatLng(45.4215296, -75.6971931)
-          ),
-          componentRestrictions: { country: "co" },
-        }
-      );
+      if (ref !== "myComp") {
+        const autocomplete = new google.maps.places.Autocomplete(
+          this.$refs[ref],
+          {
+            bounds: new google.maps.LatLngBounds(
+              new google.maps.LatLng(45.4215296, -75.6971931)
+            ),
+            componentRestrictions: { country: "co" },
+          }
+        );
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        this[ref].nameFd = this.nameFavd;
-        this[ref].favAddress = `${place.name}, ${place.vicinity}`;
-        this[ref].favLatitude = "" + place.geometry.location.lat();
-        this[ref].favLongitude = "" + place.geometry.location.lng();
-        this[ref].datetimeCreationFav = "2020-05-07@10:20:15";
-        EventBus.$emit("generateMarker", this.newFavoritePoint);
-      });
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          this[ref].nameFd = this.nameFavd;
+          this[ref].favAddress = `${place.name}, ${place.vicinity}`;
+          this[ref].favLatitude = "" + place.geometry.location.lat();
+          this[ref].favLongitude = "" + place.geometry.location.lng();
+          this[ref].datetimeCreationFav = "2020-05-07@10:20:15";
+          EventBus.$emit("generateMarker", this.newFavoritePoint);
+        });
+      }
     }
   },
   methods: {
+    reRender() {
+      this.$refs["myComp"].showDirections();
+    },
     getFormattedDate() {
       var date = new Date();
       var str =
@@ -457,11 +383,17 @@ export default {
     },
     getUserDB() {
       UserSC.getUser((data) => {
+        if (!this.$store.state.user) {
+          this.$store.commit("updateUser", data);
+        }
         this.user = data;
+
+        console.log(data);
       });
     },
     updateUser() {
       UserSC.updateUser(this.user, () => {});
+      this.$store.commit("updateUser", this.user);
     },
     onPicSelected(event){
       this.selectedPic = document.getElementById("picPicker").files;  
@@ -516,7 +448,7 @@ export default {
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
           console.log("OK");
-           this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
+          this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
             title: "Dirección Almacenada",
             autoHideDelay: 5000,
             appendToast: true,
@@ -528,14 +460,6 @@ export default {
         }
       });
     },
-    showDirections() {
-      FavoriteServiceClient.getDirectionsByUser((response) => {
-        this.listRoutes = response;
-      });
-    },
-    showPoint(route) {
-      EventBus.$emit("generateMarker", route);
-    },
   },
 };
 </script>
@@ -543,7 +467,7 @@ export default {
 <style scoped>
 .datosvehiculo {
   margin: 4% 0 0 0;
-  opacity: 90%;
+  opacity: 0.9;
 }
 
 .form-control {
@@ -551,7 +475,7 @@ export default {
   border: 0;
 }
 .datosusuario {
-  opacity: 95%;
+  opacity: 0.95;
 }
 
 .container {

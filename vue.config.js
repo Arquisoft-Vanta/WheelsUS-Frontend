@@ -1,9 +1,7 @@
-const path = require('path')
-const webpack = require('webpack')
 
 module.exports = {
   lintOnSave: true,
-  runtimeCompiler:true,
+  /*runtimeCompiler:true,
   configureWebpack:{
     mode: 'production',
 
@@ -21,5 +19,5 @@ module.exports = {
         'Util': "exports-loader?Util!bootstrap/js/dist/util"
       })
     ]
-  }
+  }*/
 }

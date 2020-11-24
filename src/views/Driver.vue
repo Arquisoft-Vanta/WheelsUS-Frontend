@@ -1,60 +1,54 @@
 <template>
   <div id="driver">
     <Header></Header>
-    <div class="container-fluid">
+    <div class="container-fluid mb-5">
       <div class="row">
-        <div id="back-button" class="col-12">
-          <button
-            class="botonreg1 mt-md-4 mb-md-4"
-            type="button"
-            @click="goToHome"
-          >
-            <img
-              src="~@/assets/return1.png"
-              width="50"
-              height="50"
-              alt=""
-              loading="lazy"
-            />
+        <div class="col-12 col-sm-2 offset-sm-5 mt-5">
+          <button class="btn btn-dark btn-block btn-lg" type="button" @click="goToHome">
+            Atrás
           </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-md-4">
-          <h2 role="">Crear servicio</h2>
-          <button class="botondri" type="button" @click="goToCreateService">
-            <img
-              src="~@/assets/new.png"
-              width="150"
-              height="150"
-              alt=""
-              loading="lazy"
-            />
-          </button>
+        <div class="col-12 col-md-6">
+          <div
+            class="card border shadow mt-2 mb-2 bg-white rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5"
+          >
+            <div class="card-body">
+              <h1 class="card-title pt-3">Nuevo servicio</h1>
+              <p class="card-text font-weight-normal pt-2">
+                En esta sección podrás crear un
+                <strong>nuevo servicio</strong> y ponerlo a disposición de todos los
+                <strong>pasajeros</strong>.
+              </p>
+              <a
+                href=""
+                class="btn btn-dark btn-block btn-lg mt-4"
+                @click="goToCreateService"
+                >Entrar</a
+              >
+            </div>
+          </div>
         </div>
-        <div class="col-12 col-md-4">
-          <h2 role="">Ver pasajeros en linea</h2>
-          <button class="botondri" type="button" @click="goToViewPassengers">
-            <img
-              src="~@/assets/online.png"
-              width="150"
-              height="150"
-              alt=""
-              loading="lazy"
-            />
-          </button>
-        </div>
-        <div class="col-12 col-md-4">
-          <h2 role="">Ver mis servicios</h2>
-          <button class="botondri" type="button">
-            <img
-              src="~@/assets/listw.png"
-              width="150"
-              height="150"
-              alt=""
-              loading="lazy"
-            />
-          </button>
+        <div class="col-12 col-md-6">
+          <div
+            class="card border shadow mt-2 mb-5 bg-white rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5"
+          >
+            <div class="card-body">
+              <h1 class="card-title pt-3">Servicios actuales</h1>
+              <p class="card-text font-weight-normal pt-2">
+                En esta sección podrás observar
+                <strong>todos los servicios</strong> que tienes disponibles a
+                los <strong>pasajeros</strong>.
+              </p>
+              <a
+                href=""
+                class="btn btn-dark btn-block btn-lg mt-4"
+                @click="goToMyServices"
+                >Entrar</a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -87,29 +81,12 @@ export default {
     goToCreateService() {
       this.$router.push("/create-service");
     },
-    goToViewPassengers(){
+    goToMyServices() {
+      this.$router.push({ name: "route-services" });
+    },
+    goToViewPassengers() {
       this.$router.push("/view-passengers");
-    }
+    },
   },
 };
 </script>
-
-<style>
-#driver {
-  padding-top: 3%;
-}
-
-.botondri {
-  background-color: #1455d9;
-  height: 25vh;
-  width: 70%;
-  border-radius: 10px;
-  border: beige 10px;
-}
-.botonreg1 {
-  background-color: #1455d9;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-</style>

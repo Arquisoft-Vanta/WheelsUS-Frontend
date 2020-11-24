@@ -175,7 +175,7 @@ h2 {
 }
 
 .signup {
-  opacity: 80%;
+  opacity: 0.8;
   position: center;
   width: 30%;
   margin: 5% 0% 0% 35%;
