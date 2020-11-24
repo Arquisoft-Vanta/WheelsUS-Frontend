@@ -1,10 +1,21 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container">
+    <div class="container-fluid mb-5">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
-          <div class="card" style="margin: 5% 0 0 0">
+          <div class="col-12 col-md-2 offset-md-5 mt-4">
+            <button
+              class="btn btn-dark btn-block btn-lg"
+              type="button"
+              @click="goToDrive"
+            >
+              Atrás
+            </button>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-12 col-md-4 offset-md-1 mb-5">
+          <div class="card mt-4 mb-0">
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a
@@ -32,9 +43,8 @@
           </div>
           <div
             class="card"
-            style="height: 80%; overflow: scroll; margin: 0 0 -20% 0"
           >
-            <div class="card-body" style="margin: -15% 0 0 0">
+            <div class="card-body mb-5">
               <div class="tab-content" id="nav-tabContent">
                 <div
                   class="tab-pane fade show active"
@@ -203,7 +213,7 @@
         </div>
 
         <div
-          class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
+          class="col-12 col-md-6 mt-md-4 mb-5"
         >
           <DirectionsMapView />
         </div>
@@ -243,6 +253,9 @@ export default {
     EventBus.$emit("passengerRoutes-data", this.routes);
   },
   methods: {
+    goToDrive() {
+      this.$router.push("/driver");
+    },
     getUserDB() {
       UserSC.getUser((data) => {
         this.userMail = data.userMail;
@@ -329,6 +342,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
