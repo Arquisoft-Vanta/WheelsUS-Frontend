@@ -33,7 +33,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-outline-dark btn-block button"
+                    class="btn btn-dark btn-block button"
                     style="margin: 5% 0 5% 0"
                     @click="routePassengerItemPressed(route)"
                   >
@@ -45,7 +45,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-outline-dark btn-block button"
+                    class="btn btn-dark btn-block button"
                     style="margin: 5% 0 5% 0"
                     @click="deleteRoute(route)"
                   >
