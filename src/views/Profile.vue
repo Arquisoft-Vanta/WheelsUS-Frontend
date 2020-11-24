@@ -9,17 +9,29 @@
           >
             <div class="datosusuario card pt-3">
               <img
-                src="../assets/person.png"
+                src=""
                 class="img-thumbnail align-self-center h-25"
                 alt=" Imagen de perfil"
+                id="profilePic"
               />
               <div class="card-body">
                 <h5 class="card-title pt-3">Usuario</h5>
+                <div>
+                  <input type="file" @change="onPicSelected" id="picPicker" />
+                  <a
+                  class="btn btn-outline-dark btn-block disabled"
+                  aria-disabled="true"
+                  type="button"
+                  >
+                  Guardar Imagen
+                  </a>
+                </div>                
                 <a
                   class="btn btn-outline-dark btn-block"
                   type="button"
                   data-toggle="modal"
                   data-target="#exampleModal"
+                  id="uploadBtn"
                 >
                   Añadir dirección
                 </a>
@@ -41,7 +53,6 @@
             <div class="datosvehiculo card card-body mb-5">
               <form>
                 <h4 class="mb-3">Tu información</h4>
-
                 <div class="form-row">
                   <div class="col-md-8 mb-4">
                     <label for="validationDefault01">Nombre</label>
@@ -314,6 +325,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header";
@@ -321,6 +333,7 @@ import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
 import FavoriteServiceClient from "../serviceClients/FavoriteServiceCliente";
+//import { use } from 'vue/types/umd';
 export default {
   name: "Perfil",
   components: {
@@ -331,6 +344,7 @@ export default {
   data() {
     return {
       Foto: Foto,
+      selectedPic: null,
       user: {
         userName: "",
         userDoc: "",
@@ -448,6 +462,54 @@ export default {
     },
     updateUser() {
       UserSC.updateUser(this.user, () => {});
+    },
+    onPicSelected(event){
+      this.selectedPic = document.getElementById("picPicker").files;  
+      if(this.selectedPic.length > 0){
+        var archivo = this.selectedPic[0];          
+        var reader = new FileReader();
+        var self = this;
+
+        reader.onloadend = function(FileLoadEvent){
+
+          var srcData = FileLoadEvent.target.result;
+
+          self.user.picture = FileLoadEvent.target.result;
+
+          document.getElementById("profilePic").src = srcData;          
+
+        }
+
+        var base64 = reader.readAsDataURL(archivo);
+        
+      }
+       
+    },
+    uploadPicture(){
+
+      var uploadable = this.user.picture.split(",")[1];
+
+      if(uploadable!=""){
+        
+        axios.post("http://localhost:8080/api/profile", uploadable,{
+                params: { 
+                  access_token: localStorage.getItem("token")
+                }
+              }).then((response) => {
+            if (response.status !== 200) {
+                alert("Error");
+            } else {
+                callback(response.data);
+            }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      }else{
+        alert("Falta seleccionar una imagen de perfil");
+      }
+      
+    
     },
     saveDirection() {
       this.newFavoritePoint.datetimeCreationFav = this.getFormattedDate();
