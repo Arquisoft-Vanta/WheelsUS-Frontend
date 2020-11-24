@@ -85,6 +85,39 @@
       </div>
       <div class="accordion" id="accordionExample56">
         <div class="card" v-for="route in routes" :key="route.id">
+          <!-- Modal de perfil de usuario -->
+          <div
+            class="modal fade"
+            id="exampleModal1"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="false"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Perfil del pasajero
+                  </h5>
+
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <FastProfile
+                    v-bind:userMail="route.dataPassenger.passengerMail"
+                  ></FastProfile>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Fin del modal -->
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
               <button
@@ -123,7 +156,7 @@
                     data-toggle="modal"
                     data-target="#modalConfirmation"
                   >
-                    Seleccionar Pasajero
+                    Seleccionar pasajero
                   </button>
                 </div>
                 <div class="col">
@@ -133,7 +166,7 @@
                     @click="cancelPassengerItemPressed(route)"
                     style="margin: 5% 0 5% 0"
                   >
-                    Cancelar Pasajero
+                    Cancelar pasajero
                   </button>
                 </div>
                 <div class="col">
@@ -143,7 +176,18 @@
                     style="margin: 5% 0 5% 0"
                     @click="routePassengerItemPressed(route)"
                   >
-                    Ver Ruta Pasajero
+                    Ver ruta del pasajero
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark btn-block button"
+                    style="margin: 5% 0 5% 0"
+                    data-toggle="modal"
+                    data-target="#exampleModal1"
+                  >
+                    Información del pasajero
                   </button>
                 </div>
               </div>
@@ -159,9 +203,12 @@
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
 import UserSC from "../serviceClients/UserServiceClient";
+import FastProfile from "./FastProfile";
 
 export default {
-  components: {},
+  components: {
+    FastProfile,
+  },
   data() {
     return {
       routes: [],
@@ -353,6 +400,7 @@ export default {
         );
       }
     },
+    showPassengerData() {},
   },
 };
 </script>
