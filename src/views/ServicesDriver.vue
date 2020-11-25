@@ -69,7 +69,7 @@
                           >
                             <div>
                               Origen:
-                              {{ route.originDriver.address.split(",")[0]}}
+                              {{ route.originDriver.address.split(",")[0] }}
                             </div>
                             <div>
                               Destino:
@@ -81,158 +81,128 @@
                         </h2>
                       </div>
                       <div
-                        class="card"
-                        v-for="route in routesActive"
-                        :key="route.id"
+                        :id="`data${route.id}`"
+                        class="collapse"
+                        aria-labelledby="headingOne"
+                        data-parent="#accordionExample"
                       >
-                        <div class="card-header" id="headingOne">
-                          <h2 class="mb-0">
-                            <button
-                              class="btn btn-link btn-block text-left"
-                              type="button"
-                              data-toggle="collapse"
-                              :data-target="`#data${route.id}`"
-                              aria-expanded="true"
-                              :aria-controls="`data${route.id}`"
-                              style="color: #06416d"
-                            >
-                              <div>
-                                Origen:
-                                {{ route.originDriver.address.split(",")[0] }}
-                              </div>
-                              <div>
-                                Destino:
-                                {{
-                                  route.destinationDriver.address.split(",")[0]
-                                }}
-                              </div>
-                            </button>
-                          </h2>
-                        </div>
-                        <div
-                          :id="`data${route.id}`"
-                          class="collapse"
-                          aria-labelledby="headingOne"
-                          data-parent="#accordionExample"
-                        >
-                          <div class="card-body">
-                            <div>Dia: {{ route.date }}</div>
-                            <div>Hora: {{ route.time }}</div>
+                        <div class="card-body">
+                          <div>Dia: {{ route.date }}</div>
+                          <div>Hora: {{ route.time }}</div>
 
-                            <div class="row">
-                              <div class="col">
-                                <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-block button"
-                                  @click="changeStateofRoute(route)"
-                                  style="margin: 5% 0 5% 0"
-                                  data-toggle="modal"
-                                  data-target="#modalConfirmation"
-                                >
-                                  Servicio Realizado
-                                </button>
-                              </div>
-                              <div class="col">
-                                <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-block button"
-                                  @click="deleteRoute(route)"
-                                  style="margin: 5% 0 5% 0"
-                                >
-                                  Cancelar Servicio
-                                </button>
-                              </div>
-                              <div class="col">
-                                <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-block button"
-                                  style="margin: 5% 0 5% 0"
-                                  @click="routePassengerItemPressed(route)"
-                                >
-                                  Ver Ruta
-                                </button>
-                              </div>
+                          <div class="row">
+                            <div class="col">
+                              <button
+                                type="button"
+                                class="btn btn-outline-dark btn-block button"
+                                @click="changeStateofRoute(route)"
+                                style="margin: 5% 0 5% 0"
+                                data-toggle="modal"
+                                data-target="#modalConfirmation"
+                              >
+                                Servicio Realizado
+                              </button>
+                            </div>
+                            <div class="col">
+                              <button
+                                type="button"
+                                class="btn btn-outline-dark btn-block button"
+                                @click="deleteRoute(route)"
+                                style="margin: 5% 0 5% 0"
+                              >
+                                Cancelar Servicio
+                              </button>
+                            </div>
+                            <div class="col">
+                              <button
+                                type="button"
+                                class="btn btn-outline-dark btn-block button"
+                                style="margin: 5% 0 5% 0"
+                                @click="routePassengerMade(route)"
+                              >
+                                Ver Ruta
+                              </button>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="tab-pane fade"
-                    id="nav-profile"
-                    role="tabpanel"
-                    aria-labelledby="nav-profile-tab"
-                  >
-                    <div class="accordion" id="accordionExample2">
-                      <div
-                        class="card"
-                        v-for="route in routesMade"
-                        :key="route.id"
-                      >
-                        <div class="card-header" id="headingOne">
-                          <h2 class="mb-0">
-                            <button
-                              class="btn btn-link btn-block text-left"
-                              type="button"
-                              data-toggle="collapse"
-                              :data-target="`#data${route.id}`"
-                              aria-expanded="true"
-                              :aria-controls="`data${route.id}`"
-                              style="color: #06416d"
-                            >
-                              <div>
-                                Origen:
-                                {{ route.originDriver.address.split(",")[0] }}
-                              </div>
-                              <div>
-                                Destino:
-                                {{
-                                  route.destinationDriver.address.split(",")[0]
-                                }}
-                              </div>
-                            </button>
-                          </h2>
-                        </div>
-                        <div
-                          :id="`data${route.id}`"
-                          class="collapse"
-                          aria-labelledby="headingOne"
-                          data-parent="#accordionExample2"
-                        >
-                          <div class="card-body">
-                            <div>Dia: {{ route.date }}</div>
-                            <div>Hora: {{ route.time }}</div>
-                            <div
-                              v-for="passenger in route.passengers"
-                              :key="passenger.id"
-                            >
-                              <p v-if="passenger.id !== ''">
-                                Pasajeros: {{ passenger.name }}
-                              </p>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-profile"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab"
+                >
+                  <div class="accordion" id="accordionExample2">
+                    <div
+                      class="card"
+                      v-for="route in routesMade"
+                      :key="route.id"
+                    >
+                      <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                          <button
+                            class="btn btn-link btn-block text-left"
+                            type="button"
+                            data-toggle="collapse"
+                            :data-target="`#data${route.id}`"
+                            aria-expanded="true"
+                            :aria-controls="`data${route.id}`"
+                            style="color: #06416d"
+                          >
+                            <div>
+                              Origen:
+                              {{ route.originDriver.address.split(",")[0] }}
                             </div>
+                            <div>
+                              Destino:
+                              {{
+                                route.destinationDriver.address.split(",")[0]
+                              }}
+                            </div>
+                          </button>
+                        </h2>
+                      </div>
+                      <div
+                        :id="`data${route.id}`"
+                        class="collapse"
+                        aria-labelledby="headingOne"
+                        data-parent="#accordionExample2"
+                      >
+                        <div class="card-body">
+                          <div>Dia: {{ route.date }}</div>
+                          <div>Hora: {{ route.time }}</div>
+                          <div
+                            v-for="passenger in route.passengers"
+                            :key="passenger.id"
+                          >
+                            <p v-if="passenger.id !== ''">
+                              Pasajeros: {{ passenger.name }}
+                            </p>
+                          </div>
 
-                            <div class="row">
-                              <div class="col">
-                                <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-block button"
-                                  style="margin: 5% 0 5% 0"
-                                  @click="routePassengerItemPressed(route)"
-                                >
-                                  Ver Ruta
-                                </button>
-                              </div>
-                              <div class="col">
-                                <button
-                                  type="button"
-                                  class="btn btn-outline-dark btn-block button"
-                                  style="margin: 5% 0 5% 0"
-                                  @click="returnRoute(route)"
-                                >
-                                  Calificar Pasajeros
-                                </button>
-                              </div>
+                          <div class="row">
+                            <div class="col">
+                              <button
+                                type="button"
+                                class="btn btn-outline-dark btn-block button"
+                                style="margin: 5% 0 5% 0"
+                                @click="routePassengerMade(route)"
+                              >
+                                Ver Ruta
+                              </button>
+                            </div>
+                            <div class="col">
+                              <button
+                                type="button"
+                                class="btn btn-outline-dark btn-block button"
+                                style="margin: 5% 0 5% 0"
+                                @click="returnRoute(route)"
+                              >
+                                Calificar Pasajeros
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -275,6 +245,7 @@ export default {
       routesActive: [],
       routesMade: [],
       userMail: "",
+      routeComplete: [],
     };
   },
   created() {
@@ -308,6 +279,7 @@ export default {
             route.id = doc.id;
             this.routesActive.push(route);
           });
+          console.log(this.routesActive);
         });
     },
     getRoutesMade() {
@@ -322,6 +294,28 @@ export default {
             let route = doc.data();
             route.id = doc.id;
             this.routesMade.push(route);
+          });
+        });
+    },
+    routePassengerMade(route) {
+      const db = firebase.firestore();
+      db.collection("driverRoute")
+        .get()
+        .then((snap) => {
+          snap.forEach((doc) => {
+            if (doc.id == route.id) {
+              let aux = [];
+              let stops = doc.data().orderRoute.stops;
+              this.routeComplete[0] = doc.data().orderRoute.ori;
+              this.routeComplete[1] = doc.data().orderRoute.des;
+              for (let i = 65; i < 73; i++) {
+                if (stops[String.fromCharCode(i)] != undefined) {
+                  aux.push(stops[String.fromCharCode(i)]);
+                }
+              }
+              this.routeComplete[2] = aux;
+              EventBus.$emit("possibleRoute-data", this.routeComplete);
+            }
           });
         });
     },
@@ -349,9 +343,7 @@ export default {
           );
         }
       }
-      db.collection("driverRoute")
-        .doc(route.id)
-        .delete();
+      db.collection("driverRoute").doc(route.id).delete();
       this.$bvToast.toast("Ruta Cancelada Correctamente!", {
         title: "Ruta Cancelada",
         autoHideDelay: 5000,

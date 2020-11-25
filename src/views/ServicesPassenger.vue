@@ -3,16 +3,16 @@
     <Header></Header>
     <div class="container-fluid mb-5">
       <div class="row">
-          <div class="col-12 col-md-2 offset-md-5 mt-4">
-            <button
-              class="btn btn-dark btn-block btn-lg"
-              type="button"
-              @click="goToPassenger"
-            >
-              Atrás
-            </button>
-          </div>
+        <div class="col-12 col-md-2 offset-md-5 mt-4">
+          <button
+            class="btn btn-dark btn-block btn-lg"
+            type="button"
+            @click="goToPassenger"
+          >
+            Atrás
+          </button>
         </div>
+      </div>
       <div class="row">
         <div class="col-12 col-md-4 offset-md-1">
           <div class="card mt-4 mb-3 mb-md-4" style="height: 480px">
@@ -178,7 +178,7 @@
                                   type="button"
                                   class="btn btn-outline-dark btn-block button"
                                   style="margin: 5% 0 5% 0"
-                                  @click="routePassengerItemPressed(route1)"
+                                  @click="routePassengerMade(route1)"
                                 >
                                   Ver Ruta
                                 </button>
@@ -238,7 +238,7 @@
                                   type="button"
                                   class="btn btn-outline-dark btn-block button"
                                   style="margin: 5% 0 5% 0"
-                                  @click="routePassengerItemPressed(route2)"
+                                  @click="routePassengerMade(route2)"
                                 >
                                   Ver Ruta
                                 </button>
@@ -264,9 +264,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="col-12 col-md-6 mt-md-4 mb-5"
-        >
+        <div class="col-12 col-md-6 mt-md-4 mb-5">
           <DirectionsMapView />
         </div>
       </div>
@@ -297,6 +295,7 @@ export default {
       routesChoosed: [],
       routesMade: [],
       userMail: "",
+      routeComplete: [],
     };
   },
   created() {
@@ -305,7 +304,7 @@ export default {
   mounted() {
     EventBus.$emit("passengerRoutes-data", this.routes);
   },
-  methods: {    
+  methods: {
     goToPassenger() {
       this.$router.push("/passenger");
     },
@@ -331,7 +330,6 @@ export default {
             route.id = doc.id;
             this.routesActive.push(route);
           });
-          console.log(this.routesActive);
         });
     },
     getRoutesChoosed() {
@@ -348,7 +346,6 @@ export default {
             route.id = doc.id;
             this.routesChoosed.push(route);
           });
-          console.log(this.routesChoosed);
         });
     },
     getRoutesMade() {
@@ -388,6 +385,33 @@ export default {
     },
     returnRoute(route) {
       this.$router.push("/service-ended");
+    },
+    routePassengerItemPressed(route) {
+      EventBus.$emit("passengerRoutes-data", [route]);
+    },
+    routePassengerMade(route) {
+      const db = firebase.firestore();
+      db.collection("driverRoute")
+        .get()
+        .then((snap) => {
+          snap.forEach((doc) => {
+            if (doc.id == route.idRoute) {
+              let aux = [];
+              let stops = doc.data().orderRoute.stops;
+              this.routeComplete[0] = doc.data().orderRoute.ori;
+              this.routeComplete[1] = doc.data().orderRoute.des;
+              console.log(stops);
+              for (let i = 65; i < 73; i++) {
+                if (stops[String.fromCharCode(i)] != undefined) {
+                  aux.push(stops[String.fromCharCode(i)]);
+                }
+              }
+              this.routeComplete[2] = aux;
+              console.log(this.routeComplete);
+              EventBus.$emit("possibleRoute-data", this.routeComplete);
+            }
+          });
+        });
     },
   },
 };
