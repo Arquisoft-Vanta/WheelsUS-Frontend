@@ -256,7 +256,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header";
