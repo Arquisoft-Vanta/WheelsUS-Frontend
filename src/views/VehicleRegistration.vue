@@ -225,30 +225,35 @@
           </div>
           <div class="col1 col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mt-5">
             <img
-              :src="Foto"
+              src=""
               alt="Foto del vehículo"
               class="img-thumbnail"
               style="margin: 0 0 3% 0; width: 220px; height: 150px"
+              id="vhcPicture"
             />
             <div class="card" style="margin: 0 0 20% 0">
               <div class="container">
                 <div>
                   <form>
-                    <div class="form-group">
+                    <div class="custom-file">                      
+                      <input
+                        type="file"
+                        class="custom-file-input outline-dark"
+                        id="vhcPicPicker"
+                        style="margin:9.3% 0 15% 0;"
+                        @change="onVhcPicSelected"
+                      />
                       <label
-                        for="exampleFormControlFile1"
+                        class="custom-file-label"
+                        id="vhcPickerLabel"
                         style="
-                        margin: 3% 0 3% 0;
+                        margin: 0% 0 15% 0;
                         border-color: #06416d;
                         color: #06416d;
+                        text-align: left;
                       "
                         >Foto del vehículo</label
                       >
-                      <input
-                        type="file"
-                        class="form-control-file"
-                        id="exampleFormControlFile1"
-                      />
                     </div>
                   </form>
                 </div>
@@ -369,6 +374,7 @@ export default {
     return {
       showModal: false,
       Foto: Foto,
+      selectedVhcPic: null,
 
       DatosRunt: "",
       modalaviso: "",
@@ -413,7 +419,7 @@ export default {
         }
         
 
-        //document.getElementById("profilePic").src = this.user.picture;
+        document.getElementById("vhcPicture").src = this.vehicle.vehiclePicture;
 
         //console.log("lol", datos);
         console.log("123", this.vehicle);
@@ -485,73 +491,27 @@ export default {
         }
       }
     },
+    onVhcPicSelected(){
+      this.selectedVhcPic = document.getElementById("vhcPicPicker").files;
+      console.log(this.selectedVhcPic);
+
+      if (this.selectedVhcPic.length > 0) {
+        var archivo = this.selectedVhcPic[0];
+        var reader = new FileReader();
+        var self = this;
+        console.log(archivo);
+        reader.onloadend = function (FileLoadEvent) {
+          var srcData = FileLoadEvent.target.result;
+
+          self.vehicle.vehiclePicture = FileLoadEvent.target.result;
+
+          document.getElementById("vhcPicture").src = srcData;
+        };
+
+        var base64 = reader.readAsDataURL(archivo);
+      }
+    },
     guardarVehiculo() {
-      // var locModal = document.getElementById(
-      //   "myModal"
-      // ); /**Se llaman elementos del modal para  */
-      // var btnclose = document.getElementById(
-      //   "w-change-close"
-      // ); /**Posteriormente realizar su animación */
-      // var btnclose1 = document.getElementById(
-      //   "w-change-close1"
-      // ); /**en el momento que el usuario desee  */
-      // var modalchange = false; /**guardar el vehículo. */
-      // var dateControl = document.querySelector('input[type="date"]');
-      // this.vehicle.vehicleSoatExpiration = dateControl.value;
-      // var DatosVehiculo = [
-      //   this.vehicle.vehicleLicenseplate,
-      //   this.vehicle.vehicleBrand,
-      //   this.vehicle.vehicleYear,
-      //   this.vehicle.vehicleModel,
-      //   this.vehicle.vehicleColor,
-      //   this.Estado,
-      //   this.vehicle.vehicleServiceType,
-      //   this.vehicle.vehicleType,
-      //   this.vehicle.vehicleGasType,
-      //   this.vehicle.vehicleCapacity,
-      //   this.vehicle.vehicleSoatExpiration,
-      // ];
-      // for (var dato of DatosVehiculo) {
-      //   /**Realiza un recorrido de todas las variables */
-      //   console.log(dato); /**Y confirma si todos los datos contienen al  */
-      //   if (dato == "") {
-      //     /**menos un valor, en dado caso de que encuentre */
-      //     modalchange = true; /**algun campo sin llenar rompe el ciclo */
-      //     break;
-      //   }
-      // }
-      // if (modalchange == true) {
-      //   this.modalaviso =
-      //     "Error. los campos están incompletos."; /**En dado caso de encontrar algun campo sin llenar */
-      //   locModal.style.display =
-      //     "block"; /**Cambia el mensaje de modal advirtiendo al usuario */
-      //   locModal.style.paddingRight =
-      //     "17px"; /**Que dispone de campos incompletos */
-      //   locModal.className = "modal fade show";
-      //   btnclose.addEventListener("click", () => {
-      //     locModal.style.display = "none";
-      //     locModal.className = "modal fade";
-      //   });
-      //   btnclose1.addEventListener("click", () => {
-      //     locModal.style.display = "none";
-      //     locModal.className = "modal fade";
-      //   });
-      // } else {
-      //   this.modalaviso =
-      //     "Campos llenados correctamente."; /**En dado caso que todos los campos estén llenos */
-      //   locModal.style.display =
-      //     "block"; /**Avisa al usuario que el vehículo se da guardado */
-      //   locModal.style.paddingRight = "17px"; /**Correctamente. */
-      //   locModal.className = "modal fade show";
-      //   btnclose.addEventListener("click", () => {
-      //     locModal.style.display = "none";
-      //     locModal.className = "modal fade";
-      //   });
-      //   btnclose1.addEventListener("click", () => {
-      //     locModal.style.display = "none";
-      //     locModal.className = "modal fade";
-      //   });
-      // }
       vehicleSC.updateVehicle(this.vehicle, () => {});
     },
 
@@ -586,5 +546,8 @@ p {
 }
 .custom-select {
   height: 60%;
+}
+.custom-file{
+  margin: 5% 0 0 0;  
 }
 </style>
