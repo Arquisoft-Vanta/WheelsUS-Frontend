@@ -257,6 +257,12 @@ export default {
       pointChoosed: "",
       currentDate: Date,
       route: {
+        orderRoute: {
+          ori: {},
+          des: {},
+          stops: {
+          },
+        },
         idVehicle: "",
         originDriver: {
           address: "",
@@ -538,6 +544,13 @@ export default {
           const db = firebase.firestore();
           this.route.routeActive = true;
           this.route.servicePerformed = false;
+          this.route.orderRoute.ori = this.routeDefinitive[0];
+          this.route.orderRoute.des = this.routeDefinitive[1];
+          let j = 65;
+          this.routeDefinitive[2].forEach((element) => {
+            this.route.orderRoute.stops[String.fromCharCode(j)] = element;
+            j = j + 1;
+          });
           db.collection("driverRoute").doc().set(this.route);
           db.collection("driverRoute")
             .where(
@@ -555,13 +568,12 @@ export default {
                   if (this.route.passengers[String.fromCharCode(i)].id !== "") {
                     this.changeStateofPassenger(
                       this.route.passengers[String.fromCharCode(i)].id,
-                      idRoute
-                    );
+                      idRoute);//, this.route.value);
                   }
                 }
               });
             });
-          
+
           this.$bvToast.toast("Ruta Creada Correctamente!", {
             title: "Ruta Creada",
             autoHideDelay: 5000,
@@ -580,13 +592,15 @@ export default {
         });
       }
     },
-    changeStateofPassenger(id, idRoute) {
-      console.log(idRoute);
+    changeStateofPassenger(id, idRoute ) {
+
+      console.log(this.route.value);
       const db = firebase.firestore();
       const a = db.collection("passengerRoutes").doc(id);
       a.update({
         selected: true,
         idRoute: idRoute,
+        value:""+ this.route.value,
       });
     },
     /**
@@ -601,6 +615,7 @@ export default {
       this.routeDefinitive.push(this.route.originDriver);
       this.routeDefinitive.push(this.route.destinationDriver);
       this.routeDefinitive.push(this.orderedRoutesOfPassengers);
+      console.log(this.routeDefinitive);
       EventBus.$emit("possibleRoute-data", this.routeDefinitive);
     },
   },

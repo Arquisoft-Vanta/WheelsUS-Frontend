@@ -55,14 +55,6 @@
                 <button
                   type="button"
                   class="btn btn-dark btn-block button"
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                >
-                  Mira tus rutas postuladas
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-dark btn-block button"
                   @click="locatorButtonPressed"
                 >
                   ¡Ubicame!

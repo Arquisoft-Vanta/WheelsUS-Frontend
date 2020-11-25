@@ -18,13 +18,21 @@
             >
           </div>
           <div class="col">
-            <p>Si deseas también puedes agregar esta a tus rutas favoritas</p>
-            <b-button variant="primary" href="#">Agregar</b-button>
+            <p>Volver al menú principal</p>
+            <b-button variant="primary" href="#" @click="goToHome"
+              >Menú Principal</b-button
+            >
           </div>
         </div>
       </b-jumbotron>
     </div>
-    <b-modal id="ratingModal" centered hide-footer title="Califica a tus compañeros de viaje" ok-only>
+    <b-modal
+      id="ratingModal"
+      centered
+      hide-footer
+      title="Califica a tus compañeros de viaje"
+      ok-only
+    >
       <RideUsersList></RideUsersList>
     </b-modal>
     <FooterwithBackground></FooterwithBackground>
@@ -46,6 +54,11 @@ export default {
     return {
       informacion: "Información",
     };
+  },
+  methods: {
+    goToHome() {
+      this.$router.push("/home");
+    },
   },
 };
 </script>
