@@ -81,7 +81,7 @@
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-outline-dark btn-block"
+                class="btn btn-dark btn-block"
                 @click="sendPossibleRouteToMap"
               >
                 Ver Ruta
@@ -92,9 +92,9 @@
       </div>
     </div>
     <div>
-      <div class="container-fluid">
+      <div class="container-fluid mb-5">
         <div class="row">
-          <div class="col-12 col-sm-2 offset-sm-5 mt-5">
+          <div class="col-12 col-md-2 offset-md-5 mt-4">
             <button
               class="btn btn-dark btn-block btn-lg"
               type="button"
@@ -104,17 +104,17 @@
             </button>
           </div>
         </div>
-        <div class="row justify-content-between mb-5">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-5 mb-5 mr-5 ml-5">
-            <div class="card">
+        <div class="row mb-5">
+          <div class="col-12 col-md-4 offset-md-1">
+            <div class="card mt-4 mb-3 mb-md-4">
               <div class="card-body">
-                <div class="form-inline" style="margin: 0 0 5% 0">
+                <div class="form-inline mb-3">
                   <input
                     id="placeoforigin"
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Salida"
-                    style="border: 0; background: #f1f1f1; width: 87%"
+                    style="border: 0; background: #f1f1f1; width: 80%"
                     ref="originDriver"
                   />
                   <button
@@ -133,7 +133,7 @@
                     class="form-control"
                     type="text"
                     placeholder="Lugar de Llegada"
-                    style="border: 0; background: #f1f1f1; width: 87%"
+                    style="border: 0; background: #f1f1f1; width: 80%"
                     ref="destinationDriver"
                   />
                   <button
@@ -174,10 +174,10 @@
                       placeholder="Valor"
                     />
                   </div>
-                  <div style="margin: 2% 0 0 0">
+                  <div>
                     <button
                       type="button"
-                      class="btn btn-outline-dark btn-block"
+                      class="btn btn-dark btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal"
                       data-display="static"
@@ -187,34 +187,34 @@
                       Escoger Pasajeros
                     </button>
                   </div>
-                  <div style="margin: 2% 0 0 0">
+                  <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-outline-dark btn-block"
+                      class="btn btn-dark btn-block"
                       data-toggle="modal"
                       data-target="#modalVehicles"
                       data-display="static"
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Escoger vehículo
+                      Escoger Vehículo
                     </button>
                   </div>
 
-                  <div style="margin: 2% 0 0 0">
+                  <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-outline-dark btn-block"
+                      class="btn btn-dark btn-block"
                       data-toggle="modal"
                       data-target="#exampleModal2"
                     >
                       Ordenar Ruta
                     </button>
                   </div>
-                  <div style="margin: 2% 0 0 0">
+                  <div class="mt-2">
                     <button
                       type="button"
-                      class="btn btn-outline-dark btn-block"
+                      class="btn btn-dark btn-block btn-block"
                       @click="saveRoute"
                     >
                       Crear Servicio
@@ -224,9 +224,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-5 mb-5 mb-md-0"
-          >
+          <div class="col-12 col-md-6 mt-md-4 mb-5">
             <DirectionsMapView />
           </div>
         </div>
@@ -259,6 +257,12 @@ export default {
       pointChoosed: "",
       currentDate: Date,
       route: {
+        orderRoute: {
+          ori: {},
+          des: {},
+          stops: {
+          },
+        },
         idVehicle: "",
         originDriver: {
           address: "",
@@ -378,7 +382,15 @@ export default {
   mounted() {
     this.getUserDB();
     this.getFormattedDate();
+    EventBus.$on("vehicle", (vehicle) => {
+      try {
+        this.route.idVehicle = vehicle.vehicleLicenseplate;
+      } catch (error) {
+        console.log("");
+      }
+    });
     EventBus.$on("point", (point) => {
+      console.log(point);
       try {
         this.$refs[this.typeInput].value = point.favAddress;
         this.route[this.typeInput].address = point.favAddress;
@@ -506,6 +518,7 @@ export default {
      */
     saveRoute() {
       var textAlert = "";
+      let idRoute;
       if (this.route.originDriver.address === "") {
         textAlert = textAlert + "Punto de Origen, \n";
       }
@@ -521,6 +534,9 @@ export default {
       if (this.route.value === "") {
         textAlert = textAlert + "Valor de Servicio, \n";
       }
+      if (this.route.idVehicle === "") {
+        textAlert = textAlert + "Vehículo, \n";
+      }
       if (textAlert === "") {
         if (new Date(this.currentDate) > new Date(this.route.date)) {
           alert("Modifica la fecha");
@@ -528,16 +544,36 @@ export default {
           const db = firebase.firestore();
           this.route.routeActive = true;
           this.route.servicePerformed = false;
-          for (let i = 65; i < 69; i++) {
-            if (this.route.passengers[String.fromCharCode(i)].id !== "") {
-              this.changeStateofPassenger(
-                this.route.passengers[String.fromCharCode(i)].id
-              );
-            }
-          }
+          this.route.orderRoute.ori = this.routeDefinitive[0];
+          this.route.orderRoute.des = this.routeDefinitive[1];
+          let j = 65;
+          this.routeDefinitive[2].forEach((element) => {
+            this.route.orderRoute.stops[String.fromCharCode(j)] = element;
+            j = j + 1;
+          });
+          db.collection("driverRoute").doc().set(this.route);
           db.collection("driverRoute")
-            .doc()
-            .set(this.route);
+            .where(
+              "dataDriver.driverMail",
+              "==",
+              this.route.dataDriver.driverMail
+            )
+            .where("date", "==", this.route.date)
+            .where("time", "==", this.route.time)
+            .get()
+            .then((snap) => {
+              snap.forEach((doc) => {
+                idRoute = doc.id;
+                for (let i = 65; i < 69; i++) {
+                  if (this.route.passengers[String.fromCharCode(i)].id !== "") {
+                    this.changeStateofPassenger(
+                      this.route.passengers[String.fromCharCode(i)].id,
+                      idRoute);//, this.route.value);
+                  }
+                }
+              });
+            });
+
           this.$bvToast.toast("Ruta Creada Correctamente!", {
             title: "Ruta Creada",
             autoHideDelay: 5000,
@@ -556,11 +592,15 @@ export default {
         });
       }
     },
-    changeStateofPassenger(id) {
+    changeStateofPassenger(id, idRoute ) {
+
+      console.log(this.route.value);
       const db = firebase.firestore();
       const a = db.collection("passengerRoutes").doc(id);
       a.update({
         selected: true,
+        idRoute: idRoute,
+        value:""+ this.route.value,
       });
     },
     /**
@@ -575,6 +615,7 @@ export default {
       this.routeDefinitive.push(this.route.originDriver);
       this.routeDefinitive.push(this.route.destinationDriver);
       this.routeDefinitive.push(this.orderedRoutesOfPassengers);
+      console.log(this.routeDefinitive);
       EventBus.$emit("possibleRoute-data", this.routeDefinitive);
     },
   },

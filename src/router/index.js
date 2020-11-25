@@ -15,8 +15,9 @@ import RideRegistration from "./../views/RideRegistration.vue";
 import Chat from "./../components/Chat.vue";
 import Burbujas from "./../components/Burbujas.vue";
 import Lista from "./../components/ListaChat.vue";
-import PassengerProfile from "./../views/PassangerProfile.vue";
+import PassengerProfile from "./../views/PassengerProfile.vue";
 import ServicesDriver from "./../views/ServicesDriver.vue";
+import ServicesPassenger from "./../views/ServicesPassenger.vue";
 import ServiceEnded from './../views/ServiceEnded.vue'
 
 Vue.use(VueRouter);
@@ -57,6 +58,11 @@ const routes = [
     path: "/route-services",
     name: "route-services",
     component: ServicesDriver
+  },
+  {
+    path: "/nomination-services",
+    name: "nomination-services",
+    component: ServicesPassenger
   },
   { path: "/service-ended", name: "serviceEnded", component: ServiceEnded, children: []},
 

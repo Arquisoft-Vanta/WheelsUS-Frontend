@@ -1,10 +1,21 @@
 <template>
   <div>
     <Header></Header>
-    <div class="container">
+    <div class="container-fluid mb-5">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mt-4">
-          <div class="card" style="margin: 5% 0 0 0">
+        <div class="col-12 col-md-2 offset-md-5 mt-4">
+          <button
+            class="btn btn-dark btn-block btn-lg"
+            type="button"
+            @click="goToDrive"
+          >
+            Atrás
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4 offset-md-1 mb-5">
+          <div class="card mt-4 mb-0">
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a
@@ -30,11 +41,8 @@
               </div>
             </nav>
           </div>
-          <div
-            class="card"
-            style="height: 80%; overflow: scroll; margin: 0 0 -20% 0"
-          >
-            <div class="card-body" style="margin: -15% 0 0 0">
+          <div class="card">
+            <div class="card-body mb-5">
               <div class="tab-content" id="nav-tabContent">
                 <div
                   class="tab-pane fade show active"
@@ -110,7 +118,7 @@
                                 type="button"
                                 class="btn btn-outline-dark btn-block button"
                                 style="margin: 5% 0 5% 0"
-                                @click="routePassengerItemPressed(route)"
+                                @click="routePassengerMade(route)"
                               >
                                 Ver Ruta
                               </button>
@@ -166,8 +174,13 @@
                         <div class="card-body">
                           <div>Dia: {{ route.date }}</div>
                           <div>Hora: {{ route.time }}</div>
-                          <div v-for="passenger in route.passengers" :key="passenger.id">
-                            <p v-if="passenger.id!==''">Pasajeros: {{passenger.name}}</p>
+                          <div
+                            v-for="passenger in route.passengers"
+                            :key="passenger.id"
+                          >
+                            <p v-if="passenger.id !== ''">
+                              Pasajeros: {{ passenger.name }}
+                            </p>
                           </div>
 
                           <div class="row">
@@ -176,7 +189,7 @@
                                 type="button"
                                 class="btn btn-outline-dark btn-block button"
                                 style="margin: 5% 0 5% 0"
-                                @click="routePassengerItemPressed(route)"
+                                @click="routePassengerMade(route)"
                               >
                                 Ver Ruta
                               </button>
@@ -202,9 +215,7 @@
           </div>
         </div>
 
-        <div
-          class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8 mt-0 mt-md-8 mb-5 mb-md-0"
-        >
+        <div class="col-12 col-md-6 mt-md-4 mb-5">
           <DirectionsMapView />
         </div>
       </div>
@@ -234,6 +245,7 @@ export default {
       routesActive: [],
       routesMade: [],
       userMail: "",
+      routeComplete: [],
     };
   },
   created() {
@@ -243,6 +255,9 @@ export default {
     EventBus.$emit("passengerRoutes-data", this.routes);
   },
   methods: {
+    goToDrive() {
+      this.$router.push("/driver");
+    },
     getUserDB() {
       UserSC.getUser((data) => {
         this.userMail = data.userMail;
@@ -281,6 +296,28 @@ export default {
           });
         });
     },
+    routePassengerMade(route) {
+      const db = firebase.firestore();
+      db.collection("driverRoute")
+        .get()
+        .then((snap) => {
+          snap.forEach((doc) => {
+            if (doc.id == route.id) {
+              let aux = [];
+              let stops = doc.data().orderRoute.stops;
+              this.routeComplete[0] = doc.data().orderRoute.ori;
+              this.routeComplete[1] = doc.data().orderRoute.des;
+              for (let i = 65; i < 73; i++) {
+                if (stops[String.fromCharCode(i)] != undefined) {
+                  aux.push(stops[String.fromCharCode(i)]);
+                }
+              }
+              this.routeComplete[2] = aux;
+              EventBus.$emit("possibleRoute-data", this.routeComplete);
+            }
+          });
+        });
+    },
     changeStateofPassenger(id) {
       const db = firebase.firestore();
       const a = db.collection("passengerRoutes").doc(id);
@@ -288,6 +325,14 @@ export default {
         selected: false,
       });
     },
+    changeStateofPassengerbyMade(id) {
+      const db = firebase.firestore();
+      const a = db.collection("passengerRoutes").doc(id);
+      a.update({
+        servicePerformed: true,
+      });
+    },
+
     deleteRoute(route) {
       const db = firebase.firestore();
       for (let i = 65; i < 69; i++) {
@@ -309,6 +354,13 @@ export default {
     },
     changeStateofRoute(route) {
       const db = firebase.firestore();
+      for (let i = 65; i < 69; i++) {
+        if (route.passengers[String.fromCharCode(i)].id !== "") {
+          this.changeStateofPassengerbyMade(
+            route.passengers[String.fromCharCode(i)].id
+          );
+        }
+      }
       const a = db.collection("driverRoute").doc(route.id);
       this.$bvToast.toast("Ruta Realizada Correctamente!", {
         title: "Servicio Realizado",
@@ -323,12 +375,9 @@ export default {
       this.getRoutesActives();
       this.getRoutesMade();
     },
-    returnRoute(route){
-      console.log(route)
-    }
+    returnRoute(route) {
+      this.$router.push("/service-ended");
+    },
   },
 };
 </script>
-
-<style>
-</style>

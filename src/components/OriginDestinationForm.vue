@@ -1,31 +1,51 @@
 <template>
-  <section class="origin-destination-form">
+  <section class="">
     <div class="form">
+      <Directions state="Choose Direction" />
+
       <h4>Postula tu ruta</h4>
       <div v-show="error">{{ error }}</div>
       <div class="four fields">
         <div class="field">
-          <div>
+          <div class="form-inline mb-3">
             <input
               type="text"
               placeholder="Origen"
               ref="origin"
-              style="width: 100%; margin: 5% 0% 5% 0%"
               class="form-control"
+              style="border: 0; background: #f1f1f1; width: 80%"
               required
             />
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-toggle="modal"
+              data-target="#modalDirections"
+              @click="typeInput = 'origin'"
+            >
+              +
+            </button>
           </div>
         </div>
         <div class="field">
-          <div>
+          <div class="form-inline mb-3">
             <input
               type="text"
               placeholder="Destino"
               ref="destination"
-              style="width: 100%; margin: 5% 0% 5% 0%"
               class="form-control"
+              style="border: 0; background: #f1f1f1; width: 80%"
               required
             />
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-toggle="modal"
+              data-target="#modalDirections"
+              @click="typeInput = 'destination'"
+            >
+              +
+            </button>
           </div>
         </div>
         <div class="field">
@@ -34,8 +54,8 @@
               v-model="route.time"
               type="time"
               placeholder="Tiempo"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-2"
+              style="border: 0; background: #f1f1f1"
               required
             />
           </div>
@@ -46,23 +66,21 @@
               v-model="route.date"
               type="date"
               placeholder="Fecha"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-3"
+              style="border: 0; background: #f1f1f1"
               required
             />
           </div>
         </div>
         <button
-          class="btn btn-outline-dark btn-block button"
+          class="btn btn-dark btn-block button mb-2"
           @click="calculateButtonPressed"
-          style="margin: 10% 0% -2% 0%"
         >
-          Postular ruta
+          Ver ruta
         </button>
         <button
-          class="btn btn-outline-dark btn-block button"
+          class="btn btn-dark btn-block button mb-2"
           @click="saveRoute"
-          style="margin: 10% 0% -2% 0%"
           data-toggle="modal"
         >
           Guardar ruta
@@ -77,11 +95,16 @@ import axios from "axios";
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
 import UserSC from "../serviceClients/UserServiceClient";
+import Directions from "../components/WatchCurrentDirections";
 
 export default {
+  components: {
+    Directions,
+  },
   data() {
     return {
       route: {
+        value:"",
         origin: {
           address: "",
           lat: 0,
@@ -101,8 +124,11 @@ export default {
           passengerName: "",
         },
         selected: Boolean,
+        servicePerformed: Boolean,
+        idRoute: "",
       },
       error: "",
+      typeInput: "",
     };
   },
 
@@ -119,6 +145,18 @@ export default {
           //types: ["address"],
         }
       );
+      EventBus.$on("point", (point) => {
+        console.log(point);
+        try {
+          this.$refs[this.typeInput].value = point.favAddress;
+          this.route[this.typeInput].address = point.favAddress;
+          this.route[this.typeInput].lat = parseFloat(point.favLatitude);
+          this.route[this.typeInput].lng = parseFloat(point.favLongitude);
+        } catch (error) {
+          console.log("");
+        }
+      });
+
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         this.route[ref].address = `${place.name}, ${place.vicinity}`;
@@ -161,6 +199,7 @@ export default {
     saveRoute() {
       const db = firebase.firestore();
       this.route.selected = false;
+      this.route.servicePerformed = false;
       db.collection("passengerRoutes").doc().set(this.route);
       this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
         title: "Ruta Almacenada",
@@ -173,12 +212,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.origin-destination-form {
-  position: relative;
-  z-index: 1;
-  max-width: 610px;
-  margin: 10px;
-}
-</style>
