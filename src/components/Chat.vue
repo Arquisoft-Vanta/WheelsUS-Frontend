@@ -54,7 +54,7 @@ import firebase from "firebase";
 
 export default {
   name: "Chat",
-  props: { collapse1: Object, conversation: Array,userMail: String, userName: String },
+  props: { collapse1: Object, conversation: Array,userMail: String, userName: String , idDoc: String},
   components: { Burbuja },
   data() {
     return {
@@ -88,7 +88,7 @@ export default {
     },
     sendMsg() {
       const db = firebase.firestore();
-      var washingtonRef = db.collection("Chat").doc(this.nuevo);
+      var washingtonRef = db.collection("Chat").doc(this.idDoc);
       console.log(this.userMail);
 
       if(this.textMsg){
