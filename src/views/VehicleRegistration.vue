@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header></Header>
+    
     <div>
       <div class="modal" id="myModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -256,26 +257,11 @@
                     @click="habilitarCampos"
                     type="button"
                     class="btn btn-outline-dark btn-block"
-                    style="
-                    margin: -2% 0 2% 0;
-                    
-                  "
+                    style="margin: -2% 0 2% 0;"
                   >
                     Editar Datos Vehículo
                   </a>
-                </div>
-                <div>
-                  <a
-                    @click="overlay"
-                    type="button"
-                    class="btn btn-outline-dark btn-block"
-                    style="
-                    margin: 0 0 2% 0;
-                  "
-                  >
-                    Eliminar Vehículo
-                  </a>
-                </div>
+                </div>                
                 <a
                   @click="guardarVehiculo"
                   type="button"
@@ -362,6 +348,7 @@
         </div>
       </div>
     </div>
+    
     <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
@@ -369,7 +356,7 @@
 <script>
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Header from "../components/Header.vue";
-
+import vehicleSC from "../serviceClients/VehicleServiceClient"
 import Foto from "@/assets/car.jpg";
 
 export default {
@@ -409,7 +396,27 @@ export default {
       },
     };
   },
+  mounted() {
+    this.getVehicleDB();
+  },
   methods: {
+    getVehicleDB() {
+      vehicleSC.getVehicles((response) => {
+        /*if (!this.$store.state.vehicle) {
+          this.$store.commit("updateUser", data);
+        }*/
+
+        if(response.response==200){
+          this.vehicle = response.data;
+        }
+        
+
+        //document.getElementById("profilePic").src = this.user.picture;
+
+        //console.log("lol", datos);
+        console.log("123", this.vehicle);
+      });
+    },
     datosRUNT() {
       var datos = this.DatosRunt.split(
         "\n"
@@ -423,10 +430,10 @@ export default {
         } else if (dato.includes("MARCA:")) {
           var lineamarca = dato.split(":");
           this.vehicle.vehicleBrand = lineamarca[1].replace("LÍNEA", "");
-          this.vehicle.vehicleYear = lineamarca[2];
+          this.vehicle.vehicleModel = lineamarca[2];
         } else if (dato.includes("MODELO:")) {
           var lineamodelo = dato.split(":");
-          this.vehicle.vehicleModel = lineamodelo[1].replace("COLOR", "");
+          this.vehicle.vehicleYear = lineamodelo[1].replace("COLOR", "");
           this.vehicle.vehicleColor = lineamodelo[2];
         } else if (dato.includes("ESTADO DEL VEHÍCULO")) {
           var lineaestado = dato.split(":");
@@ -475,72 +482,73 @@ export default {
       }
     },
     guardarVehiculo() {
-      var locModal = document.getElementById(
-        "myModal"
-      ); /**Se llaman elementos del modal para  */
-      var btnclose = document.getElementById(
-        "w-change-close"
-      ); /**Posteriormente realizar su animación */
-      var btnclose1 = document.getElementById(
-        "w-change-close1"
-      ); /**en el momento que el usuario desee  */
-      var modalchange = false; /**guardar el vehículo. */
-      var dateControl = document.querySelector('input[type="date"]');
-      this.vehicle.vehicleSoatExpiration = dateControl.value;
-      var DatosVehiculo = [
-        this.vehicle.vehicleLicenseplate,
-        this.vehicle.vehicleBrand,
-        this.vehicle.vehicleYear,
-        this.vehicle.vehicleModel,
-        this.vehicle.vehicleColor,
-        this.Estado,
-        this.vehicle.vehicleServiceType,
-        this.vehicle.vehicleType,
-        this.vehicle.vehicleGasType,
-        this.vehicle.vehicleCapacity,
-        this.vehicle.vehicleSoatExpiration,
-      ];
-      for (var dato of DatosVehiculo) {
-        /**Realiza un recorrido de todas las variables */
-        console.log(dato); /**Y confirma si todos los datos contienen al  */
-        if (dato == "") {
-          /**menos un valor, en dado caso de que encuentre */
-          modalchange = true; /**algun campo sin llenar rompe el ciclo */
-          break;
-        }
-      }
-      if (modalchange == true) {
-        this.modalaviso =
-          "Error. los campos están incompletos."; /**En dado caso de encontrar algun campo sin llenar */
-        locModal.style.display =
-          "block"; /**Cambia el mensaje de modal advirtiendo al usuario */
-        locModal.style.paddingRight =
-          "17px"; /**Que dispone de campos incompletos */
-        locModal.className = "modal fade show";
-        btnclose.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-        btnclose1.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-      } else {
-        this.modalaviso =
-          "Campos llenados correctamente."; /**En dado caso que todos los campos estén llenos */
-        locModal.style.display =
-          "block"; /**Avisa al usuario que el vehículo se da guardado */
-        locModal.style.paddingRight = "17px"; /**Correctamente. */
-        locModal.className = "modal fade show";
-        btnclose.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-        btnclose1.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-      }
+      // var locModal = document.getElementById(
+      //   "myModal"
+      // ); /**Se llaman elementos del modal para  */
+      // var btnclose = document.getElementById(
+      //   "w-change-close"
+      // ); /**Posteriormente realizar su animación */
+      // var btnclose1 = document.getElementById(
+      //   "w-change-close1"
+      // ); /**en el momento que el usuario desee  */
+      // var modalchange = false; /**guardar el vehículo. */
+      // var dateControl = document.querySelector('input[type="date"]');
+      // this.vehicle.vehicleSoatExpiration = dateControl.value;
+      // var DatosVehiculo = [
+      //   this.vehicle.vehicleLicenseplate,
+      //   this.vehicle.vehicleBrand,
+      //   this.vehicle.vehicleYear,
+      //   this.vehicle.vehicleModel,
+      //   this.vehicle.vehicleColor,
+      //   this.Estado,
+      //   this.vehicle.vehicleServiceType,
+      //   this.vehicle.vehicleType,
+      //   this.vehicle.vehicleGasType,
+      //   this.vehicle.vehicleCapacity,
+      //   this.vehicle.vehicleSoatExpiration,
+      // ];
+      // for (var dato of DatosVehiculo) {
+      //   /**Realiza un recorrido de todas las variables */
+      //   console.log(dato); /**Y confirma si todos los datos contienen al  */
+      //   if (dato == "") {
+      //     /**menos un valor, en dado caso de que encuentre */
+      //     modalchange = true; /**algun campo sin llenar rompe el ciclo */
+      //     break;
+      //   }
+      // }
+      // if (modalchange == true) {
+      //   this.modalaviso =
+      //     "Error. los campos están incompletos."; /**En dado caso de encontrar algun campo sin llenar */
+      //   locModal.style.display =
+      //     "block"; /**Cambia el mensaje de modal advirtiendo al usuario */
+      //   locModal.style.paddingRight =
+      //     "17px"; /**Que dispone de campos incompletos */
+      //   locModal.className = "modal fade show";
+      //   btnclose.addEventListener("click", () => {
+      //     locModal.style.display = "none";
+      //     locModal.className = "modal fade";
+      //   });
+      //   btnclose1.addEventListener("click", () => {
+      //     locModal.style.display = "none";
+      //     locModal.className = "modal fade";
+      //   });
+      // } else {
+      //   this.modalaviso =
+      //     "Campos llenados correctamente."; /**En dado caso que todos los campos estén llenos */
+      //   locModal.style.display =
+      //     "block"; /**Avisa al usuario que el vehículo se da guardado */
+      //   locModal.style.paddingRight = "17px"; /**Correctamente. */
+      //   locModal.className = "modal fade show";
+      //   btnclose.addEventListener("click", () => {
+      //     locModal.style.display = "none";
+      //     locModal.className = "modal fade";
+      //   });
+      //   btnclose1.addEventListener("click", () => {
+      //     locModal.style.display = "none";
+      //     locModal.className = "modal fade";
+      //   });
+      // }
+      vehicleSC.updateVehicle(this.vehicle, () => {});
     },
 
     habilitarCampos() {

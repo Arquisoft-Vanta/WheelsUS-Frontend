@@ -20,10 +20,12 @@ function getVehicles(callback) {
       }
     })
       .then(response => {
-        callback(response.data);
+        callback(response);
       })
       .catch(function (error) {
         console.log(error);
+        callback(response);
+        
       });
 }
 
@@ -40,7 +42,11 @@ function createVehicle(vehicle, callback) {
 
 function updateVehicle(vehicle, callback) {
   axios
-    .put(route + "0", vehicle)
+    .put(route + "update-vehicle", vehicle, {
+      params: {
+        access_token: localStorage.getItem("token"),
+      },
+    })
     .then(response => {
       callback(response.status);
     })

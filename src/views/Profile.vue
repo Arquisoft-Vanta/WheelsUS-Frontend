@@ -406,7 +406,7 @@ export default {
       });
     },
     updateUser() {
-      this.user.picture = "HolaSuCadena"
+      //this.user.picture = "HolaSuCadena"
       console.log(this.user);
       UserSC.updateUser(this.user, () => {});
       this.$store.commit("updateUser", this.user);
