@@ -78,12 +78,12 @@
                     <div class="col">
                 <input
                     
-                    type="email"
+                    type="text"
                     class="form-control"
                     id="exampleInputEmail1"
                     style="border: 0; background: #f1f1f1"
                     aria-describedby="emailHelp"
-                    v-model="credentials.userMail"
+                    v-model="userMail"
                   />
                     </div>
                     <div class="col">
@@ -133,12 +133,13 @@ export default {
         userMail: "",
         password: "",
       },
+      userMail:"",
       logging: false,
     };
   },
   methods: {
     login(event) {
-      this.credentials.userMail = this.credentials.userMail + "@unal.edu.co";
+      this.credentials.userMail = this.userMail + "@unal.edu.co";
       AuthServiceClient.loginUser(
         this.credentials,
         () => {
