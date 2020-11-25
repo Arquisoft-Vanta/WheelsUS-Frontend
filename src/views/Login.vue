@@ -73,7 +73,10 @@
               <form @submit="login">
                 <div class="form-group text-left">
                   <label for="exampleInputEmail1">Correo electrónico</label>
-                  <input
+        
+                  <div class="form-row">
+                    <div class="col">
+                <input
                     
                     type="email"
                     class="form-control"
@@ -82,6 +85,13 @@
                     aria-describedby="emailHelp"
                     v-model="credentials.userMail"
                   />
+                    </div>
+                    <div class="col">
+                      <label for="staticEmail">
+                        @unal.edu.co
+                      </label>
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group text-left">
                   <label for="exampleInputPassword1">Contraseña</label>
@@ -128,6 +138,7 @@ export default {
   },
   methods: {
     login(event) {
+      this.credentials.userMail = this.credentials.userMail + "@unal.edu.co";
       AuthServiceClient.loginUser(
         this.credentials,
         () => {
@@ -138,6 +149,7 @@ export default {
           });
         },
         (text) => {
+          this.credentials.userMail = "";
           this.$bvToast.toast(text, {
             title: "Error de Autenticación",
             autoHideDelay: 2000,
