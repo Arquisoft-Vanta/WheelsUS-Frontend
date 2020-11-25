@@ -568,8 +568,7 @@ export default {
                   if (this.route.passengers[String.fromCharCode(i)].id !== "") {
                     this.changeStateofPassenger(
                       this.route.passengers[String.fromCharCode(i)].id,
-                      idRoute
-                    );
+                      idRoute);//, this.route.value);
                   }
                 }
               });
@@ -593,13 +592,15 @@ export default {
         });
       }
     },
-    changeStateofPassenger(id, idRoute) {
-      console.log(idRoute);
+    changeStateofPassenger(id, idRoute ) {
+
+      console.log(this.route.value);
       const db = firebase.firestore();
       const a = db.collection("passengerRoutes").doc(id);
       a.update({
         selected: true,
         idRoute: idRoute,
+        value:""+ this.route.value,
       });
     },
     /**

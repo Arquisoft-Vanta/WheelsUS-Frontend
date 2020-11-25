@@ -104,6 +104,7 @@ export default {
   data() {
     return {
       route: {
+        value:"",
         origin: {
           address: "",
           lat: 0,

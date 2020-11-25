@@ -279,7 +279,6 @@ export default {
             route.id = doc.id;
             this.routesActive.push(route);
           });
-          console.log(this.routesActive);
         });
     },
     getRoutesMade() {

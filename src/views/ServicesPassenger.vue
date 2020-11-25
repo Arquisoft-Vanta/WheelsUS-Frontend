@@ -172,6 +172,8 @@
                           <div class="card-body">
                             <div>Dia: {{ route1.date }}</div>
                             <div>Hora: {{ route1.time }}</div>
+                            <div>Valor: {{ route1.value }}</div>
+
                             <div class="row">
                               <div class="col">
                                 <button
@@ -232,6 +234,8 @@
                           <div class="card-body">
                             <div>Dia: {{ route2.date }}</div>
                             <div>Hora: {{ route2.time }}</div>
+                            <div>Value: {{ route2.value }}</div>
+
                             <div class="row">
                               <div class="col">
                                 <button
