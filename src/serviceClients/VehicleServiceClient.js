@@ -23,9 +23,7 @@ function getVehicles(callback) {
         callback(response);
       })
       .catch(function (error) {
-        console.log(error);
-        callback(response);
-        
+        console.log(error);      
       });
 }
 

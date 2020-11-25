@@ -406,7 +406,9 @@ export default {
           this.$store.commit("updateUser", data);
         }*/
 
-        if(response.response==200){
+        console.log(response);
+
+        if(response.status==200){
           this.vehicle = response.data;
         }
         
@@ -418,6 +420,8 @@ export default {
       });
     },
     datosRUNT() {
+      
+      this.vehicle.vehicleRegistryDatetime = "2020-11-25T11:30:00";
       var datos = this.DatosRunt.split(
         "\n"
       ); /*Separa la información por saltos de línea */
