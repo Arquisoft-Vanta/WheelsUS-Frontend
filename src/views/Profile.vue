@@ -428,30 +428,6 @@ export default {
         var base64 = reader.readAsDataURL(archivo);
       }
     },
-    uploadPicture() {
-      var uploadable = this.user.picture.split(",")[1];
-
-      if (uploadable != "") {
-        axios
-          .post("http://localhost:8080/api/profile", uploadable, {
-            params: {
-              access_token: localStorage.getItem("token"),
-            },
-          })
-          .then((response) => {
-            if (response.status !== 200) {
-              alert("Error");
-            } else {
-              callback(response.data);
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        alert("Falta seleccionar una imagen de perfil");
-      }
-    },
     saveDirection() {
       this.newFavoritePoint.datetimeCreationFav = this.getFormattedDate();
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
