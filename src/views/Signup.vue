@@ -30,7 +30,8 @@
           <ul class="navbar-nav mr-right">
             <li class="nav-item active">
               <router-link to="about-us" class="nav-link text-white"
-                >Acerca de nosotros</router-link>
+                >Acerca de nosotros</router-link
+              >
             </li>
             <li class="nav-item">
               <router-link to="/login" class="nav-link text-white"
@@ -41,24 +42,17 @@
         </div>
       </nav>
     </div>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div
-          class="col align-self-center col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mt-5"
-        >
-          <div class="signup card">
-            <div class="form-col align-items-center">
+    <div class="container-fluid mb-5">
+      <div class="row">
+        <div class="col-12 col-lg-4 offset-lg-4 mt-5">
+          <div class="card mb-5">
+            <div class="form-col text-dark align-items-center">
               <div class="card-body">
+                <img class="logo mb-4" alt="logo" src="~@/assets/logo.png" />
+                <h5>Ingresa tus datos</h5>
                 <div class="col-auto">
-                  <img
-                    class="logo"
-                    alt="logo"
-                    src="~@/assets/logo.png"
-                    style="margin: 0 0 5% 0"
-                  />
-                  <h5>Ingresa tus datos</h5>
                   <div class="form-group">
-                    <label for="name"></label>
+                    <label class="text-dark text-left" for="name">Nombre</label>
                     <input
                       v-model="newUser.userName"
                       type="text"
@@ -69,8 +63,10 @@
                       required
                     />
                   </div>
+                </div>
+                <div class="col-auto">
                   <div class="form-group">
-                    <label for="phone"></label>
+                    <label class="text-dark" for="phone"></label>
                     <input
                       v-model="newUser.userPhone"
                       type="tel"
@@ -82,32 +78,32 @@
                       required
                     />
                   </div>
-                  <div class="col-auto">
-                    <div class="form-row">
-                      <div class="col">
-                        <input
-                          v-model="email"
-                          style="width: 100%; margin: 0 -7% 5% -4%"
-                          type="text"
-                          class="form-control"
-                          placeholder="Usuario"
-                          name="user"
-                          id="inputUser"
-                          required
-                        />
-                      </div>
-                      <div class="col">
-                        <label for="staticEmail" style="margin: 5% 0 0 0">
-                          @unal.edu.co
-                        </label>
-                      </div>
+                </div>
+                <div class="col-auto">
+                  <div class="form-row">
+                    <div class="col">
+                      <input
+                        v-model="email"
+                        type="text"
+                        class="form-control"
+                        placeholder="Usuario"
+                        name="user"
+                        id="inputUser"
+                        required
+                      />
+                    </div>
+                    <div class="col">
+                      <label for="staticEmail">
+                        @unal.edu.co
+                      </label>
                     </div>
                   </div>
+                </div>
+                <div class="col-auto">
                   <div class="form-row">
                     <div class="col">
                       <label for="psw"></label>
                       <input
-                        style="width: 93%; margin: 0 -12% 5% -4%"
                         v-model="newUser.password"
                         type="password"
                         class="form-control"
@@ -117,59 +113,45 @@
                         required
                       />
                     </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <div class="form-row">
                     <div class="col">
                       <label for="pswRepeat"></label>
                       <input
-                        style="width: 93%; margin: 0 -4% 5% -12%"
                         v-model="password"
                         type="password"
-                        class="form-control is-invalid"
-                        placeholder="Confirmar"
+                        class="form-control"
+                        placeholder="Confirmar contraseña"
                         name="pswRepeat"
                         id="inputpswRepeat"
                         required
                       />
                     </div>
                   </div>
-                  <p>
-                    Al crear una cuenta estas de acuerdo con nuestros
-                    <a href="#" style="color: #06416d">Terminos y Condiciones</a
-                    >.
-                  </p>
-                  <div class="col-auto" position="center">
-                    <a
-                      href="#"
-                      type="button"
-                      class="btn btn-outline-danger"
-                      id="cancelBtn"
-                      style="margin: -1% 2% 0 2%"
-                    >
-                      Cancelar
-                    </a>
-                    <button
-                      class="btn btn-outline-dark"
-                      id="submitBtn"
-                      style="margin: 0% 2% 0 2%"
-                      @click="signup"
-                    >
-                      Registrarse
-                    </button>
-                  </div>
-                  <div style="margin: 2% 0% 0% 0%" position="center">
-                    <button
-                     
-                      class="btn btn-outline-dark btn-block"
-                    >
-                      <img
-                        class="logo mr-2"
-                        src="~@/assets/google.png"
-                        alt="logo"
-                        width="20"
-                      />
-                      Regístrate con Google
-                    </button>
-                  </div>
                 </div>
+                <p>
+                  Al crear una cuenta estas de acuerdo con nuestros
+                  <a href="#" style="color: #06416d">Terminos y Condiciones</a>.
+                </p>
+
+                <button
+                  class="btn btn-dark btn-block"
+                  id="submitBtn"
+                  @click="signup"
+                >
+                  Registrarse
+                </button>
+                <a
+                  href="#"
+                  type="button"
+                  class="btn btn-danger btn-block"
+                  id="cancelBtn"
+                  @click="goToLogin"
+                >
+                  Cancelar
+                </a>
               </div>
             </div>
           </div>
@@ -190,7 +172,6 @@ export default {
   },
 
   data() {
-    
     return {
       newUser: {
         userName: "",
@@ -204,176 +185,63 @@ export default {
         picture: "",
         Rh: "",
       },
-      email :"",
+      email: "",
       domain: "@unal.edu.co",
       password: "",
     };
   },
   methods: {
-
+    goToLogin() {
+      this.$router.push("/");
+    },
     getFormattedDate() {
       var date = new Date();
-      var str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.toLocaleDateString("es-CO", {day: "2-digit"}) + "@" +  ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
+      var str =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        date.toLocaleDateString("es-CO", { day: "2-digit" }) +
+        "@" +
+        ("0" + date.getHours()).slice(-2) +
+        ":" +
+        ("0" + date.getMinutes()).slice(-2) +
+        ":" +
+        ("0" + date.getSeconds()).slice(-2);
       return str;
     },
 
-
     signup() {
-      this.newUser.userMail= this.email + this.domain
+      this.newUser.userMail = this.email + this.domain;
       this.newUser.registryDatetime = this.getFormattedDate();
-      AuthServiceClient.registerUser(this.newUser, (response) => {
-        if (response === 201) {
-          this.$router.push("login");
-        }else{
-          this.$bvToast.toast("Ocurrio un error registrando al usuario "+ this.newUser.userMail, {
-            title: "Error en el Registro",
-            autoHideDelay: 2000,
-            appendToast: true,
-            variant: "danger",
-            solid: true,
-          });
-        }
-      });
+      if (this.newUser.password != this.password) {
+        this.$bvToast.toast("Verifica la contraseña", {
+          title: "Las contraseñas no coinciden",
+          autoHideDelay: 2000,
+          appendToast: true,
+          variant: "danger",
+          solid: true,
+        });
+      } else {
+        AuthServiceClient.registerUser(this.newUser, (response) => {
+          if (response === 201) {
+            this.$router.push("login");
+          } else {
+            this.$bvToast.toast(
+              "Ocurrio un error registrando al usuario " +
+                this.newUser.userMail,
+              {
+                title: "Error en el Registro",
+                autoHideDelay: 2000,
+                appendToast: true,
+                variant: "danger",
+                solid: true,
+              }
+            );
+          }
+        });
+      }
     },
   },
 };
 </script>
-
-<style scoped>
-* {
-  box-sizing: border-box;
-}
-
-h2 {
-  margin: 5% 0% 3%;
-  color: black;
-}
-
-.signup {
-  opacity: 0.9;
-  position: center;
-  margin: -7% 0 5% 0;
-  border-radius: 2%;
-}
-/*
-input[type=text]{
-  position: center;
-  width: 90%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-  background-color: #ddd;
-  outline: gray;
-}
-
-Full-width input fields */
-/*input[type="password"],*/
-#inputName,
-input[type="tel"],
-input[type="number"]:focus {
-  position: center;
-  width: 90%;
-  padding: 2%;
-  margin: 0 0 -5% 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-#inputUser {
-  position: left;
-  width: 100%;
-  padding: 7%;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-input[type="password"] {
-  position: left;
-  padding: 7%;
-  margin: 0 0 0 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-/*
-#staticEmail:focus{
-  position: center;
-  width: 10%;
-  padding: 10px;
-  margin: 0 0 25px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-/*
-input[type=text], input[type=password], input[type=tel], input[type=number]:focus{
-  background-color: #ddd;
-  outline: gray;
-}*/
-
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* Set a style for all buttons */
-/*.button {
-  background-color: #042f66;
-  color: white;
-  padding: 14px 20px 10px 10px;
-  margin: 8px 8px 8px 8px;
-  border: #C0C0C0;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-.button:hover {
-  opacity:40;
-}
-
-/* Extra styles for the cancel button 
-.cancel {
-  padding: 14px 20px;
-  background-color: #C0C0C0;
-}*/
-
-/* Float cancel and signup buttons and add an equal width 
-.cancelBtn, .submitBtn {
-  float: center;
-  width: 25%;
-}*/
-
-/*.cancelBtn{
-  margin-right: 5px;
-}
-
-/* Add padding to container elements 
-.container {
-  padding: 16px;
-}*/
-
-/* Clear floats 
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}*/
-
-.rowBtn {
-  position: center;
-  margin: 0% 0% 0% 35%;
-  background-color: #06416d;
-}
-
-/* Change styles for cancel button and signup button on extra small screens 
-@media screen and (max-width: 500px) {
-  .cancel, .submit {
-    width: 50%;
-  }
-}*/
-</style>
