@@ -62,7 +62,7 @@
               </h5>
             </div>
           </div>
-          <button type="button" class="btn btn-dark btn-block btn-lg mt-5">Registrate</button>
+          <button type="button" class="btn btn-dark btn-block btn-lg mt-5" @click="goToSignUp">Registrate</button>
         </div>
         <div
           class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 mt-0 mt-lg-5 mb-5 mb-xl-0"
@@ -148,6 +148,9 @@ export default {
         }
       );
       event.preventDefault();
+    },
+    goToSignUp() {
+      this.$router.push("/signup");
     },
   },
 };
