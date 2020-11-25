@@ -26,13 +26,11 @@ function getDirectionsByUser(callback) {
             }
         }).then((response) => {
             if (response.status !== 200) {
-                alert("Error obteniendo sus direcciones.");
             } else {
                 callback(response.data);
             }
         })
         .catch((error) => {
-            alert("Se ha vencido el tiempo de logueo");
             console.log(error);
         });
 }

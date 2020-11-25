@@ -539,7 +539,6 @@ export default {
       }
       if (textAlert === "") {
         if (new Date(this.currentDate) > new Date(this.route.date)) {
-          alert("Modifica la fecha");
         } else {
           const db = firebase.firestore();
           this.route.routeActive = true;
