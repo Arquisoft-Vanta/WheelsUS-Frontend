@@ -18,9 +18,9 @@ function getNotification(callback) {
 }
 
 
-function createNotification(user, callback) {
+function createNotification(notification, callback) {
   axios
-    .post(route, user)
+    .post(route, notification)
     .then((response) => {
       callback(response.status);
     })
