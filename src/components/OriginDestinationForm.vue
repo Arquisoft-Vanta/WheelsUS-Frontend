@@ -1,29 +1,51 @@
 <template>
   <section class="">
     <div class="form">
+      <Directions state="Choose Direction" />
+
       <h4>Postula tu ruta</h4>
       <div v-show="error">{{ error }}</div>
       <div class="four fields">
         <div class="field">
-          <div>
+          <div class="form-inline mb-3">
             <input
               type="text"
               placeholder="Origen"
               ref="origin"
-              class="form-control mb-2"
+              class="form-control"
+              style="border: 0; background: #f1f1f1; width: 80%"
               required
             />
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-toggle="modal"
+              data-target="#modalDirections"
+              @click="typeInput = 'origin'"
+            >
+              +
+            </button>
           </div>
         </div>
         <div class="field">
-          <div>
+          <div class="form-inline mb-3">
             <input
               type="text"
               placeholder="Destino"
               ref="destination"
-              class="form-control mb-2"
+              class="form-control"
+              style="border: 0; background: #f1f1f1; width: 80%"
               required
             />
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-toggle="modal"
+              data-target="#modalDirections"
+              @click="typeInput = 'destination'"
+            >
+              +
+            </button>
           </div>
         </div>
         <div class="field">
@@ -33,6 +55,7 @@
               type="time"
               placeholder="Tiempo"
               class="form-control mb-2"
+              style="border: 0; background: #f1f1f1"
               required
             />
           </div>
@@ -44,6 +67,7 @@
               type="date"
               placeholder="Fecha"
               class="form-control mb-3"
+              style="border: 0; background: #f1f1f1"
               required
             />
           </div>
@@ -71,11 +95,16 @@ import axios from "axios";
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
 import UserSC from "../serviceClients/UserServiceClient";
+import Directions from "../components/WatchCurrentDirections";
 
 export default {
+  components: {
+    Directions,
+  },
   data() {
     return {
       route: {
+        value:"",
         origin: {
           address: "",
           lat: 0,
@@ -96,9 +125,10 @@ export default {
         },
         selected: Boolean,
         servicePerformed: Boolean,
-        idRoute:"",
+        idRoute: "",
       },
       error: "",
+      typeInput: "",
     };
   },
 
@@ -115,6 +145,18 @@ export default {
           //types: ["address"],
         }
       );
+      EventBus.$on("point", (point) => {
+        console.log(point);
+        try {
+          this.$refs[this.typeInput].value = point.favAddress;
+          this.route[this.typeInput].address = point.favAddress;
+          this.route[this.typeInput].lat = parseFloat(point.favLatitude);
+          this.route[this.typeInput].lng = parseFloat(point.favLongitude);
+        } catch (error) {
+          console.log("");
+        }
+      });
+
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         this.route[ref].address = `${place.name}, ${place.vicinity}`;

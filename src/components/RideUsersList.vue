@@ -77,15 +77,13 @@ export default {
       routesMade: [],
       rates: [],
       value: 0,
+      state: Boolean,
     };
   },
   created() {
     this.getRoutesMade();
   },
   methods: {
-    acordeonId(index) {
-      return "s" + index;
-    },
     getRoutesMade() {
       const db = firebase.firestore();
       db.collection("driverRoute")
@@ -100,7 +98,32 @@ export default {
             this.routesMade.push(route);
             this.addUserRate(route);
           });
+          if (this.routesMade.length == 0) {
+            this.getRoutesMadebyPassenger();
+          }
         });
+    },
+    getRoutesMadebyPassenger() {
+      this.routesMade = [];
+      const db = firebase.firestore();
+      for (let i = 65; i < 69; i++) {
+        db.collection("driverRoute")
+          .where(
+            "passengers." + String.fromCharCode(i) + ".email",
+            "==",
+            this.$store.state.user.userMail
+          )
+          .where("servicePerformed", "==", true)
+          .get()
+          .then((snap) => {
+            snap.forEach((doc) => {
+              let route = doc.data();
+              route.id = doc.id;
+              this.routesMade.push(route);
+              this.addUserRateSincePassenger(route);
+            });
+          });
+      }
     },
     addUserRate(route) {
       for (let i = 65; i < 69; i++) {
@@ -116,6 +139,30 @@ export default {
         }
       }
     },
+    addUserRateSincePassenger(route) {
+      for (let i = 65; i < 69; i++) {
+        let passenger = route.passengers[String.fromCharCode(i)];
+        if (
+          passenger.id !== "" &&
+          passenger.email !== this.$store.state.user.userMail
+        ) {
+          this.rates.push({
+            grader: this.$store.state.user.userMail,
+            graded: passenger.email,
+            grade: 0,
+            rideId: route.id,
+            name: passenger.name,
+          });
+        }
+      }
+      this.rates.push({
+        grader: this.$store.state.user.userMail,
+        graded: route.dataDriver.driverMail,
+        grade: 0,
+        rideId: route.id,
+        name: route.dataDriver.driverName,
+      });
+    },
     rateUser(rate) {
       var rating = {
         grader: rate.grader,
@@ -123,7 +170,7 @@ export default {
         grade: rate.grade,
         rideId: rate.rideId,
       };
-      console.log(rating)
+      console.log(rating);
       RateSC.createRate(rating, () => {
         this.$bvToast.toast(
           "Se ha calificado correctamente el usuario " + rate.name,

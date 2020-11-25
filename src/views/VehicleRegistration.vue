@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header></Header>
+    
     <div>
       <div class="modal" id="myModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -224,30 +225,35 @@
           </div>
           <div class="col1 col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mt-5">
             <img
-              :src="Foto"
+              src=""
               alt="Foto del vehículo"
               class="img-thumbnail"
               style="margin: 0 0 3% 0; width: 220px; height: 150px"
+              id="vhcPicture"
             />
             <div class="card" style="margin: 0 0 20% 0">
               <div class="container">
                 <div>
                   <form>
-                    <div class="form-group">
+                    <div class="custom-file">                      
+                      <input
+                        type="file"
+                        class="custom-file-input outline-dark"
+                        id="vhcPicPicker"
+                        style="margin:9.3% 0 15% 0;"
+                        @change="onVhcPicSelected"
+                      />
                       <label
-                        for="exampleFormControlFile1"
+                        class="custom-file-label"
+                        id="vhcPickerLabel"
                         style="
-                        margin: 3% 0 3% 0;
+                        margin: 0% 0 15% 0;
                         border-color: #06416d;
                         color: #06416d;
+                        text-align: left;
                       "
                         >Foto del vehículo</label
                       >
-                      <input
-                        type="file"
-                        class="form-control-file"
-                        id="exampleFormControlFile1"
-                      />
                     </div>
                   </form>
                 </div>
@@ -256,26 +262,11 @@
                     @click="habilitarCampos"
                     type="button"
                     class="btn btn-outline-dark btn-block"
-                    style="
-                    margin: -2% 0 2% 0;
-                    
-                  "
+                    style="margin: -2% 0 2% 0;"
                   >
                     Editar Datos Vehículo
                   </a>
-                </div>
-                <div>
-                  <a
-                    @click="overlay"
-                    type="button"
-                    class="btn btn-outline-dark btn-block"
-                    style="
-                    margin: 0 0 2% 0;
-                  "
-                  >
-                    Eliminar Vehículo
-                  </a>
-                </div>
+                </div>                
                 <a
                   @click="guardarVehiculo"
                   type="button"
@@ -362,6 +353,7 @@
         </div>
       </div>
     </div>
+    
     <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
@@ -369,7 +361,7 @@
 <script>
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Header from "../components/Header.vue";
-
+import vehicleSC from "../serviceClients/VehicleServiceClient"
 import Foto from "@/assets/car.jpg";
 
 export default {
@@ -382,6 +374,7 @@ export default {
     return {
       showModal: false,
       Foto: Foto,
+      selectedVhcPic: null,
 
       DatosRunt: "",
       modalaviso: "",
@@ -389,28 +382,52 @@ export default {
       Estado: "",
 
       vehicle: {
-        idVehicle: 7,
-        vehicleOwner: 1,
-        vehicleLicenseplate: "ABC123",
-        vehicleType: 2,
-        vehicleModel: "Sedan",
-        vehicleYear: 2010,
-        vehicleColor: "Azul",
-        vehicleRegistryDatetime: "2020-09-30@10:11:30",
-        vehiclePicture: "imagen",
-        vehicleCapacity: 3,
-        vehicleBrand: "Renault",
-        vehicleServiceType: "Particular",
-        vehicleBody: "Camioneta",
-        vehicleSoatExpiration: "2021-10-04",
-        vehicleEngine: 1000,
-        vehicleGasType: "Diesel",
+        idVehicle: null,
+        vehicleOwner: null,
+        vehicleLicenseplate: "",
+        vehicleType: null,
+        vehicleModel: "",
+        vehicleYear: null,
+        vehicleColor: "",
+        vehicleRegistryDatetime: "",
+        vehiclePicture: "",
+        vehicleCapacity: null,
+        vehicleBrand: "",
+        vehicleServiceType: "",
+        vehicleBody: "",
+        vehicleSoatExpiration: "",
+        vehicleEngine: null,
+        vehicleGasType: "",
         userModel: null,
       },
     };
   },
+  mounted() {
+    this.getVehicleDB();
+  },
   methods: {
+    getVehicleDB() {
+      vehicleSC.getVehicles((response) => {
+        /*if (!this.$store.state.vehicle) {
+          this.$store.commit("updateUser", data);
+        }*/
+
+        console.log(response);
+
+        if(response.status==200){
+          this.vehicle = response.data;
+        }
+        
+
+        document.getElementById("vhcPicture").src = this.vehicle.vehiclePicture;
+
+        //console.log("lol", datos);
+        console.log("123", this.vehicle);
+      });
+    },
     datosRUNT() {
+      
+      this.vehicle.vehicleRegistryDatetime = "2020-11-25T11:30:00";
       var datos = this.DatosRunt.split(
         "\n"
       ); /*Separa la información por saltos de línea */
@@ -423,10 +440,10 @@ export default {
         } else if (dato.includes("MARCA:")) {
           var lineamarca = dato.split(":");
           this.vehicle.vehicleBrand = lineamarca[1].replace("LÍNEA", "");
-          this.vehicle.vehicleYear = lineamarca[2];
+          this.vehicle.vehicleModel = lineamarca[2];
         } else if (dato.includes("MODELO:")) {
           var lineamodelo = dato.split(":");
-          this.vehicle.vehicleModel = lineamodelo[1].replace("COLOR", "");
+          this.vehicle.vehicleYear = lineamodelo[1].replace("COLOR", "");
           this.vehicle.vehicleColor = lineamodelo[2];
         } else if (dato.includes("ESTADO DEL VEHÍCULO")) {
           var lineaestado = dato.split(":");
@@ -474,73 +491,28 @@ export default {
         }
       }
     },
+    onVhcPicSelected(){
+      this.selectedVhcPic = document.getElementById("vhcPicPicker").files;
+      console.log(this.selectedVhcPic);
+
+      if (this.selectedVhcPic.length > 0) {
+        var archivo = this.selectedVhcPic[0];
+        var reader = new FileReader();
+        var self = this;
+        console.log(archivo);
+        reader.onloadend = function (FileLoadEvent) {
+          var srcData = FileLoadEvent.target.result;
+
+          self.vehicle.vehiclePicture = FileLoadEvent.target.result;
+
+          document.getElementById("vhcPicture").src = srcData;
+        };
+
+        var base64 = reader.readAsDataURL(archivo);
+      }
+    },
     guardarVehiculo() {
-      var locModal = document.getElementById(
-        "myModal"
-      ); /**Se llaman elementos del modal para  */
-      var btnclose = document.getElementById(
-        "w-change-close"
-      ); /**Posteriormente realizar su animación */
-      var btnclose1 = document.getElementById(
-        "w-change-close1"
-      ); /**en el momento que el usuario desee  */
-      var modalchange = false; /**guardar el vehículo. */
-      var dateControl = document.querySelector('input[type="date"]');
-      this.vehicle.vehicleSoatExpiration = dateControl.value;
-      var DatosVehiculo = [
-        this.vehicle.vehicleLicenseplate,
-        this.vehicle.vehicleBrand,
-        this.vehicle.vehicleYear,
-        this.vehicle.vehicleModel,
-        this.vehicle.vehicleColor,
-        this.Estado,
-        this.vehicle.vehicleServiceType,
-        this.vehicle.vehicleType,
-        this.vehicle.vehicleGasType,
-        this.vehicle.vehicleCapacity,
-        this.vehicle.vehicleSoatExpiration,
-      ];
-      for (var dato of DatosVehiculo) {
-        /**Realiza un recorrido de todas las variables */
-        console.log(dato); /**Y confirma si todos los datos contienen al  */
-        if (dato == "") {
-          /**menos un valor, en dado caso de que encuentre */
-          modalchange = true; /**algun campo sin llenar rompe el ciclo */
-          break;
-        }
-      }
-      if (modalchange == true) {
-        this.modalaviso =
-          "Error. los campos están incompletos."; /**En dado caso de encontrar algun campo sin llenar */
-        locModal.style.display =
-          "block"; /**Cambia el mensaje de modal advirtiendo al usuario */
-        locModal.style.paddingRight =
-          "17px"; /**Que dispone de campos incompletos */
-        locModal.className = "modal fade show";
-        btnclose.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-        btnclose1.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-      } else {
-        this.modalaviso =
-          "Campos llenados correctamente."; /**En dado caso que todos los campos estén llenos */
-        locModal.style.display =
-          "block"; /**Avisa al usuario que el vehículo se da guardado */
-        locModal.style.paddingRight = "17px"; /**Correctamente. */
-        locModal.className = "modal fade show";
-        btnclose.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-        btnclose1.addEventListener("click", () => {
-          locModal.style.display = "none";
-          locModal.className = "modal fade";
-        });
-      }
+      vehicleSC.updateVehicle(this.vehicle, () => {});
     },
 
     habilitarCampos() {
@@ -574,5 +546,8 @@ p {
 }
 .custom-select {
   height: 60%;
+}
+.custom-file{
+  margin: 5% 0 0 0;  
 }
 </style>
