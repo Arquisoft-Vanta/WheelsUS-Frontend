@@ -31,7 +31,6 @@
               >Acerca de nosotros<span class="sr-only"></span
             ></router-link>
           </li>
-          <!--div v-if="authenticated">-->
           <li class="nav-item" v-if="authenticated">
             <a
               href=""
@@ -45,7 +44,6 @@
               >Hola {{ user.userName }}
             </a>
           </li>
-          <!--</div>-->
         </ul>
         <div v-if="authenticated">
           <div class="btn-group dropleft my-2 my-lg-0">
@@ -140,8 +138,6 @@
 import ChatList from "../components/ListaChat";
 import UserSC from "../serviceClients/UserServiceClient";
 import NotificationSC from "../serviceClients/NotificationServiceClient";
-import firebase from "firebase";
-import { EventBus } from "@/EventBus.js";
 
 export default {
   name: "Header",
@@ -238,14 +234,6 @@ export default {
 }
 .header-pos {
   height: 60px;
-}
-.header-button:focus {
-  background-color: white !important;
-  color: #043a63 !important;
-}
-.header-button:active {
-  background-color: white !important;
-  color: #043a63 !important;
 }
 #Titulo {
   display: flex;

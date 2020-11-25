@@ -256,7 +256,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { EventBus } from "@/EventBus.js";
 import DirectionsMapView from "../components/DirectionsMapView.vue";
 import Header from "../components/Header";
@@ -447,7 +446,13 @@ export default {
             solid: true,
           });
         } else {
-          alert("Datos invalidos");
+          this.$bvToast.toast("¡Por favor verifique los datos ingresados!", {
+              title: "Datos invalidos",
+              autoHideDelay: 5000,
+              appendToast: true,
+              variant: "danger",
+              solid: true,
+            });
         }
       });
     },

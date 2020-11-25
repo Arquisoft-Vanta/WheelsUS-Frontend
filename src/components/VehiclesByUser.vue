@@ -129,6 +129,7 @@ export default {
     },
     chooseSelection(vehicle) {
       if (this.button === "Eliminar Dirección") {
+        this.button = "Eliminar Dirección";
       } else {
         EventBus.$emit("vehicle", vehicle);
       }
@@ -146,6 +147,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
