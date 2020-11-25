@@ -539,6 +539,13 @@ export default {
       }
       if (textAlert === "") {
         if (new Date(this.currentDate) > new Date(this.route.date)) {
+          this.$bvToast.toast(textAlert, {
+          title: "Por favor verifica la fecha.",
+          autoHideDelay: 5000,
+          appendToast: true,
+          variant: "danger",
+          solid: true,
+        });
         } else {
           const db = firebase.firestore();
           this.route.routeActive = true;
