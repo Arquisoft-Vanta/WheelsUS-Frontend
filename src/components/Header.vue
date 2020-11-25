@@ -2,7 +2,7 @@
   <div class="fixed-top header-pos">
     <nav id="Banner" class="navbar navbar-expand-lg">
       <div class="col-auto">
-        <a id="Titulo" class="navbar-brand text-white" href="#">
+        <a id="Titulo" class="navbar-brand text-white" href="">
           <img
             src="~@/assets/logo.png"
             width="40"
@@ -27,25 +27,23 @@
       <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
           <li class="nav-item active">
-            <router-link to="about-us" class="nav-link text-white" href="#"
+            <router-link to="about-us" class="nav-link text-white" href=""
               >Acerca de nosotros<span class="sr-only"></span
             ></router-link>
           </li>
-          <div v-if="authenticated">
-            <li class="nav-item">
+          <!--div v-if="authenticated">-->
+            <li class="nav-item" v-if="authenticated">
               <a
-                href="#"
+                href=""
                 @click="goToHome"
                 class="nav-link menu-item nav-active text-white"
                 >Inicio</a
               >
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link menu-item text-white">
-                Hola {{ user.userName }}
-              </a>
+            <li class="nav-item" v-if="authenticated">
+              <a href="#" class="nav-link menu-item text-white">Hola {{ user.userName }}  </a>
             </li>
-          </div>
+          <!--</div>-->
         </ul>
         <div v-if="authenticated">
           <div class="btn-group dropleft my-2 my-lg-0">

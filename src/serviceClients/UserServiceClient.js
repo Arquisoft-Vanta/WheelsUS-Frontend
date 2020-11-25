@@ -1,5 +1,6 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/user";
+const environment = require("./../environment.js");
+const route = environment.serverUrl + "/api/user";
 
 function getUser(callback) {
   axios
@@ -14,6 +15,23 @@ function getUser(callback) {
     .catch(function(error) {
       console.log(error);
     });
+}
+
+function getFastProfile(email, callback){
+  console.log(email);
+  axios
+  .get(route + "/fast-profile", {
+    params: {
+      access_token: localStorage.getItem("token"),
+      userMail: email
+    },
+  })
+  .then((response) => {
+    callback(response.data);
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
 }
 
 function createUser(user, callback) {
@@ -55,6 +73,7 @@ function deleteUser(id, callback) {
 
 export default {
   getUser,
+  getFastProfile,
   createUser,
   updateUser,
   deleteUser,

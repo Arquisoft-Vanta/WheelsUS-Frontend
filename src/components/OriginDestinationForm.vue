@@ -1,33 +1,51 @@
 <template>
-  <section class="origin-destination-form">
+  <section class="">
     <div class="form">
+      <Directions state="Choose Direction" />
+
       <h4>Postula tu ruta</h4>
       <div v-show="error">{{ error }}</div>
       <div class="four fields">
         <div class="field">
-          <div>
+          <div class="form-inline mb-3">
             <input
-              v-model="origin"
               type="text"
               placeholder="Origen"
               ref="origin"
-              style="width: 100%; margin: 5% 0% 5% 0%"
               class="form-control"
+              style="border: 0; background: #f1f1f1; width: 80%"
               required
             />
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-toggle="modal"
+              data-target="#modalDirections"
+              @click="typeInput = 'origin'"
+            >
+              +
+            </button>
           </div>
         </div>
         <div class="field">
-          <div>
+          <div class="form-inline mb-3">
             <input
-              v-model="destination"
               type="text"
               placeholder="Destino"
               ref="destination"
-              style="width: 100%; margin: 5% 0% 5% 0%"
               class="form-control"
+              style="border: 0; background: #f1f1f1; width: 80%"
               required
             />
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-toggle="modal"
+              data-target="#modalDirections"
+              @click="typeInput = 'destination'"
+            >
+              +
+            </button>
           </div>
         </div>
         <div class="field">
@@ -36,9 +54,8 @@
               v-model="route.time"
               type="time"
               placeholder="Tiempo"
-              ref="time"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-2"
+              style="border: 0; background: #f1f1f1"
               required
             />
           </div>
@@ -49,24 +66,21 @@
               v-model="route.date"
               type="date"
               placeholder="Fecha"
-              ref="date"
-              style="width: 100%; margin: 5% 0% 5% 0%"
-              class="form-control"
+              class="form-control mb-3"
+              style="border: 0; background: #f1f1f1"
               required
             />
           </div>
         </div>
         <button
-          class="btn btn-outline-dark btn-block button"
+          class="btn btn-dark btn-block button mb-2"
           @click="calculateButtonPressed"
-          style="margin: 10% 0% -2% 0%"
         >
-          Postular ruta
+          Ver ruta
         </button>
         <button
-          class="btn btn-outline-dark btn-block button"
+          class="btn btn-dark btn-block button mb-2"
           @click="saveRoute"
-          style="margin: 10% 0% -2% 0%"
           data-toggle="modal"
         >
           Guardar ruta
@@ -80,11 +94,17 @@
 import axios from "axios";
 import firebase from "firebase";
 import { EventBus } from "@/EventBus.js";
+import UserSC from "../serviceClients/UserServiceClient";
+import Directions from "../components/WatchCurrentDirections";
 
 export default {
+  components: {
+    Directions,
+  },
   data() {
     return {
       route: {
+        value:"",
         origin: {
           address: "",
           lat: 0,
@@ -99,13 +119,21 @@ export default {
         date: Date,
         distance: {},
         duration: {},
-        userid: "",
+        dataPassenger: {
+          passengerMail: "",
+          passengerName: "",
+        },
+        selected: Boolean,
+        servicePerformed: Boolean,
+        idRoute: "",
       },
       error: "",
+      typeInput: "",
     };
   },
 
   mounted() {
+    this.getUserDB();
     for (let ref in this.$refs) {
       const autocomplete = new google.maps.places.Autocomplete(
         this.$refs[ref],
@@ -117,6 +145,18 @@ export default {
           //types: ["address"],
         }
       );
+      EventBus.$on("point", (point) => {
+        console.log(point);
+        try {
+          this.$refs[this.typeInput].value = point.favAddress;
+          this.route[this.typeInput].address = point.favAddress;
+          this.route[this.typeInput].lat = parseFloat(point.favLatitude);
+          this.route[this.typeInput].lng = parseFloat(point.favLongitude);
+        } catch (error) {
+          console.log("");
+        }
+      });
+
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         this.route[ref].address = `${place.name}, ${place.vicinity}`;
@@ -126,6 +166,12 @@ export default {
     }
   },
   methods: {
+    getUserDB() {
+      UserSC.getUser((data) => {
+        this.route.dataPassenger.passengerMail = data.userMail;
+        this.route.dataPassenger.passengerName = data.userName;
+      });
+    },
     calculateButtonPressed() {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?origins=${this.route.origin.lat},${this.route.origin.lng}&destinations=${this.route.destination.lat},${this.route.destination.lng}&key=AIzaSyAxm0QLs59dJ34JezS4XmSs75bHKrFUBz0`;
       axios
@@ -141,37 +187,28 @@ export default {
             } else {
               this.route.distance = elements[0].distance;
               this.route.duration = elements[0].duration;
-              this.route.userid = "fsduenasc@unal.edu.co";
             }
+            EventBus.$emit("passengerRoutes-data", [this.route]);
           }
         })
         .catch((error) => {
           console.log(error.message);
           this.error = error.message;
         });
-      EventBus.$emit("passengerRoutes-data", [this.route]);
     },
     saveRoute() {
       const db = firebase.firestore();
+      this.route.selected = false;
+      this.route.servicePerformed = false;
       db.collection("passengerRoutes").doc().set(this.route);
       this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
-            title: "Ruta Almacenada",
-            autoHideDelay: 2000,
-            appendToast: true,
-            variant: "success",
-            solid: true,
-          });
-
+        title: "Ruta Almacenada",
+        autoHideDelay: 2000,
+        appendToast: true,
+        variant: "success",
+        solid: true,
+      });
     },
   },
 };
 </script>
-
-<style scoped>
-.origin-destination-form {
-  position: relative;
-  z-index: 1;
-  max-width: 610px;
-  margin: 10px;
-}
-</style>

@@ -2,34 +2,39 @@
   <div>
     <Header></Header>
     <div>
-      <div class="container">
-        <div class="row align-items-start h-100">
-          <div
-            class="col-12 pl-md-5 pr-md-5 pl-lg-0 pr-lg-0 col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-5 mb-0"
-          >
-            <div class="datosusuario card pt-3">
+      <div class="container-fluid mb-5">
+        <div class="row">
+          <div class="col-12 col-md-2 offset-md-5 mt-4">
+            <button
+              class="btn btn-dark btn-block btn-lg"
+              type="button"
+              @click="goToPassenger"
+            >
+              Atrás
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-6 col-xl-3 offset-xl-1">
+            <div class="card mt-4 pt-2">
               <img
                 src="../assets/person.png"
-                class="img-thumbnail align-self-center h-25"
+                class="img-thumbnail align-self-center"
                 alt=" Imagen de perfil"
               />
               <div class="card-body">
-                <h5 class="card-title pt-3">Usuario</h5>
-                <a type="button" class="btn btn-outline-dark btn-block">
+                <h5 class="card-title">Usuario</h5>
+                <a type="button" class="btn btn-dark text-white btn-block">
                   Añadir ruta
                 </a>
               </div>
             </div>
           </div>
-          <div
-            class="history-panel col-12 pl-md-5 pr-md-5 col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-lg-5 mt-5 mb-5"
-          >
-            <h5>Tus viajes</h5>
+          <div class="col-12 col-lg-6 col-xl-3 mt-4 mb-3">
+            <h4>Tus viajes</h4>
             <history-passanger />
           </div>
-          <div
-            class="container-map col-12 pl-md-0 pr-md-0 col-sm-12 col-md-12 col-lg-5 col-xl-5 mt-lg-5 mt-5 mb-5"
-          >
+          <div class="col-lg-12 col-xl-4 mt-0 mt-xl-4 mb-5">
             <DirectionsMapView />
           </div>
         </div>
@@ -67,6 +72,9 @@ export default {
   props: {},
 
   methods: {
+    goToPassenger() {
+      this.$router.push("/passenger");
+    },
     createUserDB() {
       UserSC.createUser(this.user, (response) => {
         console.log("Usuario creado " + response.status);
@@ -79,30 +87,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.mapa {
-  opacity: 95%;
-}
-.datosusuario {
-  opacity: 95%;
-}
-
-.container {
-  height: 70vh;
-}
-
-.container-map {
-  height: 75vh;
-}
-
-.history-panel {
-  height: 60vh;
-}
-
-@media (max-width: 991px) {
-  .container-map {
-    height: 90vh;
-  }
-}
-</style>
