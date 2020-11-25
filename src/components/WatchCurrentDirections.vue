@@ -127,7 +127,13 @@ export default {
               solid: true,
             });
           } else {
-            alert("Datos invalidos");
+            this.$bvToast.toast("¡Por favor verifique los datos ingresados!", {
+              title: "Datos invalidos",
+              autoHideDelay: 5000,
+              appendToast: true,
+              variant: "danger",
+              solid: true,
+            });
           }
         });
       } else {
