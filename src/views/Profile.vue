@@ -264,6 +264,7 @@ import Directions from "../components/WatchCurrentDirections";
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Foto from "@/assets/Enfermeria22.png";
 import UserSC from "../serviceClients/UserServiceClient";
+import NotificationSC from "../serviceClients/NotificationServiceClient";
 import FavoriteServiceClient from "../serviceClients/FavoriteServiceCliente";
 //import { use } from 'vue/types/umd';
 export default {
@@ -409,6 +410,11 @@ export default {
       console.log(this.user);
       UserSC.updateUser(this.user, () => {});
       this.$store.commit("updateUser", this.user);
+      NotificationSC.createNotification(
+        {data:"Usuario Modificado",
+        destination: "profile",
+        mailUser: "cdpinedao@unal.edu.co"},(response) => {}
+      )
     },
     onPicSelected(event) {
       this.selectedPic = document.getElementById("picPicker").files;
