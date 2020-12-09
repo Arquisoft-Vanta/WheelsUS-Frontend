@@ -426,7 +426,6 @@ export default {
       this.newFavoritePoint.datetimeCreationFav = this.getFormattedDate();
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
-          console.log("OK");
           this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
             title: "Dirección Almacenada",
             autoHideDelay: 5000,

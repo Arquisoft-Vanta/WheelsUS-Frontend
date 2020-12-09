@@ -116,7 +116,6 @@ export default {
     },
     sendPoint(route) {
       if (this.button === "Eliminar Dirección") {
-        console.log(route);
         FavoriteServiceClient.deleteDirection(route, (response) => {
           if (response === 201) {
             this.$bvToast.toast("¡Dirección Eliminada Correctamente!", {
@@ -138,7 +137,6 @@ export default {
         });
       } else {
         EventBus.$emit("point", route);
-        console.log(route);
       }
     },
     nameButton() {

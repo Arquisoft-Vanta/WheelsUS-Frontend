@@ -105,7 +105,6 @@ export default {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log(position.coords.longitude);
             EventBus.$emit("newMarker", [
               position.coords.latitude,
               position.coords.longitude,

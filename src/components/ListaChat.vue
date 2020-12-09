@@ -13,7 +13,7 @@
         v-for="(contact, index) in contacts"
         :key="index"
         class="list-group-item list-group-item-action"
-        @click="toogleChat(contact.email,contact.name)"
+        @click="toogleChat(contact.email, contact.name)"
       >
         {{ contact.name }}
       </button>
@@ -78,8 +78,6 @@ export default {
       UserSC.getUser((data) => {
         this.user = data;
         this.isDriver();
-
-        
       });
     },
     createChats(contacts) {
@@ -95,7 +93,7 @@ export default {
         });
       }
     },
-    toogleChat(contact,name) {
+    toogleChat(contact, name) {
       const db = firebase.firestore();
 
       if (this.collapse1.display == "block") {
@@ -112,7 +110,7 @@ export default {
       }
 
       this.idDoc = pas;
-     
+
       var self = this;
 
       db.collection("Chat")
@@ -122,16 +120,11 @@ export default {
         });
     },
     toogleList() {
-      
-
       if (this.collapselist.display == "block") {
         this.collapselist.display = "none";
       } else if (this.collapse1.display == "none") {
         this.collapselist.display = "block";
       }
-      //console.log("Este es el mail" +this.user.userMail)
-
-      //console.log("Es conductor " + self.driver)
     },
     isDriver() {
       const db = firebase.firestore();
@@ -152,26 +145,23 @@ export default {
                 let passenger = doc.data().passengers[String.fromCharCode(i)];
                 if (passenger.name !== "") {
                   self.contacts.push({
-                    
                     name: passenger.name,
                     email: passenger.email,
                   });
                 }
                 self.createChats(self.contacts);
               }
-            }else{
+            } else {
               for (let i = 65; i < 69; i++) {
                 let passenger = doc.data().passengers[String.fromCharCode(i)];
                 if (passenger.email == self.user.userMail) {
                   self.contacts.push({
-                    
                     name: doc.data().dataDriver.driverName,
                     email: doc.data().dataDriver.driverMail,
                   });
                 }
                 self.createChats(self.contacts);
               }
-
             }
           });
         })
