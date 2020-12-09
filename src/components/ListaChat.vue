@@ -77,8 +77,6 @@ export default {
     getUserDB() {
       UserSC.getUser((data) => {
         this.user = data;
-        console.log("ya tengo el usuario");
-        console.log(this.user.userMail);
         this.isDriver();
 
         
@@ -91,7 +89,6 @@ export default {
       for (i = 0; i < contacts.length; i++) {
         let pas;
         pas = this.user.userMail + contacts[i].email;
-        console.log(pas);
 
         db.collection("Chat").doc(pas).set({
           mensajes: [],
@@ -115,14 +112,7 @@ export default {
       }
 
       this.idDoc = pas;
-      /*
-      console.log(pas)
-      db.collection("Chat").doc(pas).set({
-        mensajes: []
-        
-      });*/
-      console.log("id DOC" + pas);
-
+     
       var self = this;
 
       db.collection("Chat")
@@ -139,8 +129,6 @@ export default {
       } else if (this.collapse1.display == "none") {
         this.collapselist.display = "block";
       }
-      console.log(this.contacts);
-
       //console.log("Este es el mail" +this.user.userMail)
 
       //console.log("Es conductor " + self.driver)
@@ -155,7 +143,6 @@ export default {
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.data().dataDriver.driverMail);
 
             self.driverMail = doc.data().dataDriver.driverMail;
 
@@ -172,7 +159,6 @@ export default {
                 }
                 self.createChats(self.contacts);
               }
-              console.log(self.contacts);
             }else{
               for (let i = 65; i < 69; i++) {
                 let passenger = doc.data().passengers[String.fromCharCode(i)];
@@ -187,7 +173,6 @@ export default {
               }
 
             }
-            console.log("Es conductor " + self.driver);
           });
         })
         .catch(function (error) {

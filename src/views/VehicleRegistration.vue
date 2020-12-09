@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    
+
     <div>
       <div class="modal" id="myModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -91,7 +91,7 @@
                   </div>
                   <div class="form-row">
                     <div class="col-md-3 mb-3">
-                      <p for="validationDefaultlinea">Linea</p>
+                      <p for="validationDefaultlinea">Modelo</p>
                       <input
                         type="text"
                         class="form-control form-control-sm"
@@ -137,7 +137,7 @@
                   </div>
                   <div class="form-row">
                     <div class="col-md-3 mb-3">
-                      <p for="validationDefaultmodelo">Modelo</p>
+                      <p for="validationDefaultmodelo">Linea</p>
                       <input
                         type="text"
                         class="form-control form-control-sm"
@@ -196,9 +196,7 @@
                         target="_blank"
                         type="button"
                         class="btn btn-outline-dark btn-block text-center"
-                        style="
-                        margin:2% 0 1% 0;
-                      "
+                        style="margin: 2% 0 1% 0"
                         rel="noopener noreferrer"
                       >
                         Ingresar a RUNT
@@ -211,9 +209,7 @@
                         target="_blank"
                         type="button"
                         class="btn btn-outline-dark btn-block text-center"
-                        style="
-                        margin: 0 0 -3% 0;
-                      "
+                        style="margin: 0 0 -3% 0"
                       >
                         Validar información de RUNT
                       </a>
@@ -235,23 +231,23 @@
               <div class="container">
                 <div>
                   <form>
-                    <div class="custom-file">                      
+                    <div class="custom-file">
                       <input
                         type="file"
                         class="custom-file-input outline-dark"
                         id="vhcPicPicker"
-                        style="margin:9.3% 0 15% 0;"
+                        style="margin: 9.3% 0 15% 0"
                         @change="onVhcPicSelected"
                       />
                       <label
                         class="custom-file-label"
                         id="vhcPickerLabel"
                         style="
-                        margin: 0% 0 15% 0;
-                        border-color: #06416d;
-                        color: #06416d;
-                        text-align: left;
-                      "
+                          margin: 0% 0 15% 0;
+                          border-color: #06416d;
+                          color: #06416d;
+                          text-align: left;
+                        "
                         >Foto del vehículo</label
                       >
                     </div>
@@ -262,16 +258,16 @@
                     @click="habilitarCampos"
                     type="button"
                     class="btn btn-outline-dark btn-block"
-                    style="margin: -2% 0 2% 0;"
+                    style="margin: -2% 0 2% 0"
                   >
                     Editar Datos Vehículo
                   </a>
-                </div>                
+                </div>
                 <a
                   @click="guardarVehiculo"
                   type="button"
                   class="btn btn-outline-dark btn-block"
-                  style="margin: 0 0 2% 0;"
+                  style="margin: 0 0 2% 0"
                   id="w-change-location"
                   data-toggle="modal"
                   data-target="#locModal"
@@ -353,7 +349,7 @@
         </div>
       </div>
     </div>
-    
+
     <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
@@ -361,7 +357,7 @@
 <script>
 import FooterwithBackground from "../components/FooterwithBackground.vue";
 import Header from "../components/Header.vue";
-import vehicleSC from "../serviceClients/VehicleServiceClient"
+import vehicleSC from "../serviceClients/VehicleServiceClient";
 import Foto from "@/assets/car.jpg";
 
 export default {
@@ -370,7 +366,7 @@ export default {
     FooterwithBackground,
     Header,
   },
-  data: function() {
+  data: function () {
     return {
       showModal: false,
       Foto: Foto,
@@ -412,22 +408,15 @@ export default {
           this.$store.commit("updateUser", data);
         }*/
 
-        console.log(response);
-
-        if(response.status==200){
+        if (response.status == 200) {
           this.vehicle = response.data;
         }
-        
 
         document.getElementById("vhcPicture").src = this.vehicle.vehiclePicture;
-
-        //console.log("lol", datos);
-        console.log("123", this.vehicle);
       });
     },
     datosRUNT() {
-      
-      this.vehicle.vehicleRegistryDatetime = "2020-11-25T11:30:00";
+      this.vehicle.vehicleRegistryDatetime = this.getFormattedDate();
       var datos = this.DatosRunt.split(
         "\n"
       ); /*Separa la información por saltos de línea */
@@ -461,7 +450,7 @@ export default {
             "TIPO DE CARROCERÍA",
             ""
           );
-          this.Carroceria = lineacilindraje[2];
+          this.vehicle.vehicleBody = lineacilindraje[2];
         } else if (dato.includes("COMBUSTIBLE")) {
           var lineacombustible = dato.split(":");
           this.vehicle.vehicleGasType = lineacombustible[1].replace(
@@ -491,15 +480,13 @@ export default {
         }
       }
     },
-    onVhcPicSelected(){
+    onVhcPicSelected() {
       this.selectedVhcPic = document.getElementById("vhcPicPicker").files;
-      console.log(this.selectedVhcPic);
 
       if (this.selectedVhcPic.length > 0) {
         var archivo = this.selectedVhcPic[0];
         var reader = new FileReader();
         var self = this;
-        console.log(archivo);
         reader.onloadend = function (FileLoadEvent) {
           var srcData = FileLoadEvent.target.result;
 
@@ -512,7 +499,24 @@ export default {
       }
     },
     guardarVehiculo() {
+      console.log(this.vehicle.vehicleSoatExpiration);
       vehicleSC.updateVehicle(this.vehicle, () => {});
+    },
+    getFormattedDate() {
+      var date = new Date();
+      var str =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        date.toLocaleDateString("es-CO", { day: "2-digit" }) +
+        "T" +
+        ("0" + date.getHours()).slice(-2) +
+        ":" +
+        ("0" + date.getMinutes()).slice(-2) +
+        ":" +
+        ("0" + date.getSeconds()).slice(-2);
+      return str;
     },
 
     habilitarCampos() {
@@ -547,7 +551,7 @@ p {
 .custom-select {
   height: 60%;
 }
-.custom-file{
-  margin: 5% 0 0 0;  
+.custom-file {
+  margin: 5% 0 0 0;
 }
 </style>

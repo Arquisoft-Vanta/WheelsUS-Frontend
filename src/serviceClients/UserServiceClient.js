@@ -18,7 +18,6 @@ function getUser(callback) {
 }
 
 function getFastProfile(email, callback){
-  console.log(email);
   axios
   .get(route + "/fast-profile", {
     params: {

@@ -2,7 +2,12 @@
   <div class="fixed-top header-pos">
     <nav id="Banner" class="navbar navbar-expand-lg">
       <div class="col-auto">
-        <a id="Titulo" class="navbar-brand text-white" href="">
+        <a
+          id="Titulo"
+          class="navbar-brand text-white"
+          href=""
+          @click="goToHome"
+        >
           <img
             src="~@/assets/logo.png"
             width="40"
@@ -10,6 +15,7 @@
             alt=""
             loading="lazy"
           />
+
           Wheels US
         </a>
       </div>
@@ -67,7 +73,7 @@
             <div class="dropdown-menu dropdown-menu-lg-left">
               <h5>Notificaciones</h5>
               <div class="header-button dropdown-divider"></div>
-              <div v-for="(notification,index) in notifications" :key="index">
+              <div v-for="(notification, index) in notifications" :key="index">
                 <button
                   class="dropdown-item"
                   type="button"
@@ -174,7 +180,6 @@ export default {
         }
       });
     });*/
-
   },
 
   methods: {
@@ -197,11 +202,9 @@ export default {
     goToPostService() {
       this.$router.push("post-service");
     },
-    getNotifications(){
+    getNotifications() {
       NotificationSC.getNotification((data) => {
-      //console.log(data);
-      this.notifications = data;
-      console.log(this.notifications);
+        this.notifications = data;
       });
     },
     goToNotification(value) {

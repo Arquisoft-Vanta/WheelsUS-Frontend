@@ -39,7 +39,6 @@ function loginUser(user, callback, showtoast) {
       if (response.status !== 200) {
         showtoast("Error en la Autenticación");
       } else {
-        console.log(response.data);
         localStorage.setItem("token", response.data.access_token);
         callback();
       }
