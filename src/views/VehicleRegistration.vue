@@ -499,7 +499,6 @@ export default {
       }
     },
     guardarVehiculo() {
-      console.log(this.vehicle.vehicleSoatExpiration);
       vehicleSC.updateVehicle(this.vehicle, () => {});
     },
     getFormattedDate() {

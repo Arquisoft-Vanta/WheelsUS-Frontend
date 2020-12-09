@@ -271,7 +271,7 @@ export default {
     return {
       Foto: Foto,
       selectedPic: null,
-      universityId2 : "",
+      universityId2: "",
       user: {
         userName: "",
         userDoc: "",
@@ -373,13 +373,6 @@ export default {
       document.getElementById(
         "validationDefault06"
       ).readOnly = this.estadoInput;
-      document.getElementById(
-        "validationDefault07"
-      ).disabled = this.estadoInput;
-
-      this.estadoInput
-        ? (this.textoBotonEditar = "Editar")
-        : (this.textoBotonEditar = "Guardar");
     },
     createUserDB() {
       UserSC.createUser(this.user, (response) => {
@@ -400,7 +393,6 @@ export default {
     },
     updateUser() {
       //this.user.picture = "HolaSuCadena"
-      console.log(this.user);
       UserSC.updateUser(this.user, () => {});
       this.$store.commit("updateUser", this.user);
       NotificationSC.createNotification(

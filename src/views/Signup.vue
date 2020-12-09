@@ -225,7 +225,7 @@ export default {
       } else {
         AuthServiceClient.registerUser(this.newUser, (response) => {
           if (response === 201) {
-            this.$router.push("login");
+            this.$router.push("/");
           } else {
             this.$bvToast.toast(
               "Ocurrio un error registrando al usuario " +
