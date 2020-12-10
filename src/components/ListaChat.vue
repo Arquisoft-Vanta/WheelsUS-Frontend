@@ -1,24 +1,31 @@
 <template>
-  <div>
-    <div>
-      <a class="btn-primary boton-abrir" role="button" @click="toogleList">
-        Abrir chat
-      </a>
+  <div class="container-fluid">
+    <div class="row  justify-content-end">
+      <div class="col-6 col-md-2 text-center text-white">
+        <a
+          class="btn btn-dark btn-block mt-1 pt-1 pl-1 pb-1 pr-1"
+          @click="toogleList"
+        >
+          Mensajes
+        </a>
+      </div>
     </div>
-
-    <div class="list-group list-contacts" v-bind:style="collapselist">
-      <h3 id="title-contacts">Contactos</h3>
-      <button
-        type="button"
-        v-for="(contact, index) in contacts"
-        :key="index"
-        class="list-group-item list-group-item-action"
-        @click="toogleChat(contact.email, contact.name)"
-      >
-        {{ contact.name }}
-      </button>
+    <div class="row">
+      <div class="col-12 col-md-6 offset-md-3 text-center mt-2 mb-2">
+        <div class="list-group list-contacts bg-dark text-white pt-2 pb-1 pl-1 pr-1" v-bind:style="collapselist">
+          <h3 id="title-contacts">Conversaciones disponibles</h3>
+          <button
+            type="button"
+            v-for="(contact, index) in contacts"
+            :key="index"
+            class="list-group-item list-group-item-action"
+            @click="toogleChat(contact.email, contact.name)"
+          >
+            {{ contact.name }}
+          </button>
+        </div>
+      </div>
     </div>
-
     <Chat
       :collapse1="collapse1"
       :conversation="conversation4"
@@ -88,9 +95,11 @@ export default {
         let pas;
         pas = this.user.userMail + contacts[i].email;
 
-        db.collection("Chat").doc(pas).set({
-          mensajes: [],
-        });
+        db.collection("Chat")
+          .doc(pas)
+          .set({
+            mensajes: [],
+          });
       }
     },
     toogleChat(contact, name) {
@@ -115,7 +124,7 @@ export default {
 
       db.collection("Chat")
         .doc(pas)
-        .onSnapshot(function (doc) {
+        .onSnapshot(function(doc) {
           self.conversation4 = doc.data().mensajes;
         });
     },
@@ -133,8 +142,8 @@ export default {
       db.collection("driverRoute")
         .where("routeActive", "==", true)
         .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
 
             self.driverMail = doc.data().dataDriver.driverMail;
@@ -151,6 +160,7 @@ export default {
                 }
                 self.createChats(self.contacts);
               }
+              console.log(self.contacts);
             } else {
               for (let i = 65; i < 69; i++) {
                 let passenger = doc.data().passengers[String.fromCharCode(i)];
@@ -165,32 +175,10 @@ export default {
             }
           });
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log("Error getting documents: ", error);
         });
     },
   },
 };
 </script>
-
-<style>
-#title-contacts {
-  background-color: #1455d9;
-  color: white;
-  margin: 0;
-}
-.list-contacts {
-  width: 200px;
-  position: fixed;
-  margin-top: 42px;
-  right: 5px;
-}
-.boton-abrir {
-  background-color: #1455d9 !important;
-  color: white !important;
-  margin-top: 5px;
-  right: 5px !important;
-  position: fixed;
-  padding: 5px;
-}
-</style>

@@ -47,7 +47,7 @@
     <div class="container-fluid text-dark mt-0 mb-5">
       <div class="row">
         <div
-          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 pt-5 mt-0 mt-lg-5 pb-5 mb-0 mb-md-0"
+          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 pt-5 mt-0 mt-lg-0 pb-5 mb-0 mb-md-0"
         >
           <div class="text mt-0 mt-lg-5">
             <div class="text-center">
@@ -65,7 +65,7 @@
           <button type="button" class="btn btn-dark btn-block btn-lg mt-5" @click="goToSignUp">Registrate</button>
         </div>
         <div
-          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 mt-0 mt-lg-5 mb-5 mb-xl-0"
+          class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 offset-md-3 offset-lg-1 mt-0 mt-lg-0 mb-5 mb-xl-4 "
         >
           <div class="login-card card">
             <div class="card-body text-dark border-light rounded shadow">

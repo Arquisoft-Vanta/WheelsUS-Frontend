@@ -221,32 +221,3 @@ export default {
   },
 };
 </script>
-
-<style>
-#Banner {
-  background-color: #1455d9;
-  margin-bottom: 0% !important;
-}
-.header-button:focus {
-  background-color: white !important;
-  color: #043a63 !important;
-}
-.header-button:active {
-  background-color: white !important;
-  color: #043a63 !important;
-}
-.header-pos {
-  height: 60px;
-}
-#Titulo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#Titulo img {
-  margin-right: 5%;
-}
-h5 {
-  margin-left: 5%;
-}
-</style>

@@ -5,7 +5,8 @@
         <div id="footer" class="container-fluid pt-3 pb-2">
           <div id="bottom-footer" class="row text-center">
             <div class="col-6">
-              <p class="text-center">© 2020 - Todos los derechos reservados.</p>
+              <p class="text-center d-none d-sm-block">© 2020 - Todos los derechos reservados.</p>
+              <p class="text-center d-block d-sm-none">© 2020</p>
             </div>
             <div class="col-6">
               <a href="#" class="text-right"
