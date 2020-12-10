@@ -104,7 +104,7 @@ export default {
   data() {
     return {
       route: {
-        value:"",
+        value: "",
         origin: {
           address: "",
           lat: 0,
@@ -146,7 +146,6 @@ export default {
         }
       );
       EventBus.$on("point", (point) => {
-        console.log(point);
         try {
           this.$refs[this.typeInput].value = point.favAddress;
           this.route[this.typeInput].address = point.favAddress;
@@ -197,17 +196,27 @@ export default {
         });
     },
     saveRoute() {
-      const db = firebase.firestore();
-      this.route.selected = false;
-      this.route.servicePerformed = false;
-      db.collection("passengerRoutes").doc().set(this.route);
-      this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
-        title: "Ruta Almacenada",
-        autoHideDelay: 2000,
-        appendToast: true,
-        variant: "success",
-        solid: true,
-      });
+      if (this.route.time === "" || this.route.date === ""||this.route.origin.address === "" || this.route.destination.address === "")  {
+        this.$bvToast.toast("Revisa los campos por llenar!", {
+          title: "Error",
+          autoHideDelay: 2000,
+          appendToast: true,
+          variant: "danger",
+          solid: true,
+        });
+      } else {
+        const db = firebase.firestore();
+        this.route.selected = false;
+        this.route.servicePerformed = false;
+        db.collection("passengerRoutes").doc().set(this.route);
+        this.$bvToast.toast("¡Ruta Almacenada Correctamente!", {
+          title: "Ruta Almacenada",
+          autoHideDelay: 2000,
+          appendToast: true,
+          variant: "success",
+          solid: true,
+        });
+      }
     },
   },
 };

@@ -391,7 +391,6 @@ export default {
       }
     });
     EventBus.$on("point", (point) => {
-      console.log(point);
       try {
         this.$refs[this.typeInput].value = point.favAddress;
         this.route[this.typeInput].address = point.favAddress;
@@ -407,7 +406,6 @@ export default {
        *por parte del conductor en el componente "Route List" y se guardan
        *en el objeto "route" para posteriormente enviar a Firebase
        */
-      console.log(routesReceived);
       let letterchar = 65;
       routesReceived.forEach(({ origin, destination, id, dataPassenger }) => {
         let repeatDirectionOrigin = 0;
@@ -608,7 +606,6 @@ export default {
     },
     changeStateofPassenger(id, idRoute ) {
 
-      console.log(this.route.value);
       const db = firebase.firestore();
       const a = db.collection("passengerRoutes").doc(id);
       a.update({
@@ -629,7 +626,6 @@ export default {
       this.routeDefinitive.push(this.route.originDriver);
       this.routeDefinitive.push(this.route.destinationDriver);
       this.routeDefinitive.push(this.orderedRoutesOfPassengers);
-      console.log(this.routeDefinitive);
       EventBus.$emit("possibleRoute-data", this.routeDefinitive);
     },
   },

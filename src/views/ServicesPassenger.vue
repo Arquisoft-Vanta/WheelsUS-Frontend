@@ -404,14 +404,12 @@ export default {
               let stops = doc.data().orderRoute.stops;
               this.routeComplete[0] = doc.data().orderRoute.ori;
               this.routeComplete[1] = doc.data().orderRoute.des;
-              console.log(stops);
               for (let i = 65; i < 73; i++) {
                 if (stops[String.fromCharCode(i)] != undefined) {
                   aux.push(stops[String.fromCharCode(i)]);
                 }
               }
               this.routeComplete[2] = aux;
-              console.log(this.routeComplete);
               EventBus.$emit("possibleRoute-data", this.routeComplete);
             }
           });

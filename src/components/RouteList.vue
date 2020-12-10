@@ -301,7 +301,6 @@ export default {
     },
     sortRouteByHour(e) {
       this.hourfilter = e.target.value;
-      console.log(this.datefilter);
       const db = firebase.firestore();
       db.collection("passengerRoutes")
         .where("date", "==", this.datefilter)
@@ -327,7 +326,6 @@ export default {
      * Esta función, envia la lista de pasajeros a llevar al componente "Create Service"
      */
     sendPassengerItemPressed() {
-      console.log(this.routesSelected);
       EventBus.$emit("choosePassengerRoutes-data", this.routesSelected);
       this.toast(
         "Los pasajeros han sido confirmados, por favor, dirígete a seleccionar tu vehículo.",

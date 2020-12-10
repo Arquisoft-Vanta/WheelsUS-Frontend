@@ -146,7 +146,6 @@ export default {
           this.$router.push("home");
           UserSC.getUser((data) => {
             this.$store.commit("updateUser", data);
-            console.log(data);
           });
         },
         (text) => {

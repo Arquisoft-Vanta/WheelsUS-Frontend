@@ -170,7 +170,6 @@ export default {
         grade: rate.grade,
         rideId: rate.rideId,
       };
-      console.log(rating);
       RateSC.createRate(rating, () => {
         this.$bvToast.toast(
           "Se ha calificado correctamente el usuario " + rate.name,

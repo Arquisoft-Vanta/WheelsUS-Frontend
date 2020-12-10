@@ -72,25 +72,10 @@ export default {
         this.collapse1.display = "block";
       }
 
-      //const db = firebase.firestore();
-
-      //var self = this;
-
-      /*db.collection("Chat")
-        .doc("LA")
-        .onSnapshot(function (doc) {
-          //console.log("Current data: ", doc.data().mensajes[1].sender);
-          self.conversation = doc.data().mensajes;
-          console.log("Current data: ", self.conversation);
-        });*/
-
-      // Atomically add a new region to the "regions" array field.
-    },
+      },
     sendMsg() {
       const db = firebase.firestore();
       var washingtonRef = db.collection("Chat").doc(this.idDoc);
-      console.log(this.userMail);
-
       if(this.textMsg){
        
         this.conversation.push({ sender: this.userMail, msg: this.textMsg });

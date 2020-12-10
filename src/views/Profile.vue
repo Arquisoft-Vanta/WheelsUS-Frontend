@@ -4,25 +4,22 @@
     <div>
       <div class="container-fluid mb-5">
         <div class="row">
-          <div
-            class="col-md-12 col-lg-3 offset-lg-1 mt-5 mb-5"
-          >
+          <div class="col-md-12 col-lg-3 offset-lg-1 mt-5 mb-5">
             <div class="card pt-3">
               <img
-                src= ""
+                src=""
                 class="img-thumbnail align-self-center h-25"
                 alt=" Imagen de perfil"
                 id="profilePic"
               />
               <div class="card-body">
-                <h5 class="card-title pt-3">{{user.userName}}</h5>
+                <h5 class="card-title pt-3">{{ user.userName }}</h5>
                 <div class="custom-file">
                   <input
                     type="file"
                     class="custom-file-input outline-dark"
-                    @change="onPicSelected" 
+                    @change="onPicSelected"
                     id="picPicker"
-                    
                   />
                   <label class="custom-file-label" id="pickerLabel"
                     >Elige tu Foto</label
@@ -58,9 +55,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="col-md-12 col-lg-7 mt-lg-5 mt-0 mb-5"
-          >
+          <div class="col-md-12 col-lg-7 mt-lg-5 mt-0 mb-5">
             <div class="card card-body mb-5">
               <form>
                 <h4 class="mb-3">Tu información</h4>
@@ -121,7 +116,7 @@
                       placeholder="N° de teléfono"
                       readonly
                     />
-                    </div>
+                  </div>
                 </div>
                 <div class="form-row">
                   <div class="col-md-6 mb-3">
@@ -137,16 +132,14 @@
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="validationDefault04">Universidad</label>
-                    <select
-                      class="form-control form-control-sm"
-                      id="inlineFormCustomSelect"
-                      disabled
-                      v-model="user.universityId"
-                    >
-                      <option value="1" selected>
-                        Universidad Nacional de Colombia
-                      </option>
-                    </select>
+                    <input
+                      v-model="this.universityId2"
+                      type="text"
+                      class="form-control form-control-sm text-center"
+                      id="validationDefault09"
+                      placeholder="Universidad"
+                      readonly
+                    />
                   </div>
                 </div>
                 <div class="form-row">
@@ -278,6 +271,7 @@ export default {
     return {
       Foto: Foto,
       selectedPic: null,
+      universityId2: "",
       user: {
         userName: "",
         userDoc: "",
@@ -379,13 +373,6 @@ export default {
       document.getElementById(
         "validationDefault06"
       ).readOnly = this.estadoInput;
-      document.getElementById(
-        "validationDefault07"
-      ).disabled = this.estadoInput;
-
-      this.estadoInput
-        ? (this.textoBotonEditar = "Editar")
-        : (this.textoBotonEditar = "Guardar");
     },
     createUserDB() {
       UserSC.createUser(this.user, (response) => {
@@ -398,10 +385,10 @@ export default {
           this.$store.commit("updateUser", data);
         }
         this.user = data;
-
+        if (this.user.universityId == 0) {
+          this.universityId2 = "Universidad Nacional de Colombia";
+        }
         document.getElementById("profilePic").src = this.user.picture;
-
-        console.log("lol", data);
       });
     },
     updateUser() {
@@ -436,7 +423,6 @@ export default {
       this.newFavoritePoint.datetimeCreationFav = this.getFormattedDate();
       FavoriteServiceClient.addDirection(this.newFavoritePoint, (response) => {
         if (response === 201) {
-          console.log("OK");
           this.$bvToast.toast("¡Dirección Favorita Almacenada Correctamente!", {
             title: "Dirección Almacenada",
             autoHideDelay: 5000,
@@ -446,12 +432,12 @@ export default {
           });
         } else {
           this.$bvToast.toast("¡Por favor verifique los datos ingresados!", {
-              title: "Datos invalidos",
-              autoHideDelay: 5000,
-              appendToast: true,
-              variant: "danger",
-              solid: true,
-            });
+            title: "Datos invalidos",
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "danger",
+            solid: true,
+          });
         }
       });
     },
@@ -464,7 +450,7 @@ export default {
   width: 266px;
   height: 266px;
 }
-#pickerLabel{
+#pickerLabel {
   text-align: left;
 }
 </style>

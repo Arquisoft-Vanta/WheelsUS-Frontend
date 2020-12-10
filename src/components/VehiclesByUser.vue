@@ -120,11 +120,13 @@ export default {
     showVehicles() {
       let x = document.getElementById("modalAlert");
       VehicleServiceClient.getVehicles((response) => {
-        this.listVehicles = response;
-        if (this.listVehicles.length == 0) {
-          x.style.display = "block";
+        if (response.data !== "") {
+          this.listVehicles.push(response.data);
+            x.style.display = "none";
+        }else{
+            x.style.display = "block";
+
         }
-        console.log(this.listVehicles.length);
       });
     },
     chooseSelection(vehicle) {

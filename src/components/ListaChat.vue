@@ -13,7 +13,7 @@
         v-for="(contact, index) in contacts"
         :key="index"
         class="list-group-item list-group-item-action"
-        @click="toogleChat(contact.email,contact.name)"
+        @click="toogleChat(contact.email, contact.name)"
       >
         {{ contact.name }}
       </button>
@@ -77,11 +77,7 @@ export default {
     getUserDB() {
       UserSC.getUser((data) => {
         this.user = data;
-        console.log("ya tengo el usuario");
-        console.log(this.user.userMail);
         this.isDriver();
-
-        
       });
     },
     createChats(contacts) {
@@ -91,14 +87,13 @@ export default {
       for (i = 0; i < contacts.length; i++) {
         let pas;
         pas = this.user.userMail + contacts[i].email;
-        console.log(pas);
 
         db.collection("Chat").doc(pas).set({
           mensajes: [],
         });
       }
     },
-    toogleChat(contact,name) {
+    toogleChat(contact, name) {
       const db = firebase.firestore();
 
       if (this.collapse1.display == "block") {
@@ -115,13 +110,6 @@ export default {
       }
 
       this.idDoc = pas;
-      /*
-      console.log(pas)
-      db.collection("Chat").doc(pas).set({
-        mensajes: []
-        
-      });*/
-      console.log("id DOC" + pas);
 
       var self = this;
 
@@ -132,18 +120,11 @@ export default {
         });
     },
     toogleList() {
-      
-
       if (this.collapselist.display == "block") {
         this.collapselist.display = "none";
       } else if (this.collapse1.display == "none") {
         this.collapselist.display = "block";
       }
-      console.log(this.contacts);
-
-      //console.log("Este es el mail" +this.user.userMail)
-
-      //console.log("Es conductor " + self.driver)
     },
     isDriver() {
       const db = firebase.firestore();
@@ -155,7 +136,6 @@ export default {
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.data().dataDriver.driverMail);
 
             self.driverMail = doc.data().dataDriver.driverMail;
 
@@ -165,29 +145,24 @@ export default {
                 let passenger = doc.data().passengers[String.fromCharCode(i)];
                 if (passenger.name !== "") {
                   self.contacts.push({
-                    
                     name: passenger.name,
                     email: passenger.email,
                   });
                 }
                 self.createChats(self.contacts);
               }
-              console.log(self.contacts);
-            }else{
+            } else {
               for (let i = 65; i < 69; i++) {
                 let passenger = doc.data().passengers[String.fromCharCode(i)];
                 if (passenger.email == self.user.userMail) {
                   self.contacts.push({
-                    
                     name: doc.data().dataDriver.driverName,
                     email: doc.data().dataDriver.driverMail,
                   });
                 }
                 self.createChats(self.contacts);
               }
-
             }
-            console.log("Es conductor " + self.driver);
           });
         })
         .catch(function (error) {
