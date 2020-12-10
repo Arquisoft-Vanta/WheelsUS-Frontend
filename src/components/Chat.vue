@@ -9,13 +9,13 @@
               class="chatbody z-index-3 col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8"
             >
               <button
-                class=" col-12 btn btn-dark border border-light text-white"
+                class=" col-12 btn btn-dark border border-light text-white shadow"
                 @click="toogleChat()"
               >
                 {{ userName }}
               </button>
 
-              <div class="card card-body messages-body border border-dark">
+              <div class="card card-body messages-body border border-dark shadow">
                 <Burbuja
                   v-for="(message, index) in conversation"
                   :key="index"
@@ -27,7 +27,7 @@
               <div class="input-group">
                 <input
                   type="text"
-                  class="form-control border border-dark"
+                  class="form-control border border-dark shadow"
                   id="message"
                   placeholder="Escriba su mensaje"
                   aria-label="Escriba su mensaje"

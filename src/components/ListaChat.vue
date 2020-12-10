@@ -3,7 +3,7 @@
     <div class="row  justify-content-end">
       <div class="col-6 col-md-2 text-center text-white">
         <a
-          class="btn btn-dark btn-block mt-1 pt-1 pl-1 pb-1 pr-1 border border-light"
+          class="btn btn-dark btn-block mt-1 pt-1 pl-1 pb-1 pr-1 border border-light shadow"
           @click="toogleList"
         >
           Mensajes
@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-12 col-md-6 offset-md-3 text-center mt-2 mb-2">
         <div
-          class="list-group list-contacts bg-dark text-white pt-2 pb-1 pl-1 pr-1 border border-light"
+          class="list-group list-contacts bg-dark text-white pt-2 pb-1 pl-1 pr-1 border border-light shadow-sm"
           v-bind:style="collapselist"
         >
           <h3 id="title-contacts" type="button" @click="toogleList">
