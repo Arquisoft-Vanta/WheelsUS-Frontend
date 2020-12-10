@@ -586,7 +586,7 @@ export default {
               });
             });
 
-          this.$bvToast.toast("Ruta Creada Correctamente!", {
+          this.$bvToast.toast("¡Ruta Creada Correctamente!", {
             title: "Ruta Creada",
             autoHideDelay: 5000,
             appendToast: true,

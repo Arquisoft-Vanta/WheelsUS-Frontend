@@ -343,7 +343,7 @@ export default {
         }
       }
       db.collection("driverRoute").doc(route.id).delete();
-      this.$bvToast.toast("Ruta Cancelada Correctamente!", {
+      this.$bvToast.toast("¡Ruta Cancelada Correctamente!", {
         title: "Ruta Cancelada",
         autoHideDelay: 5000,
         appendToast: true,
@@ -362,7 +362,7 @@ export default {
         }
       }
       const a = db.collection("driverRoute").doc(route.id);
-      this.$bvToast.toast("Ruta Realizada Correctamente!", {
+      this.$bvToast.toast("¡Ruta Realizada Correctamente!", {
         title: "Servicio Realizado",
         autoHideDelay: 5000,
         appendToast: true,
