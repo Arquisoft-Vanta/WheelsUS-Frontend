@@ -3,7 +3,7 @@
     <div class="row  justify-content-end">
       <div class="col-6 col-md-2 text-center text-white">
         <a
-          class="btn btn-dark btn-block mt-1 pt-1 pl-1 pb-1 pr-1"
+          class="btn btn-dark btn-block mt-1 pt-1 pl-1 pb-1 pr-1 border border-light"
           @click="toogleList"
         >
           Mensajes
@@ -12,13 +12,18 @@
     </div>
     <div class="row">
       <div class="col-12 col-md-6 offset-md-3 text-center mt-2 mb-2">
-        <div class="list-group list-contacts bg-dark text-white pt-2 pb-1 pl-1 pr-1" v-bind:style="collapselist">
-          <h3 id="title-contacts">Conversaciones disponibles</h3>
+        <div
+          class="list-group list-contacts bg-dark text-white pt-2 pb-1 pl-1 pr-1 border border-light"
+          v-bind:style="collapselist"
+        >
+          <h3 id="title-contacts" type="button" @click="toogleList">
+            Conversaciones disponibles
+          </h3>
           <button
             type="button"
             v-for="(contact, index) in contacts"
             :key="index"
-            class="list-group-item list-group-item-action"
+            class="list-group-item list-group-item-action font-weight-bold"
             @click="toogleChat(contact.email, contact.name)"
           >
             {{ contact.name }}

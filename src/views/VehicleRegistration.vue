@@ -1,45 +1,44 @@
 <template>
   <div>
     <Header></Header>
-
     <div>
-      <div class="modal" id="myModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">{{ modalaviso }}</h5>
-              <button
-                id="w-change-close"
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-footer">
-              <button
-                id="w-change-close1"
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
+      <div class="container-fluid mb-5">
+        <div class="modal" id="myModal" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">{{ modalaviso }}</h5>
+                <button
+                  id="w-change-close"
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-footer">
+                <button
+                  id="w-change-close1"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="container">
         <div class="row">
-          <div class="col col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 mt-5">
+          <div class="col-md-12 offset-md-0 col-lg-7 offset-lg-1 mt-4 mb-5">
             <div class="datosvehiculo card">
               <div class="card-body">
                 <form class="needs-validation" novalidate>
                   <div class="form-row">
-                    <div class="col-md-3 mb-3">
-                      <p for="validationDefaultplaca" class="text-left">
+                    <div class="col-md-3 mb-0">
+                      <p for="validationDefaultplaca" class="text-center">
                         Matricula
                       </p>
                       <input
@@ -63,7 +62,7 @@
                     <div class="col-md-3 mb-3">
                       <p for="validationDefault01">No de pasajeros</p>
                       <select
-                        class="custom-select"
+                        class="form-control custom-select"
                         style="background: #f1f1f1; border: 0"
                         required
                       >
@@ -113,7 +112,7 @@
                       />
                     </div>
                     <div class="col-md-3 mb-3">
-                      <p for="validationDefaultfecha">Fecha Vencimiento SOAT</p>
+                      <p for="validationDefaultfecha">F. Vencimiento SOAT</p>
                       <input
                         type="date"
                         class="form-control form-control-sm"
@@ -123,7 +122,10 @@
                       />
                     </div>
                     <div class="col-md-3 mb-3">
-                      <p for="validationDefaultclasevehiculo" class="text-left">
+                      <p
+                        for="validationDefaultclasevehiculo"
+                        class="text-center"
+                      >
                         Tipo de Vehículo
                       </p>
                       <input
@@ -183,33 +185,30 @@
                     <div class="col-12 mb-3">
                       <textarea
                         v-model="DatosRunt"
-                        class="form-control"
+                        class="form-control text-center"
                         id="validationTextarea"
                         placeholder="Por favor, copie la información proporcionada por el RUNT"
                         required
                       ></textarea>
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-12">
                       <p for="validationDefault01"></p>
                       <a
                         href="https://www.runt.com.co/consultaCiudadana/#/consultaVehiculo"
                         target="_blank"
                         type="button"
-                        class="btn btn-outline-dark btn-block text-center"
-                        style="margin: 2% 0 1% 0"
+                        class="btn btn-dark btn-block text-center mb-2"
                         rel="noopener noreferrer"
                       >
                         Ingresar a RUNT
                       </a>
                     </div>
-
-                    <div class="col-12 mb-3" style="margin: -2% 0 0 0">
+                    <div class="col-12">
                       <a
                         @click="datosRUNT"
                         target="_blank"
                         type="button"
-                        class="btn btn-outline-dark btn-block text-center"
-                        style="margin: 0 0 -3% 0"
+                        class="btn btn-dark btn-block text-center text-white"
                       >
                         Validar información de RUNT
                       </a>
@@ -219,32 +218,29 @@
               </div>
             </div>
           </div>
-          <div class="col1 col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mt-5">
+          <div class="col-md-12 col-lg-3 mt-4 mb-5">
             <img
               src=""
               alt="Foto del vehículo"
-              class="img-thumbnail"
-              style="margin: 0 0 3% 0; width: 220px; height: 150px"
+              class="img-thumbnail mb-2"
+              style="width: 220px; height: 150px"
               id="vhcPicture"
             />
-            <div class="card" style="margin: 0 0 20% 0">
+            <div class="card">
               <div class="container">
                 <div>
                   <form>
-                    <div class="custom-file">
+                    <div class="custom-file mt-2 mb-2">
                       <input
                         type="file"
-                        class="custom-file-input outline-dark"
+                        class="custom-file-input"
                         id="vhcPicPicker"
-                        style="margin: 9.3% 0 15% 0"
                         @change="onVhcPicSelected"
                       />
                       <label
                         class="custom-file-label"
                         id="vhcPickerLabel"
                         style="
-                          margin: 0% 0 15% 0;
-                          border-color: #06416d;
                           color: #06416d;
                           text-align: left;
                         "
@@ -257,8 +253,7 @@
                   <a
                     @click="habilitarCampos"
                     type="button"
-                    class="btn btn-outline-dark btn-block"
-                    style="margin: -2% 0 2% 0"
+                    class="btn btn-dark btn-block text-white mb-2"
                   >
                     Editar Datos Vehículo
                   </a>
@@ -266,8 +261,7 @@
                 <a
                   @click="guardarVehiculo"
                   type="button"
-                  class="btn btn-outline-dark btn-block"
-                  style="margin: 0 0 2% 0"
+                  class="btn btn-dark btn-block text-white"
                   id="w-change-location"
                   data-toggle="modal"
                   data-target="#locModal"
@@ -277,13 +271,12 @@
                 <div>
                   <button
                     type="button"
-                    class="btn btn-outline"
+                    class="btn btn-light"
                     data-toggle="modal"
                     data-target="#exampleModal"
                     data-display="static"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    style="margin: 0 0 3% 0"
                   >
                     <img
                       class="person"
@@ -349,7 +342,6 @@
         </div>
       </div>
     </div>
-
     <FooterwithBackground></FooterwithBackground>
   </div>
 </template>
@@ -366,7 +358,7 @@ export default {
     FooterwithBackground,
     Header,
   },
-  data: function () {
+  data: function() {
     return {
       showModal: false,
       Foto: Foto,
@@ -487,7 +479,7 @@ export default {
         var archivo = this.selectedVhcPic[0];
         var reader = new FileReader();
         var self = this;
-        reader.onloadend = function (FileLoadEvent) {
+        reader.onloadend = function(FileLoadEvent) {
           var srcData = FileLoadEvent.target.result;
 
           self.vehicle.vehiclePicture = FileLoadEvent.target.result;
@@ -527,30 +519,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.datosvehiculo {
-  opacity: 0.9;
-  margin: 0 0 10% 0;
-}
-p {
-  font-size: 90%;
-  margin: 0 0 0 0;
-  text-align: left;
-}
-.form-control {
-  background: #f1f1f1;
-  border: 0;
-}
-
-.textoayuda {
-  text-align: left;
-  font-size: 95%;
-}
-.custom-select {
-  height: 60%;
-}
-.custom-file {
-  margin: 5% 0 0 0;
-}
-</style>
