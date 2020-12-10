@@ -5,15 +5,17 @@
       <div class="row">
         <div class="col-12">
           <div v-bind:style="collapse1" id="collapseChat">
-            <div class="chatbody z-index-3 col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8">
+            <div
+              class="chatbody z-index-3 col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8"
+            >
               <button
-                class=" col-12 btn btn-dark text-white"
+                class=" col-12 btn btn-dark border border-light text-white"
                 @click="toogleChat()"
               >
                 {{ userName }}
               </button>
 
-              <div class="card card-body messages-body ">
+              <div class="card card-body messages-body border border-dark">
                 <Burbuja
                   v-for="(message, index) in conversation"
                   :key="index"
@@ -25,7 +27,7 @@
               <div class="input-group">
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control border border-dark"
                   id="message"
                   placeholder="Escriba su mensaje"
                   aria-label="Escriba su mensaje"
@@ -74,13 +76,13 @@ export default {
   },
 
   mounted() {
-			var input = document.getElementById("message");
-			input.addEventListener("keyup", function(event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-				document.getElementById("button-addon2").click();
-			}
-			});
+    var input = document.getElementById("message");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("button-addon2").click();
+      }
+    });
   },
 
   methods: {
@@ -90,13 +92,11 @@ export default {
       } else if (this.collapse1.display == "none") {
         this.collapse1.display = "block";
       }
-
-      },
+    },
     sendMsg() {
       const db = firebase.firestore();
       var washingtonRef = db.collection("Chat").doc(this.idDoc);
-      if(this.textMsg){
-       
+      if (this.textMsg) {
         this.conversation.push({ sender: this.userMail, msg: this.textMsg });
 
         washingtonRef.update({
