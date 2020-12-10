@@ -26,7 +26,7 @@
                   >
                 </div>
                 <a
-                  class="btn btn-outline-dark btn-block"
+                  class="btn btn-dark btn-block text-white"
                   type="button"
                   id="uploadBtn"
                   style="margin-top: 9px"
@@ -147,7 +147,7 @@
                     <a
                       v-on:click="editInputData"
                       type="button"
-                      class="btn btn-dark btn-block text-white"
+                      class="btn btn-secondary btn-block text-white"
                     >
                       Editar
                     </a>
@@ -155,7 +155,7 @@
                   <div class="col-6 mt-3 mb-3">
                     <a
                       type="button"
-                      class="btn btn-primary btn-block text-white"
+                      class="btn btn-dark btn-block text-white"
                       @click="updateUser"
                     >
                       Guardar
@@ -224,14 +224,14 @@
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-danger"
                   data-dismiss="modal"
                 >
                   Cerrar
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-dark"
+                  class="btn btn-dark"
                   data-dismiss="modal"
                   @click="saveDirection"
                 >
