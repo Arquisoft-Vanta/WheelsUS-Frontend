@@ -71,7 +71,20 @@
               />
             </button>
             <div class="dropdown-menu dropdown-menu-lg-left">
-              <h5>Notificaciones</h5>
+              <div class="row">
+                <div class="col-8">
+                  <h5 style="margin-top: 4%">Notificaciones</h5>
+                </div>
+                <div class="col-4">
+                  <a @click="deleteNotifications"
+                    ><img
+                      src="~@/assets/trash.png"
+                      width="30"
+                      height="30"
+                      alt="Borrar Notificaciones"
+                  /></a>
+                </div>
+              </div>
               <div class="header-button dropdown-divider"></div>
               <div v-for="(notification, index) in notifications" :key="index">
                 <button
@@ -209,6 +222,9 @@ export default {
     },
     goToNotification(value) {
       this.$router.push(value);
+    },
+    deleteNotifications() {
+      NotificationSC.deleteNotification();
     },
   },
   computed: {

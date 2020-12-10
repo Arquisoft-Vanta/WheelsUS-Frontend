@@ -44,9 +44,13 @@ function updateNotification(user, callback) {
     });
 }
 
-function deleteNotification(id, callback) {
+function deleteNotification() {
   axios
-    .delete(`${route}${id}`)
+    .delete(route, {
+      params: {
+        access_token: localStorage.getItem("token"),
+      },
+    })
     .then((response) => {
       callback(response.status);
     })
