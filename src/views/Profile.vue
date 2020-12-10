@@ -289,7 +289,7 @@ export default {
         registryDatetime: "",
         picture: "",
         vehicleModel: [],
-        rh: "",
+        rh: "", 
       },
       newFavoritePoint: {
         favAddress: "",
@@ -406,13 +406,12 @@ export default {
     },
     updateUser() {
       //this.user.picture = "HolaSuCadena"
-      console.log(this.user);
       UserSC.updateUser(this.user, () => {});
       this.$store.commit("updateUser", this.user);
       NotificationSC.createNotification(
         {data:"Usuario Modificado",
         destination: "profile",
-        mailUser: "cdpinedao@unal.edu.co"},(response) => {}
+        mailUser: this.user.userMail},(response) => {}
       )
     },
     onPicSelected(event) {

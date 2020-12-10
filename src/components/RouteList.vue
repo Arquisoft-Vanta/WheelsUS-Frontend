@@ -330,7 +330,7 @@ export default {
       console.log(this.routesSelected);
       EventBus.$emit("choosePassengerRoutes-data", this.routesSelected);
       this.toast(
-        "Los pasajeros han sido confirmados, por favor, dirígete a ordenar la ruta.",
+        "Los pasajeros han sido confirmados, por favor, dirígete a seleccionar tu vehículo.",
         "Pasajeros Seleccionados",
         "success"
       );

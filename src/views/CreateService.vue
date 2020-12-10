@@ -244,6 +244,7 @@ import firebase from "firebase";
 import Draggable from "vuedraggable";
 import Directions from "../components/WatchCurrentDirections";
 import VehiclesByUser from "../components/VehiclesByUser";
+import NotificationSC from "../serviceClients/NotificationServiceClient";
 import UserSC from "../serviceClients/UserServiceClient";
 
 export default {
@@ -576,6 +577,13 @@ export default {
                       this.route.passengers[String.fromCharCode(i)].id,
                       idRoute);//, this.route.value);
                   }
+
+                  NotificationSC.createNotification(
+                    {data:"¡Haz sido seleccionado para un viaje!",
+                    destination: "nomination-services",
+                    mailUser: this.route.passengers[String.fromCharCode(i)].email},(response) => {}
+                  )
+
                 }
               });
             });
