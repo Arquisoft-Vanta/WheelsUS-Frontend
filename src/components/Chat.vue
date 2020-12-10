@@ -72,6 +72,17 @@ export default {
       nuevo: "nuevo",
     };
   },
+
+  mounted() {
+			var input = document.getElementById("message");
+			input.addEventListener("keyup", function(event) {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+				document.getElementById("button-addon2").click();
+			}
+			});
+  },
+
   methods: {
     toogleChat() {
       if (this.collapse1.display == "block") {
