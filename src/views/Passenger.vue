@@ -14,43 +14,59 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mt-4 mb-5">
           <div
-            class="card border shadow mt-2 mb-2 bg-white rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5"
+            class="card bg-dark text-white border shadow rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
+            type="button"
+            @click="goToHistory"
           >
+            <img
+              class="card-img-top"
+              src="~@/assets/historial.jpg"
+              alt="Card image cap"
+            />
             <div class="card-body">
-              <h1 class="card-title pt-3">Historial de servicios</h1>
-              <p class="card-text font-weight-normal pt-2">
-                En esta sección podrás ver tu historial de
-                <strong>servicios realizados</strong> como
-                <strong>pasajero</strong>.
+              <h4 class="card-title d-none d-md-block mb-0">
+                Historial de servicios
+              </h4>
+              <h5 class="card-title d-block d-md-none mb-0">
+                Historial de servicios
+              </h5>
+              <p class="card-text d-none d-md-block mb-0">
+                <small>
+                  Mira tu historial de
+                  <strong>servicios realizados</strong> como
+                  <strong>pasajero</strong>.</small
+                >
               </p>
-              <a
-                href=""
-                class="btn btn-dark btn-block btn-lg mt-4"
-                @click="goToHistory"
-                >Entrar</a
-              >
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mt-4 mb-5">
           <div
-            class="card border shadow mt-2 mb-5 bg-white rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5"
+            class="card bg-dark text-white border shadow rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
+            type="button"
+            @click="goToPostulation"
           >
+            <img
+              class="card-img-top"
+              src="~@/assets/postularse.jpg"
+              alt="Card image cap"
+            />
             <div class="card-body">
-              <h1 class="card-title pt-3">Postularte a servicio</h1>
-              <p class="card-text font-weight-normal pt-2">
-                En esta sección podrás postularte a un
-                <strong>servicio disponible</strong> como
-                <strong>pasajeros</strong>.
+              <h4 class="card-title d-none d-md-block mb-0">
+                Postularte a servicios
+              </h4>
+              <h5 class="card-title d-block d-md-none mb-0">
+                Postularte a servicios
+              </h5>
+              <p class="card-text d-none d-md-block mb-0">
+                <small>
+                  Postulate a un
+                  <strong>servicio disponible</strong> como
+                  <strong>pasajero</strong>.</small
+                >
               </p>
-              <a
-                href=""
-                class="btn btn-dark btn-block btn-lg mt-4"
-                @click="goToPostulation"
-                >Entrar</a
-              >
             </div>
           </div>
         </div>
