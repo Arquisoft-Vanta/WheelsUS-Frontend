@@ -18,13 +18,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 100px;
 }
 .pac-container {
     background-color: #FFF;
     z-index: 100000 !important;
     position: fixed;
     display: inline-block;
-    float: left;
 }
 </style>

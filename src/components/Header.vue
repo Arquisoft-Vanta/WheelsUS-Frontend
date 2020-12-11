@@ -2,7 +2,12 @@
   <div class="fixed-top header-pos">
     <nav id="Banner" class="navbar navbar-expand-lg">
       <div class="col-auto">
-        <a id="Titulo" class="navbar-brand text-white" href="#">
+        <a
+          id="Titulo"
+          class="navbar-brand text-white"
+          href=""
+          @click="goToHome"
+        >
           <img
             src="~@/assets/logo.png"
             width="40"
@@ -10,6 +15,7 @@
             alt=""
             loading="lazy"
           />
+
           Wheels US
         </a>
       </div>
@@ -27,72 +33,130 @@
       <div class="collapse navbar-collapse flex-grow-1" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
           <li class="nav-item active">
-            <router-link to="about-us" class="nav-link text-white" href="#"
+            <router-link to="about-us" class="nav-link text-white" href=""
               >Acerca de nosotros<span class="sr-only"></span
             ></router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="authenticated">
             <a
-              href="#"
+              href=""
               @click="goToHome"
               class="nav-link menu-item nav-active text-white"
               >Inicio</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="authenticated">
             <a href="#" class="nav-link menu-item text-white"
-              >Hola {{ nombre }}
+              >Hola {{ user.userName }}
             </a>
           </li>
         </ul>
-        <div class="btn-group dropleft my-2 my-lg-0">
-          <button
-            type="button"
-            class="btn btn-light"
-            data-toggle="dropdown"
-            data-display="static"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <img
-              class="person"
-              src="~@/assets/person.png"
-              width="30"
-              height="30"
-              alt="persona"
-            />
-          </button>
-          <div class="dropdown-menu dropdown-menu-lg-left">
+        <div v-if="authenticated">
+          <div class="btn-group dropleft my-2 my-lg-0">
             <button
-              class="header-button dropdown-item"
-              @click="goToProfile"
               type="button"
+              class="btn btn-light"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              @click="getNotifications"
+              aria-expanded="false"
             >
-              Mi perfil
+              <img
+                class="notifications"
+                src="~@/assets/bell.png"
+                width="30"
+                height="30"
+                alt="notifications"
+              />
             </button>
-            <button
-              class="header-button dropdown-item"
-              @click="goToVehicleRegistration"
-              type="button"
-            >
-              Registrar vehiculo
-            </button>
-            <div class="header-button dropdown-divider"></div>
-            <button class="dropdown-item" @click="closeSession" type="button">
-              Cerrar Sesión
-            </button>
+            <div class="dropdown-menu dropdown-menu-lg-left">
+              <div class="row">
+                <div class="col-8">
+                  <h5 style="margin-top: 4%">Notificaciones</h5>
+                </div>
+                <div class="col-4">
+                  <a @click="deleteNotifications"
+                    ><img
+                      src="~@/assets/trash.png"
+                      width="30"
+                      height="30"
+                      alt="Borrar Notificaciones"
+                  /></a>
+                </div>
+              </div>
+              <div class="header-button dropdown-divider"></div>
+              <div v-for="(notification, index) in notifications" :key="index">
+                <button
+                  class="dropdown-item"
+                  type="button"
+                  @click="goToNotification(notification.destination)"
+                >
+                  {{ notification.data }}
+                </button>
+              </div>
+            </div>
           </div>
+          <div class="btn-group dropleft my-2 my-lg-0">
+            <button
+              type="button"
+              class="btn btn-light"
+              data-toggle="dropdown"
+              data-display="static"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                class="person"
+                src="~@/assets/person.png"
+                width="30"
+                height="30"
+                alt="persona"
+              />
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg-left">
+              <button
+                class="header-button dropdown-item"
+                @click="goToProfile"
+                type="button"
+              >
+                Mi perfil
+              </button>
+              <button
+                class="header-button dropdown-item"
+                @click="goToVehicleRegistration"
+                type="button"
+              >
+                Registrar vehiculo
+              </button>
+              <div class="header-button dropdown-divider"></div>
+              <button class="dropdown-item" @click="closeSession" type="button">
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <ul class="navbar-nav mr-right">
+            <li class="nav-item">
+              <router-link to="/login" class="nav-link text-white"
+                >Ingresar</router-link
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
-    
-    <ChatList></ChatList>
+    <div v-if="authenticated">
+      <ChatList></ChatList>
+    </div>
   </div>
 </template>
 
 <script>
-
 import ChatList from "../components/ListaChat";
+import UserSC from "../serviceClients/UserServiceClient";
+import NotificationSC from "../serviceClients/NotificationServiceClient";
 
 export default {
   name: "Header",
@@ -100,12 +164,37 @@ export default {
     nombre: String,
   },
   components: {
-    
     ChatList,
   },
   data() {
-    return {};
+    return {
+      notifications: [],
+    };
   },
+  created() {},
+
+  mounted() {
+    if (!this.$store.state.user) {
+      UserSC.getUser((data) => {
+        this.$store.commit("updateUser", data);
+      });
+    }
+
+    this.getNotifications();
+
+    /*const db = firebase.firestore();
+    db.collection("notifications").onSnapshot((snap) => {
+      this.notifications = [];
+      snap.forEach((doc) => {
+        let notification = doc.data();
+        notification.id = doc.id;
+        if (this.user.idUser == notification.idUser) {
+          this.notifications.push(notification);
+        }
+      });
+    });*/
+  },
+
   methods: {
     goToHome() {
       this.$router.push("home");
@@ -126,40 +215,25 @@ export default {
     goToPostService() {
       this.$router.push("post-service");
     },
+    getNotifications() {
+      NotificationSC.getNotification((data) => {
+        this.notifications = data;
+      });
+    },
+    goToNotification(value) {
+      this.$router.push(value);
+    },
+    deleteNotifications() {
+      NotificationSC.deleteNotification();
+    },
+  },
+  computed: {
+    authenticated() {
+      return localStorage.getItem("token");
+    },
+    user() {
+      return this.$store.state.user;
+    },
   },
 };
 </script>
-
-<style>
-#Banner {
-  background-color: #1455d9;
-  margin-bottom: 0% !important;
-}
-.header-button:focus {
-  background-color: white !important;
-  color: #043a63 !important;
-}
-.header-button:active {
-  background-color: white !important;
-  color: #043a63 !important;
-}
-.header-pos {
-  height: 60px;
-}
-.header-button:focus {
-  background-color: white !important;
-  color: #043a63 !important;
-}
-.header-button:active {
-  background-color: white !important;
-  color: #043a63 !important;
-}
-#Titulo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#Titulo img {
-  margin-right: 5%;
-}
-</style>

@@ -1,45 +1,54 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/vehicle/";
-function getVehicles(callback) {
+const environment = require("./../environment.js");
+const route = environment.serverUrl + "/api/vehicle/";
+/*function getVehicles(callback) {
   axios
     .get(route)
-    .then(response => {
+    .then((response) => {
       callback(response.data);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
-}
+}*/
 
-function getVehicle(id, callback) {
+function getVehicles(callback) {
   axios
-    .get(`${route}${id}`)
-    .then(response => {
-      callback(response.data);
+    .get(route + "show-vehicles", {
+      params: {
+        access_token: localStorage.getItem("token")
+      }
     })
-    .catch(function(error) {
-      console.log(error);
-    });
+      .then(response => {
+        callback(response);
+      })
+      .catch(function (error) {
+        console.log(error);      
+      });
 }
 
 function createVehicle(vehicle, callback) {
   axios
     .post(route, vehicle)
-    .then(response => {
+    .then((response) => {
       callback(response.status);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 }
 
 function updateVehicle(vehicle, callback) {
   axios
-    .put(route+"0", vehicle)
+    .put(route + "update-vehicle", vehicle, {
+      params: {
+        access_token: localStorage.getItem("token"),
+      },
+    })
     .then(response => {
       callback(response.status);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 }
@@ -47,18 +56,18 @@ function updateVehicle(vehicle, callback) {
 function deleteVehicle(id, callback) {
   axios
     .delete(`${route}${id}`)
-    .then(response => {
+    .then((response) => {
       callback(response.status);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 }
 
 export default {
   getVehicles,
-  getVehicle,
+  //getVehicle,
   createVehicle,
   updateVehicle,
-  deleteVehicle
+  deleteVehicle,
 };

@@ -1,10 +1,10 @@
 const axios = require("axios");
 const environment = require("./../environment.js");
-const route = environment.serverUrl + "/api/user";
+const route = environment.serverUrl + "/api/notification";
 
-function getUser(callback) {
+function getNotification(callback) {
   axios
-    .get(route + "/profile", {
+    .get(route, {
       params: {
         access_token: localStorage.getItem("token"),
       },
@@ -17,25 +17,10 @@ function getUser(callback) {
     });
 }
 
-function getFastProfile(email, callback){
-  axios
-  .get(route + "/fast-profile", {
-    params: {
-      access_token: localStorage.getItem("token"),
-      userMail: email
-    },
-  })
-  .then((response) => {
-    callback(response.data);
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
-}
 
-function createUser(user, callback) {
+function createNotification(notification, callback) {
   axios
-    .post(route, user)
+    .post(route, notification)
     .then((response) => {
       callback(response.status);
     })
@@ -44,7 +29,7 @@ function createUser(user, callback) {
     });
 }
 
-function updateUser(user, callback) {
+function updateNotification(user, callback) {
   axios
     .put(route + "/profile", user, {
       params: {
@@ -59,9 +44,13 @@ function updateUser(user, callback) {
     });
 }
 
-function deleteUser(id, callback) {
+function deleteNotification() {
   axios
-    .delete(`${route}${id}`)
+    .delete(route, {
+      params: {
+        access_token: localStorage.getItem("token"),
+      },
+    })
     .then((response) => {
       callback(response.status);
     })
@@ -71,9 +60,8 @@ function deleteUser(id, callback) {
 }
 
 export default {
-  getUser,
-  getFastProfile,
-  createUser,
-  updateUser,
-  deleteUser,
+  getNotification,
+  createNotification,
+  updateNotification,
+  deleteNotification,
 };

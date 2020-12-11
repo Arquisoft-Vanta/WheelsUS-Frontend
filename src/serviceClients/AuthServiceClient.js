@@ -1,7 +1,7 @@
 const axios = require("axios");
-const route = "http://localhost:8080/api/user";
-const path = "http://localhost:8080";
-
+const environment = require("./../environment.js");
+const route = environment.serverUrl + "/api/user";
+const path = environment.serverUrl;
 function registerUser(user, callback) {
   axios
     .post(route + "/signup", user)
@@ -38,17 +38,14 @@ function loginUser(user, callback, showtoast) {
     .then((response) => {
       if (response.status !== 200) {
         showtoast("Error en la Autenticación");
-        //alert("Error en la autenticación");
       } else {
         localStorage.setItem("token", response.data.access_token);
-        alert("Usuario Logueado")
         callback();
       }
     })
     .catch((error) => {
       if (error.response.status === 400) {
         showtoast("Datos de Ingreso Invalidos");
-        //alert("Datos invalidos");
       }
     });
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="history container overflow-auto bg-white">
-    <div class="list-group h-100">
+  <div class="container-fluid overflow-auto">
+    <div class="list-group">
       <div class="accordion" id="accordionExample">
         <div
           class="card border shadow-sm mt-2 mb-2 bg-white rounded"
@@ -9,7 +9,7 @@
         >
           <p class="mb-0">
             <button
-              class="btn btn-link btn-block text-left"
+              class="btn btn-dark btn-block btn-sm text-white text-center text-wrap"
               type="button"
               :data-target="`#data${route.id}`"
               aria-expanded="true"
@@ -17,7 +17,7 @@
               style="color: #06416d"
               @click="routePassengerItemPressed(route)"
             >
-              {{ route.origin.address }} - {{ route.destination.address }}
+              {{ route.destination.address }}
             </button>
           </p>
         </div>

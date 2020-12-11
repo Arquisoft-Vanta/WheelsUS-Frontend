@@ -1,48 +1,35 @@
 <template>
   <div>
-    <body></body>
-    <div class="fixed-bottom">
+    <div class="fixed-bottom mt-5">
       <div>
         <div id="footer" class="container-fluid pt-3 pb-2">
           <div id="bottom-footer" class="row text-center">
-            <div class="col-12 col-lg">
-              <p>
-                © 2020 - Todos los derechos reservados.
-              </p>
+            <div class="col-6">
+              <p class="text-center d-none d-sm-block">© 2020 - Todos los derechos reservados.</p>
+              <p class="text-center d-block d-sm-none">© 2020</p>
             </div>
-            <div class="col-12 col-lg">
-              <p>
-                Diseño de sitio web
-                <a
-                  href="https://github.com/orgs/Ingesoft-II/dashboard"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Grupo 3</a
-                >
-              </p>
-            </div>
-            <div class="col-12 col-lg pb-2 pb-sm-0">
-              <a href="#"
+            <div class="col-6">
+              <a href="#" class="text-right"
                 ><img
                   src="~@/assets/twitter.svg"
-                  width="30"
-                  height="30"
+                  width="25"
+                  height="25"
                   alt=""
                   loading="lazy"
               /></a>
-              <a href="#"
+              <a href="#" class="text-right"
                 ><img
                   src="~@/assets/facebook.svg"
                   width="60"
-                  height="30"
+                  height="25"
                   alt=""
                   loading="lazy"
               /></a>
-              <a href="#"
+              <a href="#" class="text-right"
                 ><img
                   src="~@/assets/instagram.svg"
-                  width="30"
-                  height="30"
+                  width="25"
+                  height="25"
                   alt=""
                   loading="lazy"
               /></a>
@@ -62,13 +49,13 @@ export default {};
 #FooterApp {
   background-color: #262626;
 }
-body {
+/* body {
   background-image: url("~@/assets/Enfermeria2.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-}
+} */
 .derechos {
   font-size: 70%;
 }
