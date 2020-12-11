@@ -14,43 +14,59 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mt-4 mb-5">
           <div
-            class="card border shadow mt-2 mb-5 bg-white rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5"
+            class="card bg-dark text-white border shadow rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
+            type="button"
+            @click="goToCreateService"
           >
+            <img
+              class="card-img-top"
+              src="~@/assets/nueva.jpg"
+              alt="Card image cap"
+            />
             <div class="card-body">
-              <h1 class="card-title pt-3">Nuevo servicio</h1>
-              <p class="card-text font-weight-normal pt-2">
-                En esta sección podrás crear un
-                <strong>nuevo servicio</strong> y ponerlo a disposición de todos
-                los <strong>pasajeros</strong>.
+              <h4 class="card-title d-none d-md-block mb-0">
+                Nuevo servicio
+              </h4>
+              <h5 class="card-title d-block d-md-none mb-0">
+                Nuevo servicio
+              </h5>
+              <p class="card-text d-none d-md-block mb-0">
+                <small>
+                  Crea un
+                  <strong>nuevo servicio</strong> que estará a disposición de
+                  todos los <strong>pasajeros</strong>.</small
+                >
               </p>
-              <a
-                href=""
-                class="btn btn-dark btn-block btn-lg mt-4"
-                @click="goToCreateService"
-                >Entrar</a
-              >
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mt-4 mb-5">
           <div
-            class="card border shadow mt-2 mb-5 bg-white rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5 mt-xs-0 mb-xs-0 mt-5"
+            class="card bg-dark text-white border shadow rounded text-center mr-0 ml-0 mr-sm-5 ml-sm-5"
+            type="button"
+            @click="goToMyServices"
           >
+            <img
+              class="card-img-top"
+              src="~@/assets/servicios.jpg"
+              alt="Card image cap"
+            />
             <div class="card-body">
-              <h1 class="card-title pt-3">Servicios actuales</h1>
-              <p class="card-text font-weight-normal pt-2">
-                En esta sección podrás observar
-                <strong>todos los servicios</strong> que tienes disponibles a
-                los <strong>pasajeros</strong>.
+              <h4 class="card-title d-none d-md-block mb-0">
+                Servicios actuales
+              </h4>
+              <h5 class="card-title d-block d-md-none mb-0">
+                Servicios actuales
+              </h5>
+              <p class="card-text d-none d-md-block mb-0">
+                <small>
+                  Observa todos los <strong>servicios</strong> que tienes
+                  <strong>disponibles</strong> a los
+                  <strong>pasajeros</strong>.</small
+                >
               </p>
-              <a
-                href=""
-                class="btn btn-dark btn-block btn-lg mt-4"
-                @click="goToMyServices"
-                >Entrar</a
-              >
             </div>
           </div>
         </div>
